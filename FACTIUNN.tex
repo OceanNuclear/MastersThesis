@@ -15,6 +15,22 @@
 \end{adjustwidth}
 }
 
+\newcommand{\singlepic}[4][H]{
+\begin{figure}[#1]
+\centering
+\includegraphics[#2]{#3}
+\caption{#4} \label{#3}
+\end{figure}
+}
+
+\newcommand{\doublepic}[6][H]{
+\begin{figure}[#1]
+\centering
+\includegraphics[#2]{#3}
+\includegraphics[#4]{#5}
+\caption{#6} \label{#3}
+\end{figure}
+}
 \usepackage[toc, page]{appendix}
 % \usepackage[dvipsnames]{xcolor}
 % \definecolor{subr}{rgb}{0.8, 0.33, 0.0}
@@ -50,7 +66,8 @@ date:  &June-September 2019 \\
 student ID:& 1625143        \\
 \end{tabular}
 \end{table}
-
+\hrule
+\bigbreak
 I warrant that the content of this dissertation is the direct result of my own work and that any use made in it of published or unpublished materials is fully and correctly referenced.
 
 \abstract
