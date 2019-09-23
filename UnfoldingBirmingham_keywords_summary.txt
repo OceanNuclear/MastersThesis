@@ -1,0 +1,58 @@
+ill-conditioned ( condition number = max/min singular values ) IF the response matrix is poorly posed, so that the solution is UNSTABLE
+
+# of contraints...
+
+They are all (discretized) first-order Fredholm Integral, (see note)
+
+The unknown neutron flux is related to the measured quantity (activation rates)
+
+Via (NOT as a kernel, κ; that's just weird) a response function of detector system comprising all physical processes
+
+Existance of a solution
+
+Would be great if it can be approximated by a list of principal components of length G with G<11? Such that the reaction rates will act as the coefficients of 11 basis functions
+
+Doesn't have to be linearly independent
+
+Mathematical programming technique 1: relative deviation minimization (by assigning covariance); 2: minimum cross entropy.
+	For cross entropy, one takes advantage of the fact that p.d.f. sums to unity; it is roughly analogous to assigning sigma_i^2=1/(2*q_i)
+
+Previously used methods inside fission reactors:
+	Spectra indices (no fine structure available, therefore works well)
+	Finite series (Laguerre polynomial, up to the n-th order) weighted by the Maxwellian dist (by solving the resulting linear equations)
+
+Euler equation (dM/d(phi)=0) for the fundamental gives the 3 conditions:
+	Matrix A is positive semi-definite
+	(because All principal minors of A are +ve)
+	(and All eigenvalues are real and +ve)
+
+p.9, 97, 98
+
+closed interval, moment sequence; m(E) is non-decreasing
+
+converges to Lebesque-Stieltjes integral of I is closed and bounded
+
+Mathematically incorrectly posed if not all of the below:
+	inverse operator is defined
+	Stability: small variation Z in results in small variation in solution phi (positive definite)
+	element phi = M^-1 Z is a unique one
+
+Regularization makes it stable again
+
+Max rank of pseudo inverse matrix is M; instead of the original N.
+	Possible output space = "column space" of the matrix
+	max number of dimensions = span of column space.
+
+SAND-II and GRAVEL are ALREADY using them iteratively. So your previous suggestion of "using the result of the first GRAVEL 'run' as the a priori for the next" is equivalent to running GRAVEL for more iterations.
+
+For the two accuracy papers:
+	One uses RMS energy fluence deviation, normalized to the mean energy fluence (i.e. rms dphi/average phi) ;
+	the other uses (NRMSE) (<^they are the same thing)
+	But the correct way to measure it is with cross-entropy.
+
+Straight line = uninformative a priori?
+
+Make conclusion that we don't have enough data to do it properly.
+Also note that, our assumption maynot hold in real life, i.e.
+	may not be a linear multiplication if there's self shielding;
+	and if there's a downscattering, we have to account for it by modifying the cross-section.
