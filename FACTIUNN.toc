@@ -19,7 +19,7 @@
 \contentsline {section}{Appendices}{10}
 \contentsline {section}{\numberline {A}Neural network building functions tailored for the purpose of neutron spectrum unfolding}{10}
 \contentsline {section}{\numberline {B}Neural network abstractions and controller}{37}
-\contentsline {section}{\numberline {C}Code for benchmarking against}{42}
+\contentsline {section}{\numberline {C}Code for benchmarking}{42}
 \contentsline {section}{\numberline {D}Fully determined simulation data generation}{44}
 \contentsline {section}{\numberline {E}Underdetermined simulation data generation}{45}
 \contentsline {section}{\numberline {F}Training and evaluating neural networks on the underdetermined simulation data}{50}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  23 SEP 2019 06:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.14)  23 SEP 2019 10:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -201,7 +201,7 @@ LaTeX Info: Thecontrolsequence`\]'isalreadyrobust on input line 129.
 \l_MT_above_shortintertext_sep=\dimen136
 \l_MT_below_shortintertext_sep=\dimen137
 )
-(./pythonhighlight.sty
+(/home/ocean/texmf/tex/latex/pythonhighlight/pythonhighlight.sty
 Package: pythonhighlight 2017/02/09 python code highlighting; provided by Olivi
 er Verdier <olivier.verdier@gmail.com>
 
@@ -906,8 +906,8 @@ Overfull \hbox (265.82263pt too wide) in paragraph at lines 23--24
 
 [62]) [63] (./FACTIUNN.aux) ) 
 Here is how much of TeX's memory you used:
- 8728 strings out of 494880
- 132062 string characters out of 6179600
+ 8729 strings out of 494880
+ 132192 string characters out of 6179600
  508812 words of memory out of 5000000
  11883 multiletter control sequences out of 15000+600000
  18477 words of font info for 69 fonts, out of 8000000 for 9000
@@ -935,7 +935,7 @@ sy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on FACTIUNN.pdf (63 pages, 1403208 bytes).
+Output written on FACTIUNN.pdf (63 pages, 1403205 bytes).
 PDF statistics:
  311 PDF objects out of 1000 (max. 8388607)
  215 compressed objects within 3 object streams
