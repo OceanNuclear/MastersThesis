@@ -2,10 +2,9 @@
 \contentsline {section}{\numberline {2}Theory}{5}
 \contentsline {subsection}{\numberline {2.1}General unfolding methods}{7}
 \contentsline {subsection}{\numberline {2.2}Current practice}{7}
-\contentsline {subsection}{\numberline {2.3}Common practice}{7}
-\contentsline {subsection}{\numberline {2.4}Neural Networks}{8}
-\contentsline {subsubsection}{\numberline {2.4.1}Universal approximation theory}{8}
-\contentsline {subsubsection}{\numberline {2.4.2}The way that neural network will be applied in here:}{10}
+\contentsline {subsection}{\numberline {2.3}Neural Networks}{8}
+\contentsline {subsubsection}{\numberline {2.3.1}Universal approximation theory}{8}
+\contentsline {subsubsection}{\numberline {2.3.2}The way that neural network will be applied in here:}{10}
 \contentsline {section}{\numberline {3}Literature review}{10}
 \contentsline {section}{\numberline {4}Initial attempt on parameterised code}{10}
 \contentsline {subsection}{\numberline {4.1}Creating simulated spectra by data augmentation}{11}
@@ -14,18 +13,7 @@
 \contentsline {subsection}{\numberline {5.2}potential future improvements}{13}
 \contentsline {section}{\numberline {6}Benchmarking against existing codes}{13}
 \contentsline {subsection}{\numberline {6.1}As an unfolding tool}{13}
-\contentsline {subsection}{\numberline {6.2}As an a priori generator}{13}
-\contentsline {section}{\numberline {7}An attempt at using fission data to predict fusion data}{16}
-\contentsline {section}{\numberline {8}Future improvements}{16}
-\contentsline {section}{\numberline {9}Conclusion}{16}
-\contentsline {section}{Appendices}{18}
-\contentsline {section}{\numberline {A}Neural network building functions tailored for the purpose of neutron spectrum unfolding}{18}
-\contentsline {section}{\numberline {B}Neural network abstractions and controller}{44}
-\contentsline {section}{\numberline {C}Code for benchmarking}{50}
-\contentsline {section}{\numberline {D}Fully determined simulation data generation}{52}
-\contentsline {section}{\numberline {E}Underdetermined simulation data generation}{53}
-\contentsline {section}{\numberline {F}Training and evaluating neural networks on the underdetermined simulation data}{58}
-\contentsline {section}{\numberline {G}Selecting from UKAEA and IAEA compendium}{59}
-\contentsline {section}{\numberline {H}hyperparameter input controller}{62}
-\contentsline {section}{\numberline {I}hyperparameter optimization searching}{66}
-\contentsline {section}{\numberline {J}Loss value visualizer}{69}
+\contentsline {subsection}{\numberline {6.2}As an a priori generator}{15}
+\contentsline {section}{\numberline {7}An attempt at using fission data to predict fusion data}{15}
+\contentsline {section}{\numberline {8}Future improvements}{18}
+\contentsline {section}{\numberline {9}Conclusion}{18}

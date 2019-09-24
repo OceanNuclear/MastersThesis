@@ -244,14 +244,10 @@ Some programs, such as GRAVEL and SAND-II, simply start their iterative solution
 %cite MAXED, SAND-II and GRAVEL
 
 %Cite papers on properly selecting an a priori?
-
-
-
 \begin{enumerate}
     \item introduction to neural networks: what it does and how they're used as a blackbox that guesses the function instead of the answer.
     \item how using a neural network may solve it: because we're using more information, by learning the patterns among previous neutron spectra patterns.
     \item briefly mention that training NN, however, does comes with its own set of problems: overfitting, etc.
-
 \end{enumerate}
 
 
@@ -259,48 +255,52 @@ Some programs, such as GRAVEL and SAND-II, simply start their iterative solution
     \item General theory includes minimizations in M+N+(MxN) dimensions: write down the minimization equation, stating:
     \item when we assume no covariance, then $S_i$ quantity i is diagonal.
 \end{itemize}
-	\subsection{Common practice}
-    current practice ignores: ... and ...
-    \begin{itemize}
-        \item MAXED
-        \item GRAVEL
-        \item others ...
-    \end{itemize}
-    For N neutron groups folded by an MxN matrix into the reaction rates of M isotopes,
-    all of the above algorithms are trying to find a solution (coordinate of a point) in M+N dimensional space, 
-    which is constrained on an (M+N)-M=N dimensional surface (as required by the M activities obtained through folding the spectrum through the response matrix),
-    while deviating the least from both the N dimensional a priori (guess neutron spectrum provided by the user) and the M reaction rates (measured isotopic activities) simultaneously.
-    
-    JET's current practice:
-    Uses MCNP to create a response matrix for each of the 175 groups, ignoring the variance information given to create the matrix, and then...
+current practice ignores: ... and ...
+\begin{itemize}
+    \item MAXED
+    \item GRAVEL
+    \item others ...
+\end{itemize}
+For N neutron groups folded by an MxN matrix into the reaction rates of M isotopes,
+all of the above algorithms are trying to find a solution (coordinate of a point) in M+N dimensional space, 
+which is constrained on an (M+N)-M=N dimensional surface (as required by the M activities obtained through folding the spectrum through the response matrix),
+while deviating the least from both the N dimensional a priori (guess neutron spectrum provided by the user) and the M reaction rates (measured isotopic activities) simultaneously.
 
-    \subsection{Neural Networks} \label{Neural Network Theory}
-    Neuralnetworks, on the other hand, minimizes the chi square during the training phase by changing the parameters in the function itself, and therefore uses MORE information available, to solve the problem of an underdetermined thingy., though in a way that's a bit wishy washy?
-    
-    \begin{figure}
+JET's current practice:
+Uses MCNP to create a response matrix for each of the 175 groups, ignoring the variance information given to create the matrix, and then...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Neural Networks} \label{Neural Network Theory}
+Neuralnetworks, on the other hand, learns the relationship between reaction rates and the original neutron spectrum. This essentially makes use of previous information available, effectively bypassing the problem of underdetermination entirely.
+
+A typical neural network learns the relationship between the inputs (the two nodes on the left in Figure~\ref{SimpleNNArchitecture}) and outputs (the nodes on the right in Figure~\ref{SimpleNNArchitecture}) of a function via training. 
+\begin{figure}
     \centering
     \includegraphics[height=5cm]{/home/ocean/Documents/PTNR/CulhamFusion/Presentation2/SimpleNNArchitecture.png}
     \caption{Illustration of the structure of a typical neural network} \label{SimpleNNArchitecture}
-    \end{figure}
+\end{figure}
+The inputs are known as ``features" and the outputs are known as the ``labels".
 
-    \begin{figure}
+In the context of neutron spectrum unfolding using neural networks, the reaction rates are the features, while the neutron spectrum is the labels. 
+
+\begin{figure}
     \centering
     \includegraphics[height=3cm]{/home/ocean/Documents/PTNR/CulhamFusion/Presentation2/ReLU.png}
     \caption{A ReLU function (a rectifying function)}\label{ReLU}
     Function input=x-axis; function output=y-axis.\\
     A ReLU function (Figure~\ref{ReLU}) is typically used as the non-linear activation function $\sigma$, as it is one of the simplest and therefore fastest non-linear activation function to compute.
-    \end{figure}
+\end{figure}
 
-    \begin{figure}
+\begin{figure}
     \centering
         \includegraphics[height=5cm]{PPT/UniversalApproximationTheorem.png}
         \caption{A cubic function approximated by a neural network}\label{UniversalApproximationTheorem}
     The neural network used has 1 hidden layer containing 6 neurons.\\
     $R$ is an alias for the ReLU function (see Figure~\ref{ReLU}), and $y$ is the output layer neuron's activation value, obtained by summing over the product of the activation of the $i^{th}$ neuron $s_i$ with the weight of its connection to the final layer, $w_i$.
-    \end{figure}
-    Figure~\ref{fig:} Is a crude representation of how a 1-hidden-layer neural network can approximate a cubic function. A single hidden layer neural network with one scalar input and one scalar output is able to approximate any non-linear functions, provided that there are enough input and output neurons.
-    (Explain adjusting bias leads to offset, and weights changes the slope, etc...)
-    (Talk more about how this is a scalar func, not a vector field, etc. And interpolation is good, extrapolation is bad.)
+\end{figure}
+Figure~\ref{UniversalApproximationTheorem} is a crude representation of how a 1-hidden-layer neural network can approximate a cubic function. A single hidden layer neural network with one scalar input and one scalar output is able to approximate any non-linear functions, provided that there are enough input and output neurons.
+(Explain adjusting bias leads to offset, and weights changes the slope, etc...)
+(Talk more about how this is a scalar func, not a vector field, etc. And interpolation is good, extrapolation is bad.)
     \subsubsection{Universal approximation theory}
     \begin{enumerate}
         \item general theory of neural network, and it's problems:
@@ -396,7 +396,7 @@ But once we take log of both sides, it's become an impossible problem because we
 To demonstrate that the neural network is capable of doing the unfolding procedure in an underdetermined condition, 1800 spectra were made to train the neural network.
 %To create a large enough dataset, [explain parametrisation]
 %Commonly used practice in Neural network is to introduce noise into the photos; But we can't just add random noise into the spectra and expect it to unfold the noise as well because adding meaningless information in case of an under-determined information condition will sqeeze away useful information out of the way.
-Further increase in complexities (number of layers and numebr of nodes per layers) yield no significant improvement in the fit. This is because increasing the complexity further will simply lead to over-fitting, as the neural network `memorizes' the relationship between features and labels. This was reflected by the continual decrease in the loss value over the training data-set, while the loss value over the validation data-set stops improving.
+Further increase in complexities (number of layers and numebr of nodes per layers) yield no significant improvement in the fit. This is because increasing the complexity further will simply lead to over-fitting, as the neural network `memorizes' the relationship between features and labels. This was reflected by the continual decrease in the loss value over the training dataset, while the loss value over the validation dataset stops improving.
 
 \begin{figure}
 \centering
@@ -421,7 +421,7 @@ Further increase in complexities (number of layers and numebr of nodes per layer
     \begin{subfigure}[b]{5cm}
     \includegraphics[width=5cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e1/0918_0207_2_layer_256_256_mse_test_222_activities.png}
     \caption{The activities (features) used. The neural network was given the true activities, and asked to predict the fluence (\ref{SimulatedFluence}).
-    \\Note that the colour scheme was reversed, i.e. the blue bars denote the activities predicted by the neural network instead of the true activities, and vice versa.
+    \\Note that the colour scheme was reversed, i.e. the blue bars denote the reaction rates predicted by the neural network instead of the true reaction rates, and vice versa.
     }
     \end{subfigure}
 \caption{The neural network's attempt at predicting a perturbed JET first wall spectrum.} \label{SimulatedExample}
@@ -460,7 +460,7 @@ How did you sort it
 \caption{Microscopic cross-section of each reaction}\label{response_matrix}
 These values are obtained from TENDL15 via FISPACT-II \cite{FISPACT} at the left edge of each bin in the Vitamin-J group structure. 
 \end{figure}
-By assuming that the flux per unit lethargy inside each bin are relatively flat (energy independent), the activities contributed by the neutron flux in each bin is then proportional to the product of neutron flux with the microscopic. Symbolically,
+By assuming that the flux per unit lethargy inside each bin are relatively flat (energy independent), the reaction rates contributed by the neutron flux in each bin is then proportional to the product of neutron flux with the microscopic. Symbolically,
 \begin{equation} \label{unfolding proportional equation}
     Z_j \propto \sum_i \sigma_{ij} \phi_i
 \end{equation}
@@ -470,40 +470,50 @@ Akin to the equation \ref{unfolding equation jth component}. Therefore these mic
 \begin{figure}
 \centering
 \includegraphics[width=15cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/mse_including_folded/fusion-fusion_mse_inc_folded_test_loss.png}
-\caption{By visualizing the loss values attained by each neural network using a heatmap, the neural network which perform the best can be identified. For this particular heatmap, the loss value of the neural network's prediction on the test dataset (a set of fusion spectra that it has never seen before) is visualized, with darker colours representing lower loss values (good performance), vice versa. At the top right hand corner, i.e. the neural network with the hyperparameters of (learning rate=0.01, number of nodes in each layer=[32,53,90,152,256]), a particularly loss value is obtained. Therefore this neural network is regarded as the neural network with the optimal hyperparameter, and further investigation into the predictions of this neural network is conducted to see if it is purely coincidental or not.
-}\label{hyperparametersearchTestLoss}
+\caption{Heatmap visualizing the loss values of the nerual networks' prediction on the test dataset.}\label{hyperparametersearchTestLoss}
+Each square represents a neural network with a particular set of hyperparameters, i.e. learning rate and number of layers. The learning rate increases logarithmically across the x-axis; while the number of layers increase linearly across the y-axis. The number of nodes per layer is increased logarithmically from 32 to 256 (if the number of layers $\ge 2$).\\
+Neural networks which performs better has lower loss values, and are represented with darker colours.\\
+At the top right hand corner, i.e. the neural network with the hyperparameters of (learning rate=0.01, number of nodes in each layer=[32,53,90,152,256]), a particularly loss value is obtained. Therefore this neural network is regarded as the neural network with the optimal hyperparameter, and further investigation into the predictions of this neural network is conducted.
 \end{figure}
 
 \begin{figure}
 \centering
 \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
-\caption{}\label{5Layerfusion-fusionJET-FW}
+\caption{JET first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionJET-FW}
 \end{figure}
 
 \begin{figure}
 \centering
 \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_3_layer_typical_mpse_test_001_}
-\caption{While other neural networks struggles to keep a close match to the profile. This neural network is Even though the neural netwrok attempts to follow the general rise-and-fall of the true spectrum, it does not follow the true spectrum's gradient closely enough, leading to extreme discrepancies at some bins (e.g. above 14.1MeV).}\label{3Layerfusion-fusionJET-FW}
+\caption{JET first wall spectrum as predicted by the second best performing NN among all NN trained on fusion data.}\label{3Layerfusion-fusionJET-FW}
 \end{figure}
+
+The experiment was repeated using other metrics as the loss values. The complete list of tested loss values are listed below:
+\begin{itemize}
+    \item mean-squared-error (rms) $=\sum_i$
+    \item mean-pairwise-squared-error
+    \item mean-squared-error-including-folded-reaction-rates
+    \item mean-pairwise-squared-error-including-folded-reaction-rates
+\end{itemize}
 
 This shows that Figure~\ref{5Layerfusion-fusionJET-FW} likely only achieves the above average performance serendipiteously by re-tracing the same average spectrum. This hypothesis is supported by it replicating a very similar spectrum when it attempts to deduce the spectra corresponding to the other two test data.
 
 % \begin{figure}
 % \centering
 % \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
-% \caption{}\label{5Layerfusion-fusionWCCB-FW}
+% \caption{Water-cooled ceramic breeder blanket TOKAMAK's first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionWCCB-FW}
 % \end{figure}
 
 % \begin{figure}
 % \centering
 % \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
-% \caption{}\label{5Layerfusion-fusionHCLL-VV}
+% \caption{Helium-cooled LiPb TOKAMAK's spectrum at the vacuum vessel, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionHCLL-VV}
 % \end{figure}
 
 % \begin{figure}
 % \centering
 % \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_000_}
-% \caption{}\label{5Layerfusion-fusionFNG}
+% \caption{Frascati neutron generator spectrum, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionFNG}
 % \end{figure}
 
 % Regardless, we think it might be useful to make it a 
@@ -525,18 +535,22 @@ If they would like to use it directly as an unfolding tool, then they can incorp
 
 The more exciting aspect arises from the fact that it can be used as an a priori generator code:
 \subsection{As an a priori generator}
-Can be used as the a priori generator when:
+Can be used as the a priori generator?\\
+But it also sucks as an a priori generator, giving , which is only a marginal improvement on the 10.188233 stated in Figure~\ref{gravel_flat_a_priori_JET}
 \begin{figure}
-\centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_gravel_nn_a_priori_test_001_}
-\caption{But it also sucks as an a priori generator, giving a loss value of 9.89936, which is only a marginal improvement on the 10.188233 stated in Figure~\ref{gravel_flat_a_priori_JET}}\label{gravel_nn_a_priori_JET}
+    \centering
+    \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_gravel_nn_a_priori_test_001_}
+    \caption{JET first wall spectrum as unfolded by GRAVEL upon using the NN's output as the \emph{a priori} spectrum.}\label{gravel_nn_a_priori_JET}
+    An average rms value of 9.89936 was achieved when using the neural network's prediction as the \emph{a priori} for unfolding by gravel.
 \end{figure}
 
 \begin{figure}
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_gravel_test_001_}
-\caption{Which is even worse than naive prior, i.e. using a flat a priori and thus giving no meaningful information to gravel before unfolding. In this case it achieves an average mean squared error of 10.188233}\label{gravel_flat_a_priori_JET}
+    \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_gravel_test_001_}
+    \caption{JET first wall spectrum as unfolded by GRAVEL upon using a flat a priori as the \emph{a priori}}\label{gravel_flat_a_priori_JET}
+    A rms value of 10.188233 when comparing the unfolded spectra against the true spectra in log space.
 \end{figure}
+Which is almost as bad as using a naive prior, i.e. using a flat a priori and thus giving no meaningful information to gravel before unfolding (Figure~\ref{gravel_flat_a_priori_JET}). In this case it achieves an average mean squared error of 
 
 \begin{itemize}
     \item the user doesn't want to commit to hours of MCNP model generation (cite a paper where Lee Packer's group has used a whole MCNP model to get the response matrix and the reaction rates);
@@ -555,14 +569,14 @@ Explain why: we have so many fission spectra... but only very few fusion spectra
 But even the best neural network trained on fission spectra and obtained the lowest loss value when tested on fusion spectra gave very poor results:
 \begin{figure}
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_016_}
-\caption{loss value still average to 43.33816909790039} \label{fission-fusionBad}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_007_}
+\caption{(calculated) ITER spectrum as predicted by the optimal NN among all NN trained on fission spectra} \label{fission-fusionBad}
 \end{figure}
 
 \begin{figure}
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_006_}
-\caption{the best one looks like this}\label{fission-fusionGood}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_016_}
+\caption{JET first wall spectrum as predicted by the optimal NN among all NN trained on fission spectra}\label{fission-fusionGood}
 \end{figure}
 
 For the record, this optimal neural network has the hyperparameters of (learning rate = 0.01, number of nodes in each layer=[32,53,90,152,256]).
@@ -587,52 +601,52 @@ For the record, this optimal neural network has the hyperparameters of (learning
 \bibliographystyle{plain}
 \bibliography{FACTIUNN}
 
-\begin{appendices}
+% \begin{appendices}
 
-\section{Neural network building functions tailored for the purpose of neutron spectrum unfolding}
-The following contains the class in which the neural network is built.\\
-\pythoncode{neuralnetworklibrary.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworklibrary.py}
+% \section{Neural network building functions tailored for the purpose of neutron spectrum unfolding}
+% The following contains the class in which the neural network is built.\\
+% \pythoncode{neuralnetworklibrary.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworklibrary.py}
 
-\section{Neural network abstractions and controller}
-The following contains the higher level abstractions, as well as functions which walks the user through the process of creating a neural network interactively.\\
-\pythoncode{neuralnetworktrainer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworktrainer.py}
+% \section{Neural network abstractions and controller}
+% The following contains the higher level abstractions, as well as functions which walks the user through the process of creating a neural network interactively.\\
+% \pythoncode{neuralnetworktrainer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworktrainer.py}
 
-\section{Code for benchmarking}
-This code uses 'unfoldingsuite', which contains implementations of MAXED and GRAVEL in python, developed locally at CCFE, to unfold spectra from various a priori. Their performance can then be used as benchmarks for the neural network unfolding results to be compared against.\\
-\pythoncode{comparison\_with\_existing.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/comparison_with_existing.py}
+% \section{Code for benchmarking}
+% This code uses 'unfoldingsuite', which contains implementations of MAXED and GRAVEL in python, developed locally at CCFE, to unfold spectra from various a priori. Their performance can then be used as benchmarks for the neural network unfolding results to be compared against.\\
+% \pythoncode{comparison\_with\_existing.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/comparison_with_existing.py}
 
-\section{Fully determined simulation data generation}
-Creates a 5 energy-bins fluence vector, which is then folded through a 5 $\times$ 5 response matrix; both of which are randomly generated. Each element both were picked from a uniform random distribution larger than 1. The upper bound of the elements in the vector were chosen as 15 and the upper bound of the elements in the response matrix were chosen to be 50.\\
-\pythoncode{simple\_non\_singular\_case.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/simple_non_singular_case.py}
+% \section{Fully determined simulation data generation}
+% Creates a 5 energy-bins fluence vector, which is then folded through a 5 $\times$ 5 response matrix; both of which are randomly generated. Each element both were picked from a uniform random distribution larger than 1. The upper bound of the elements in the vector were chosen as 15 and the upper bound of the elements in the response matrix were chosen to be 50.\\
+% \pythoncode{simple\_non\_singular\_case.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/simple_non_singular_case.py}
 
-\section{Underdetermined simulation data generation}
-For each of the 14 FISPACT reference spectra, each is parametrised into a list of peaks. The height of these peaks were then perturbed to form a `new' spectrum. This `new' spectrum is then folded through a corresponding response matrix.\\
-\pythoncode{spectrumrandomizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/spectrumrandomizer.py}
+% \section{Underdetermined simulation data generation}
+% For each of the 14 FISPACT reference spectra, each is parametrised into a list of peaks. The height of these peaks were then perturbed to form a `new' spectrum. This `new' spectrum is then folded through a corresponding response matrix.\\
+% \pythoncode{spectrumrandomizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/spectrumrandomizer.py}
 
-\section{Training and evaluating neural networks on the underdetermined simulation data}
-A demonstration of applying neuralnetworktrainer.py on the data generated by spectrumrandomizer.py .\\
-\pythoncode{script\_for\_demo.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/script_for_demo.py}
+% \section{Training and evaluating neural networks on the underdetermined simulation data}
+% A demonstration of applying neuralnetworktrainer.py on the data generated by spectrumrandomizer.py .\\
+% \pythoncode{script\_for\_demo.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/script_for_demo.py}
 
-%IAEA and UKAEA compendium spectra had to be rebinned into the vitamin J spectra in order to be useful.
+% %IAEA and UKAEA compendium spectra had to be rebinned into the vitamin J spectra in order to be useful.
 
-\section{Selecting from UKAEA and IAEA compendium}
-Rebinned spectra from the 212 IAEA + UKAEA compendium were sorted into various training and testing sets using the following python program.\\
-\pythoncode{getrealdata.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/Link_UKAEA_IAEA_Compendium/getrealdata.py}
+% \section{Selecting from UKAEA and IAEA compendium}
+% Rebinned spectra from the 212 IAEA + UKAEA compendium were sorted into various training and testing sets using the following python program.\\
+% \pythoncode{getrealdata.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/Link_UKAEA_IAEA_Compendium/getrealdata.py}
 
-\section{hyperparameter input controller}
-Input files for hyperparametertrainer.py using the following code, by iterating through a list of hyperparameters of interest, thus effectively performing a grid search over all hyperparameters.\\
-\pythoncode{hyperparameterinput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/hyperparameterinput.py}
-This program can be used to split the into multiple jobs, which can then be submitted to a cluster, parallellizing the process and massively reducing the training and evaluation time of the neural networks. This is done by calling the program with \texttt{python hyperparameterinput.py split}
+% \section{hyperparameter input controller}
+% Input files for hyperparametertrainer.py using the following code, by iterating through a list of hyperparameters of interest, thus effectively performing a grid search over all hyperparameters.\\
+% \pythoncode{hyperparameterinput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/hyperparameterinput.py}
+% This program can be used to split the into multiple jobs, which can then be submitted to a cluster, parallellizing the process and massively reducing the training and evaluation time of the neural networks. This is done by calling the program with \texttt{python hyperparameterinput.py split}
 
-\section{hyperparameter optimization searching}
-List the hyperparameter, training- and testing-sets used to evaluate the neural network on, when the hash\_name of the neural network is given.\\
-\pythoncode{hyperparameteroutput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroutput.py}
+% \section{hyperparameter optimization searching}
+% List the hyperparameter, training- and testing-sets used to evaluate the neural network on, when the hash\_name of the neural network is given.\\
+% \pythoncode{hyperparameteroutput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroutput.py}
 
-\section{Loss value visualizer}
-When given the names of the training- and testing-set, the following code show the loss values (and other metrics) of the neural networks with different hyperparameters achieved on them. This is plotted as a heat map, over the two dimensions of hyperparameters varied, which are `number of layers' (y-axis) and `learning rate' (x-axis) respectively.\\
-\pythoncode{hyperparameteroptimizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroptimizer.py}
+% \section{Loss value visualizer}
+% When given the names of the training- and testing-set, the following code show the loss values (and other metrics) of the neural networks with different hyperparameters achieved on them. This is plotted as a heat map, over the two dimensions of hyperparameters varied, which are `number of layers' (y-axis) and `learning rate' (x-axis) respectively.\\
+% \pythoncode{hyperparameteroptimizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroptimizer.py}
 
-\end{appendices}
+% \end{appendices}
 
 \end{document}
 

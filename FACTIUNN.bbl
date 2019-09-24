@@ -1,10 +1,7 @@
 \begin{thebibliography}{1}
 
-\bibitem{ukaea_unfolding_support_report_march2017}
-
-
 \bibitem{FISPACT}
-{Culham Centre for Fusion Energy}.
+Culham~Centre for Fusion~Energy.
 \newblock Ukaea: Fistact-ii, 2017.
 
 \bibitem{BirminghamUnfolding}
@@ -12,17 +9,23 @@ Slobodan Krčevinac.
 \newblock {\em Neutron energy spectrum unfolding method}.
 \newblock PhD thesis, University of Birmingham, Birmingham, 1971.
 
-\bibitem{EmbargoPaper_LWP}
-S.~C. Bradnam S. Conroy Z. Ghani M. R. Gilbert E. Laszyńska I. Lengar C.R.Nobs
-  M. Pillon S. Popovichev P. Raj I.E. Stamatelatos T. Vasilopoulou A.
-  Wójcik-Gargula R. Worrall JET~contributors L.~W.~Packera, P.~Batistoni.
-\newblock Neutron spectrum and fluence determination at the iter material
-  irradiation stations at jet.
-\newblock 5 2019.
-
 \bibitem{theorypdf}
 Manfred Matzke.
 \newblock Unfolding methods.
 \newblock {\em Physikalisch-Technische Bundesanstalt, Germany}, 2003.
+
+\bibitem{EmbargoPaper_LWP}
+L.~W. Packer, P.~Batistoni, S.~C. Bradnam, S.~Conroy, Z.~Ghani, M.~R Gilbert,
+  E.~Laszyńska, I.~Lengar, C.R. Nobs, M.~Pillon, S.~Popovichev, P.~Raj, I.E.
+  Stamatelatos, T.~Vasilopoulou, A.~Wójcik-Gargula, R.~Worrall, and JET
+  contributors.
+\newblock Neutron spectrum and fluence determination at the iter material
+  irradiation stations at jet.
+\newblock 5 2019.
+
+\bibitem{ukaea_unfolding_support_report_march2017}
+Lee~W. Packer, Mark~R. Gilbert, Jonathan Naish, and Steven Bradnam.
+\newblock Ukaea-r-17-nt1 unfolding code support: progress report.
+\newblock 3 2017.
 
 \end{thebibliography}
