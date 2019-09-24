@@ -7,13 +7,14 @@
 \contentsline {subsubsection}{\numberline {2.4.1}Universal approximation theory}{8}
 \contentsline {subsubsection}{\numberline {2.4.2}The way that neural network will be applied in here:}{10}
 \contentsline {section}{\numberline {3}Literature review}{10}
-\contentsline {section}{\numberline {4}Initial attempt on parameterised code}{12}
+\contentsline {section}{\numberline {4}Initial attempt on parameterised code}{10}
+\contentsline {subsection}{\numberline {4.1}Creating simulated spectra by data augmentation}{11}
 \contentsline {section}{\numberline {5}Attempt to work on the real data}{12}
 \contentsline {subsection}{\numberline {5.1}Data attained}{12}
-\contentsline {subsection}{\numberline {5.2}potential future improvements}{15}
-\contentsline {section}{\numberline {6}Benchmarking against existing codes}{15}
-\contentsline {subsection}{\numberline {6.1}As an unfolding tool}{15}
-\contentsline {subsection}{\numberline {6.2}As an a priori generator}{15}
+\contentsline {subsection}{\numberline {5.2}potential future improvements}{13}
+\contentsline {section}{\numberline {6}Benchmarking against existing codes}{13}
+\contentsline {subsection}{\numberline {6.1}As an unfolding tool}{13}
+\contentsline {subsection}{\numberline {6.2}As an a priori generator}{13}
 \contentsline {section}{\numberline {7}An attempt at using fission data to predict fusion data}{16}
 \contentsline {section}{\numberline {8}Future improvements}{16}
 \contentsline {section}{\numberline {9}Conclusion}{16}

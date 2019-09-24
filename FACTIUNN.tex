@@ -3,8 +3,8 @@
 %\nonstopmode
 \hbadness=100000
 \documentclass[a4paper, 12pt]{article}
-\usepackage{amsmath,amsfonts,changepage,caption,float,geometry,graphicx,mathtools,pythonhighlight,textcomp,url,verbatim} %,parskip
-\usepackage[justification=centering]{subfig}
+\usepackage{amsmath,amsfonts,changepage,caption,float,geometry,graphicx,mathtools,pythonhighlight,textcomp,url,verbatim,subcaption} %,parskip
+% \usepackage[justification=centering]{subfig}
 \geometry{ a4paper, total={170mm,257mm}, left=20mm, top=20mm}
 
 \newcommand{\matr}[1]{\underline{\underline{\textbf{#1}}}}
@@ -280,21 +280,23 @@ Some programs, such as GRAVEL and SAND-II, simply start their iterative solution
     \begin{figure}
     \centering
     \includegraphics[height=5cm]{/home/ocean/Documents/PTNR/CulhamFusion/Presentation2/SimpleNNArchitecture.png}
-    \caption{structure of a typical neural network} \label{SimpleNNArchitecture}
+    \caption{Illustration of the structure of a typical neural network} \label{SimpleNNArchitecture}
     \end{figure}
 
     \begin{figure}
     \centering
     \includegraphics[height=3cm]{/home/ocean/Documents/PTNR/CulhamFusion/Presentation2/ReLU.png}
-    \caption{A ReLU function (a rectifying function). Function input=x-axis; function output=y-axis.}\label{ReLU}
-    \end{figure}
+    \caption{A ReLU function (a rectifying function)}\label{ReLU}
+    Function input=x-axis; function output=y-axis.\\
     A ReLU function (Figure~\ref{ReLU}) is typically used as the non-linear activation function $\sigma$, as it is one of the simplest and therefore fastest non-linear activation function to compute.
+    \end{figure}
 
     \begin{figure}
     \centering
-    \includegraphics[height=5cm]{PPT/UniversalApproximationTheorem}
-    \subfloat[$R$ is an alias for the ReLU function (see Figure~\ref{ReLU}), and $y$ is the output layer neuron's activation value, obtained by summing over the product of the activation of the $i^{th}$ neuron $s_i$ with the weight of its connection to the final layer, $w_i$.] {\hspace{\linewidth}}
-    \caption{A cubic function approximated by a neural network with 1 hidden layer containing 6 neurons.}\label{UniversalApproximationTheorem}
+        \includegraphics[height=5cm]{PPT/UniversalApproximationTheorem.png}
+        \caption{A cubic function approximated by a neural network}\label{UniversalApproximationTheorem}
+    The neural network used has 1 hidden layer containing 6 neurons.\\
+    $R$ is an alias for the ReLU function (see Figure~\ref{ReLU}), and $y$ is the output layer neuron's activation value, obtained by summing over the product of the activation of the $i^{th}$ neuron $s_i$ with the weight of its connection to the final layer, $w_i$.
     \end{figure}
     Figure~\ref{fig:} Is a crude representation of how a 1-hidden-layer neural network can approximate a cubic function. A single hidden layer neural network with one scalar input and one scalar output is able to approximate any non-linear functions, provided that there are enough input and output neurons.
     (Explain adjusting bias leads to offset, and weights changes the slope, etc...)
@@ -390,20 +392,41 @@ But once we take log of both sides, it's become an impossible problem because we
 \end{figure}
 
 % list of all spectra plotted together /home/ocean/Documents/GitHubDir/unfolding/AllSpec.png
+\subsection{Creating simulated spectra by data augmentation}
+To demonstrate that the neural network is capable of doing the unfolding procedure in an underdetermined condition, 1800 spectra were made to train the neural network.
+%To create a large enough dataset, [explain parametrisation]
+%Commonly used practice in Neural network is to introduce noise into the photos; But we can't just add random noise into the spectra and expect it to unfold the noise as well because adding meaningless information in case of an under-determined information condition will sqeeze away useful information out of the way.
+Further increase in complexities (number of layers and numebr of nodes per layers) yield no significant improvement in the fit. This is because increasing the complexity further will simply lead to over-fitting, as the neural network `memorizes' the relationship between features and labels. This was reflected by the continual decrease in the loss value over the training data-set, while the loss value over the validation data-set stops improving.
 
 \begin{figure}
 \centering
-\includegraphics[height=4cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/6_JET_FW_parametrised_spectrum_approximation_.png}
-\includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/_256_256_mse_training_spectra.png}
-\caption{On the left is an example of parametrisation performed on the JET spectra. These flux values are the total flux inside each energy bin, NOT divided by the lethargy span of each bin, so they are scaled up/down by larger/smaller bins. Despite the lack of smoothness after plotting these spectra, the Neural network was still able to identify and replicate the covariance between neighbouring channels.\\
-On the right is an example of ...[expansion needed], plotted according to their neutron flux per unit lethargy.}\label{Parametrisation}
+    \begin{subfigure}[b]{.3\linewidth}
+        \includegraphics[height=4cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/6_JET_FW_parametrised_spectrum_approximation_.png}
+        \caption{An example of parametrisation performed on the JET spectra. These flux values are the total flux inside each energy bin, \emph{not} divided by the lethargy span of each bin, so they are higher/lower in wider/narrower energy bins.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{.65\linewidth}
+        \includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/_256_256_mse_training_spectra.png}
+        \caption{300 $\times$ perturbed spectra were generated for each of the 6 original fusion spectra and plotted here, in flux per unit lethargy.}
+    \end{subfigure}
+\caption{Data augmentation performed to create simulated spectra.}\label{Parametrisation}
 \end{figure}
 
 \begin{figure}
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e1/0918_0207_2_layer_256_256_mse_test_262_}
-\caption{The neural network excels at approximating a JET First Wall  spectrum after being trained on variants of the same spectrum (only with slighly different peak heights), along with the perturbed spectra of 6 other fusion neutron sources.} \label{SimulatedExample}
+    \begin{subfigure}[b]{11cm}
+    \includegraphics[width=11cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e1/0918_0207_2_layer_256_256_mse_test_222_fluence.png}
+    \caption{The neural network's predicted fluence was not normalized unlike the other two, therefore it was scaled up by a constant factor relative to the true fluence.}\label{SimulatedFluence}
+    \end{subfigure}
+    \begin{subfigure}[b]{5cm}
+    \includegraphics[width=5cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e1/0918_0207_2_layer_256_256_mse_test_222_activities.png}
+    \caption{The activities (features) used. The neural network was given the true activities, and asked to predict the fluence (\ref{SimulatedFluence}).
+    \\Note that the colour scheme was reversed, i.e. the blue bars denote the activities predicted by the neural network instead of the true activities, and vice versa.
+    }
+    \end{subfigure}
+\caption{The neural network's attempt at predicting a perturbed JET first wall spectrum.} \label{SimulatedExample}
 \end{figure}
+After being trained on variants of the same spectrum (only with slighly different peak heights), along with the perturbed spectra of 6 other fusion neutron sources.
 
 It should be trying to approximate the underlying pattern,
 In deed it does quite well.
@@ -424,17 +447,24 @@ Rebinning
 \begin{figure}
 \centering
 \includegraphics[height=5cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/real_fusion_train_spectra.png}
-\caption{The neural networks were trained on 19 fusion neutron spectra, which were all rebinned into the Vitamin-J group structure.}\label{RealFusionTrain}
+\caption{All fusion spectra used, obtained from \cite{ukaea_unfolding_support_report_march2017}}\label{RealFusionTrain}
 \end{figure}
 
+The neural networks were trained on 19 fusion neutron spectra, which were all rebinned into the Vitamin-J group structure.
 How did you sort it
 
 \begin{figure}
 \centering
 % \includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/referencesuite/175_group_test_set/ACT_raw_data/ACT_LogLogCrossSections.png}
 \includegraphics[height=7cm]{PPT/response_matrix.png}
-\caption{Microscopic cross-section values, obtained from TENDL15 via FISPACT-II \cite{FISPACT}, were used as the response function for each of the reaction.} \label{response_matrix}
+\caption{Microscopic cross-section of each reaction}\label{response_matrix}
+These values are obtained from TENDL15 via FISPACT-II \cite{FISPACT} at the left edge of each bin in the Vitamin-J group structure. 
 \end{figure}
+By assuming that the flux per unit lethargy inside each bin are relatively flat (energy independent), the activities contributed by the neutron flux in each bin is then proportional to the product of neutron flux with the microscopic. Symbolically,
+\begin{equation} \label{unfolding proportional equation}
+    Z_j \propto \sum_i \sigma_{ij} \phi_i
+\end{equation}
+Akin to the equation \ref{unfolding equation jth component}. Therefore these microscopic cross-section values were used in place of the response function for each of the reaction, assuming the constant of proportionality in equation \ref{unfolding proportional equation} is unity.
 % No correction factors were applied as this is only a proof-of-concept experiment; applying correction factors that account for the number densities and foil volumes will only multiply the reaction rates by a fixed constant, thus effectively nullifying its effect.
 
 \begin{figure}
