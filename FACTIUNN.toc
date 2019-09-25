@@ -2,18 +2,22 @@
 \contentsline {section}{\numberline {2}Theory}{5}
 \contentsline {subsection}{\numberline {2.1}General unfolding methods}{7}
 \contentsline {subsection}{\numberline {2.2}Current practice}{7}
-\contentsline {subsection}{\numberline {2.3}Neural Networks}{8}
-\contentsline {subsubsection}{\numberline {2.3.1}Universal approximation theory}{8}
-\contentsline {subsubsection}{\numberline {2.3.2}The way that neural network will be applied in here:}{10}
-\contentsline {section}{\numberline {3}Literature review}{10}
-\contentsline {section}{\numberline {4}Initial attempt on parameterised code}{10}
-\contentsline {subsection}{\numberline {4.1}Creating simulated spectra by data augmentation}{11}
-\contentsline {section}{\numberline {5}Attempt to work on the real data}{12}
-\contentsline {subsection}{\numberline {5.1}Data attained}{12}
-\contentsline {subsection}{\numberline {5.2}potential future improvements}{13}
-\contentsline {section}{\numberline {6}Benchmarking against existing codes}{13}
-\contentsline {subsection}{\numberline {6.1}As an unfolding tool}{13}
-\contentsline {subsection}{\numberline {6.2}As an a priori generator}{15}
-\contentsline {section}{\numberline {7}An attempt at using fission data to predict fusion data}{15}
-\contentsline {section}{\numberline {8}Future improvements}{18}
-\contentsline {section}{\numberline {9}Conclusion}{18}
+\contentsline {subsection}{\numberline {2.3}Neural Networks}{7}
+\contentsline {subsubsection}{\numberline {2.3.1}Forward Propagation}{8}
+\contentsline {subsubsection}{\numberline {2.3.2}Backpropagation}{8}
+\contentsline {subsubsection}{\numberline {2.3.3}Universal approximation theorem}{9}
+\contentsline {subsubsection}{\numberline {2.3.4}Training the neural network}{10}
+\contentsline {subsubsection}{\numberline {2.3.5}Applying neural network to the unfolding problem}{11}
+\contentsline {section}{\numberline {3}Literature review}{11}
+\contentsline {section}{\numberline {4}Proof of concept on simulated spectra}{12}
+\contentsline {subsection}{\numberline {4.1}Creating simulated spectra by data augmentation}{12}
+\contentsline {section}{\numberline {5}Neural networks trained on Real spectra}{12}
+\contentsline {subsection}{\numberline {5.1}How Neural Networks are applied in this investigation}{12}
+\contentsline {subsection}{\numberline {5.2}Results of predicting using the real spectra}{14}
+\contentsline {subsection}{\numberline {5.3}potential future improvements}{15}
+\contentsline {section}{\numberline {6}Benchmarking against existing codes}{17}
+\contentsline {subsection}{\numberline {6.1}As an unfolding tool}{17}
+\contentsline {subsection}{\numberline {6.2}As an a priori generator}{17}
+\contentsline {section}{\numberline {7}An attempt at using fission data to predict fusion data}{19}
+\contentsline {section}{\numberline {8}Future improvements}{19}
+\contentsline {section}{\numberline {9}Conclusion}{19}
