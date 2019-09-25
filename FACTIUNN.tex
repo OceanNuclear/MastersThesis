@@ -284,7 +284,7 @@ The activation function is usually denoted as $\sigma_{i}$, i.e. it is possible 
 Equation~\ref{forwardpropagation} is applied recursively to calculate the activations in the immediate next layer. For example, to calculate the activations in second layer (i.e. the output layer) in Figure~\ref{SimpleNNArchitecture} simply by swapping the indices in for the indices of the next layer: $i\mapsto h$, $j\mapsto i$. This process is known as forward propagation.
 
 \subsubsection{Backpropagation}
-    The weights $w$ and biases $b$ are known as the \underline{parameters} of the neural network. This is in contrast with the term ``\underline{hyperparameters}", which are the numbers that describes the topology of the neural network, i.e. number of layers, number of nodes in each layer, learning rate (see section \ref{sec:training} below), etc. During the training phase of the neural network, these parameters are adjusted so that the neural network's predicted output values align with the true output values more closely. This deviation of the predicted label from the true label is termed the ``\underline{loss value}", and can be calculated in a variety of manner (see table \ref{LossMetric} for the loss value metrics considered in this investigation). For the moment let's assume it is calculated as the mean-squared value, i.e. same as the $\chi^2$ value familiar to physicists.
+    The weights $w$ and biases $b$ are known as the \underline{parameters} of the neural network. This is in contrast with the term ``\underline{hyperparameters}", which are the numbers that describes the topology of the neural network, i.e. number of layers, number of nodes in each layer, learning rate (see section \ref{sec:training} below), etc. During the training phase of the neural network, these parameters are adjusted so that the neural network's predicted output values align with the true output values more closely. This deviation of the predicted label from the true label is termed the ``\underline{loss value}", and can be calculated in a variety of manner (see Section \ref{unfolding inverse equation} for the loss value metrics considered in this investigation). For the moment let's assume it is calculated as the mean-squared value, i.e. same as the $\chi^2$ value familiar to physicists.
 
     The process of adjusting parameters to reduce the loss value is known as backpropagation, as the `desired' change to each weight and bias (calculated from the gradient of the loss value with respect to $w$ or $b$, i.e. $\frac{\partial (loss)}{\partial w}$ or $\frac{\partial (loss)}{\partial b}$) is obtained by tracing the change in the output layer back to the weight and biases of each layer.
 
@@ -340,47 +340,80 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
 
     Several metrics were considered for the neural networks. Since the neural networks' goal is to predict a set of labels (solution spectrum) $\phi_{pred}$ that is identical to the true spectrum $\phi_{0}$ when given the set of features $Z_{0}$ corresponding to the set of labels $\phi_{0}$, the loss function must have a minimum at $\phi_{pred}=\phi{0}$.
 
-    All of the deviation were calculated
-    
-    Also, over-predicting the to flux at the 14.1 MeV peak by, say, 10\%, in a DD-operation, should be given the same penalty as over-predicting the 14.1 MeV peak flux in a DT-operation by 10\%. Considering that the $\phi_{0}(E=14.1 MeV)$ is much smaller for the same TOKAMAK in a DD campaign than in a DT campaign, In order to obtain the same results, the loss values should be calculated in log space. 
+    This loss value is also expected to scale its penalization according to the true flux $\phi_{0}$. Large deviation when $\phi_0$ is large should be penalized by the same amount as with small deviations when $\phi_{0}$ is small. For example, over-predicting the to flux at the 14.1 MeV peak by, say, 10\%, in a DD-operation, should be given the same penalty as over-predicting the 14.1 MeV peak flux in a DT-operation by 10\%, despite the fact that $\phi_{0}(E=14.1 MeV)$ is much smaller for the same TOKAMAK in a DD campaign than in a DT campaign.
+
+    Several of such functions comes to mind; they include:
 
     \begin{itemize}
-        \item mean squared error: \begin{equation}
-            MSE(E_) = log (E)
+        \item cross entropy, $H(\phi_{pred}, \phi_{0}) = \sum_i^N \bigg(\phi_{pred}(E_i)(ln(\phi_{pred}(E_i)) - ln(\phi_{0}(E_i)))\bigg)$ (See \cite{Johnson-Shore-Deriv})
+        \item Average distance in $L^P$ log-space $=\bigg(\sum_i^N(log(\phi_{pred})-log(\phi_{0}))^p\bigg)^{\frac{1}{p}}$
+        which is a generalization of mean squared error and mean absolute error.
+        \item mean fractional deviation, $MFD (\phi_{pred}, \phi_{0}) = \sum_i^N \bigg|\frac{\phi_{pred}(E_i)-\phi_0(E_i)}{\phi_{0}(E_i)}\bigg|$
+    \end{itemize}
+
+    In the end, the following functions were chosen as they were the default functions available from tensorflow; using these functions minimizes the room for human error and development time.
+
+    Let there be L features-labels pairs in the datatset. The loss values are defined as:
+    \begin{itemize}
+        \item mean squared error:
+        \begin{equation}
+            MSE(\ve{\phi_{pred}},\ve{\phi_0}) = \frac{1}{L} \sum_{k}^L \sum_i^N \bigg( log_{10}\big(\phi_{pred,k}(E_i)\big)-log_{10}\big(\phi_{0,k}(E_i)\big) \bigg)
         \end{equation}
         \item mean pairwise squared error:
         \begin{equation}
-            MSE(E) = log (E)
+            MPSE(\ve{\phi_{pred}}, \ve{\phi_{0}}) = \frac{1}{L} \sum_{k}^L \sum_i^N \sum_q^N \left( log_{10}\left(\frac{\phi_{pred,k}(E_i)}{\phi_{pred,k}(E_q)}\right)-log_{10}\left(\frac{\phi_{0,k}(E_i)}{\phi_{0,k}(E_q)}\right) \right)
         \end{equation}
 
-    \end{equation}
+    \end{itemize}
     The neural networks in this investigation differ from the typical neural network, in that the latter has fewer labels than features output ($N \le M$); and that, since the features is related to the labels via a physical process, the inverse function for turning labels back into features exist (equation~\ref{unfolding general equation}), and is assumed to be deterministic.
     
     This allows for an additional information to be supplied to the neural network during the training stage:
         
-    \begin{equation}
+    \begin{itemize}
         \item mean squared error including folded reaction rates:
+        \begin{equation}
+            MSE_{\text{including\_folded\_reaction\_rates}}=MSE(\ve{\phi_{pred}'},\ve{\phi_{0}'})
+        \end{equation}
         \item mean pairwise squared error including folded reaction rates:
+        \begin{equation}
+            MPSE_{\text{including\_folded\_reaction\_rates}} = MPSE(\ve{\phi_{pred}'},\ve{\phi_{0}'})
+        \end{equation}
         % \item loss function: pairwise, tried using cosine distance but it didn't work because it simply gave NaN's.
     \end{itemize}
+    Where $\phi'$ is the $\ve{\phi}$ and $\ve{Z}$ vector concatenated together,
+    \begin{equation}\label{NNregularization}
+        \ve{\phi'} = [\phi_1, ..., \phi_N, Z_1, ..., Z_M]
+    \end{equation}
+    and Z is, in turn, obtained by equation \ref{unfolding general equation}:
 
-    The latter 
+    \begin{align*}
+        \ve{Z_{pred}} &= \matr{R} \ve{\phi_{pred} }\\
+        \ve{Z_{0}} &= \matr{R} \ve{\phi_{0} }
+    \end{align*}
+
+    This is analogous to the technique of regularization\cite{FisherRegularization} in normal unfolding procedures, where both deviation from the \emph{a priori} spectrum and the reaction rates are calculated and used as the $\chi^2$ value. In this case, the regularization constnat (weight of the neutron flux's deviation relative to the reaction rates' deviation) is simply chosen as 1.
+
+    These two metrics will give loss value = 0 when $\phi_{pred}$ and $\phi_0$ matches perfectly; but the neural network will be penalized by an additional amount if it makes a mistakes in the spectrum that leads to a greater deviation of the $Z_{pred}$ from the $Z_{0}$ (which is a mistake that other linear/non-linear least-square unfolding codes such as MAXED and GRAVEL will not make. This effectively incorperate some physics into the neural network with the hopes of improving its accuracy.
 
 \section{Literature review}
-Previous attempts of machine learning techniques applied to unfolding only include:
-\begin{itemize}
-    \item Bonner spheres
-    \item genetic algorithms
-\end{itemize}
-Problem: we don't have as much data as in fission.
-%All, except this one, doesn't do Activation foil:
-\cite{Accelerator-basedANNUnfolding}
-%cd /home/ocean/Documents/PTNR/CulhamFusion/AllPapers/ANNunfolding/*
-\cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN} %7:10:75; a momentum =0.1 and a learning rate= 0.1, mse = 1e−4 and a trainscg learning function
+Some work has been carried out in the field of neutron spectrum unfolding using neural networks. Only one of them are directly related to the method of activation foil neutron spectrum unfolding \cite{Accelerator-basedANNUnfolding}, which has a more pathological response matrix than the other two methods typically discussed in unfolding (Bonner Spheres and liquid scintillators). The condition number of the response matrix (i.e. the ratio of the maximum to minimum singular value\cite{MATLAB}) is likely worse due to the similarities between reaction cross-sectinos as dictated by nuclear physics; unlike in the other two detectors, where the response matrix is almost guaranteed to be triangular-matrix, so that the condition number is likely to be small, i.e. they are less ill-conditioned than the problem of activation foil neutron spectrum unfolding. Therefore the neural networks are likely to find it easier to unfold them as well.
 
+For the purpose of neutron spectrum measurement in a nuclear fusion reactor, which has very high neutron and $\gamma$ fluence, the other two methods of neutron measurement and unfolding are unsuitable due to their low radiation tolerance relative to the method of activation foil. However, this does not mean the work of neural network unfolding of neutron spectrum from Bonner Spheres measurements
+\cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN} %7:10:75; a momentum =0.1 and a learning rate= 0.1, mse = 1e−4 and a trainscg learning function
 \cite{ANNDoseQuantitiesPrediction} %Fully determined: 6:16:10:6
-\cite{ANN-ModifiedLeastSquare} %Not even under-determined; simply being lazy. (Square)
 \cite{ClaudiaC.BonnerSphereNNUnfolding} % 10:50:52 (not as underdetermined)
+\cite{RDANNM} %7:14:31
+and liquid scintillator measurements
+\cite{ANN-ModifiedLeastSquare} %Not even under-determined; simply being lazy. (Square)
+are not useful. It does give this experiment some reference neural network topologies.
+
+\begin{tabular}
+    \begin{table}
+            
+    \end{table}
+\end{tabular}
+
+Problem: we don't have as much data as in fission.
 %Other techniques:
 \cite{SVitishaGeneticAlgorithm}
 \cite{ParticleSwamp_NE-213}
@@ -470,7 +503,7 @@ It performs just as well.
             % \item take log of labels (spectrum)
             % % \item take fourier transform of labels (spectrum)
         \end{item}
-        \item metric used to evaluate the loss value (See Table~\ref{LossMetric})
+        \item metric used to evaluate the loss value (See Section \ref{unfolding inverse equation})
         \item Training set/testing set
     \end{itemize}
 

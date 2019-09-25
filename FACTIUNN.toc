@@ -8,16 +8,16 @@
 \contentsline {subsubsection}{\numberline {2.3.3}Universal approximation theorem}{9}
 \contentsline {subsubsection}{\numberline {2.3.4}Training the neural network}{10}
 \contentsline {subsubsection}{\numberline {2.3.5}Applying neural network to the unfolding problem}{11}
-\contentsline {section}{\numberline {3}Literature review}{11}
-\contentsline {section}{\numberline {4}Proof of concept on simulated spectra}{12}
-\contentsline {subsection}{\numberline {4.1}Creating simulated spectra by data augmentation}{12}
-\contentsline {section}{\numberline {5}Neural networks trained on Real spectra}{12}
-\contentsline {subsection}{\numberline {5.1}How Neural Networks are applied in this investigation}{12}
-\contentsline {subsection}{\numberline {5.2}Results of predicting using the real spectra}{14}
-\contentsline {subsection}{\numberline {5.3}potential future improvements}{15}
-\contentsline {section}{\numberline {6}Benchmarking against existing codes}{17}
-\contentsline {subsection}{\numberline {6.1}As an unfolding tool}{17}
-\contentsline {subsection}{\numberline {6.2}As an a priori generator}{17}
-\contentsline {section}{\numberline {7}An attempt at using fission data to predict fusion data}{19}
-\contentsline {section}{\numberline {8}Future improvements}{19}
-\contentsline {section}{\numberline {9}Conclusion}{19}
+\contentsline {section}{\numberline {3}Literature review}{13}
+\contentsline {section}{\numberline {4}Proof of concept on simulated spectra}{13}
+\contentsline {subsection}{\numberline {4.1}Creating simulated spectra by data augmentation}{13}
+\contentsline {section}{\numberline {5}Neural networks trained on Real spectra}{13}
+\contentsline {subsection}{\numberline {5.1}How Neural Networks are applied in this investigation}{15}
+\contentsline {subsection}{\numberline {5.2}Results of predicting using the real spectra}{15}
+\contentsline {subsection}{\numberline {5.3}potential future improvements}{16}
+\contentsline {section}{\numberline {6}Benchmarking against existing codes}{18}
+\contentsline {subsection}{\numberline {6.1}As an unfolding tool}{18}
+\contentsline {subsection}{\numberline {6.2}As an a priori generator}{18}
+\contentsline {section}{\numberline {7}An attempt at using fission data to predict fusion data}{20}
+\contentsline {section}{\numberline {8}Future improvements}{20}
+\contentsline {section}{\numberline {9}Conclusion}{20}

@@ -176,6 +176,12 @@ H.~Shahabinejad and M.~Sohrabpour.
   optimization.
 \newblock {\em Radiation Physics and Chemistry}, 136, 2017.
 
+\bibitem{Johnson-Shore-Deriv}
+John Shore and Rodney Johnson.
+\newblock Axiomatic derivation of the principle of maximum entropy and the
+  principle of minimum cross-entropy.
+\newblock {\em IEEE Transactions on information theory}, 26(1):26--37, 1980.
+
 \bibitem{SVitishaGeneticAlgorithm}
 Vitisha Suman and P.K. Sarkar.
 \newblock Neutron spectrum unfolding using genetic algorithm in a monte carlo
