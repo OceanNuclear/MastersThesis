@@ -1,21 +1,21 @@
-\contentsline {figure}{\numberline {1}{\ignorespaces Illustration of the topology of a typical neural network\relax }}{6}
-\contentsline {figure}{\numberline {2}{\ignorespaces A ReLU function (a rectifying function)\relax }}{7}
-\contentsline {figure}{\numberline {3}{\ignorespaces A cubic function approximated by a neural network\relax }}{8}
-\contentsline {figure}{\numberline {4}{\ignorespaces The spectra predicted by a 2-hidden-layers neural network (with 16 nodes per layer) on a fully determined system.\relax }}{13}
-\contentsline {figure}{\numberline {5}{\ignorespaces Data augmentation performed to create simulated spectra.\relax }}{14}
-\contentsline {figure}{\numberline {6}{\ignorespaces An example of the neutron spectrum as unfolded by the predicting a perturbed JET first wall spectrum.\relax }}{16}
-\contentsline {figure}{\numberline {7}{\ignorespaces Microscopic cross-section of each reaction\relax }}{17}
-\contentsline {figure}{\numberline {8}{\ignorespaces All fusion spectra used, obtained from \cite {IAEAUKAEACompendium}\relax }}{17}
-\contentsline {figure}{\numberline {9}{\ignorespaces Heatmap visualizing the loss values of the nerual networks' prediction on the test dataset.\relax }}{19}
-\contentsline {figure}{\numberline {10}{\ignorespaces A typical 0-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)\relax }}{20}
-\contentsline {figure}{\numberline {11}{\ignorespaces A typical 1-hidden-layer neural network's prediction of JET's first wall spectra when trained on fusion spectra(learning rate=0.01)\relax }}{20}
-\contentsline {figure}{\numberline {12}{\ignorespaces A typical 2-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)\relax }}{21}
-\contentsline {figure}{\numberline {13}{\ignorespaces JET first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{21}
-\contentsline {figure}{\numberline {14}{\ignorespaces Water-cooled ceramic breeder blanket TOKAMAK's first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{22}
-\contentsline {figure}{\numberline {15}{\ignorespaces Helium-cooled LiPb TOKAMAK's spectrum at the vacuum vessel, as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{22}
-\contentsline {figure}{\numberline {16}{\ignorespaces Frascati neutron generator spectrum, as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{23}
-\contentsline {figure}{\numberline {17}{\ignorespaces JET first wall spectrum as unfolded by MAXED upon using a flat neutron spectrum as the \emph {a priori}\relax }}{24}
-\contentsline {figure}{\numberline {18}{\ignorespaces JET first wall spectrum as unfolded by GRAVEL upon using a flat neutron spectrum as the \emph {a priori}\relax }}{24}
-\contentsline {figure}{\numberline {19}{\ignorespaces JET first wall spectrum as unfolded by GRAVEL upon using the optimal NN's output as the \emph {a priori} spectrum.\relax }}{25}
+\contentsline {figure}{\numberline {1}{\ignorespaces Illustration of the topology of a typical neural network\relax }}{7}
+\contentsline {figure}{\numberline {2}{\ignorespaces A ReLU function (a rectifying function)\relax }}{8}
+\contentsline {figure}{\numberline {3}{\ignorespaces A cubic function approximated by a neural network\relax }}{9}
+\contentsline {figure}{\numberline {4}{\ignorespaces The spectra predicted by a 2-hidden-layers neural network (with 16 nodes per layer) on a fully determined system.\relax }}{14}
+\contentsline {figure}{\numberline {5}{\ignorespaces Data augmentation performed to create simulated spectra.\relax }}{15}
+\contentsline {figure}{\numberline {6}{\ignorespaces An example of the neutron spectrum as unfolded by the predicting a perturbed JET first wall spectrum.\relax }}{17}
+\contentsline {figure}{\numberline {7}{\ignorespaces Microscopic cross-section of each reaction\relax }}{18}
+\contentsline {figure}{\numberline {8}{\ignorespaces All fusion spectra used, obtained from \cite {IAEAUKAEACompendium}\relax }}{18}
+\contentsline {figure}{\numberline {9}{\ignorespaces Heatmap visualizing the loss values of the nerual networks' prediction on the test dataset.\relax }}{20}
+\contentsline {figure}{\numberline {10}{\ignorespaces A typical 0-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)\relax }}{21}
+\contentsline {figure}{\numberline {11}{\ignorespaces A typical 1-hidden-layer neural network's prediction of JET's first wall spectra when trained on fusion spectra(learning rate=0.01)\relax }}{21}
+\contentsline {figure}{\numberline {12}{\ignorespaces A typical 2-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)\relax }}{22}
+\contentsline {figure}{\numberline {13}{\ignorespaces JET first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{22}
+\contentsline {figure}{\numberline {14}{\ignorespaces Water-cooled ceramic breeder blanket TOKAMAK's first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{23}
+\contentsline {figure}{\numberline {15}{\ignorespaces Helium-cooled LiPb TOKAMAK's spectrum at the vacuum vessel, as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{23}
+\contentsline {figure}{\numberline {16}{\ignorespaces Frascati neutron generator spectrum, as predicted by the optimally performing NN among all NN trained on fusion data.\relax }}{24}
+\contentsline {figure}{\numberline {17}{\ignorespaces JET first wall spectrum as unfolded by MAXED upon using a flat neutron spectrum as the \emph {a priori}\relax }}{25}
+\contentsline {figure}{\numberline {18}{\ignorespaces JET first wall spectrum as unfolded by GRAVEL upon using a flat neutron spectrum as the \emph {a priori}\relax }}{25}
+\contentsline {figure}{\numberline {19}{\ignorespaces JET first wall spectrum as unfolded by GRAVEL upon using the optimal NN's output as the \emph {a priori} spectrum.\relax }}{26}
 \contentsline {figure}{\numberline {20}{\ignorespaces (calculated) ITER spectrum as predicted by the optimal NN among all NN trained on fission spectra\relax }}{26}
-\contentsline {figure}{\numberline {21}{\ignorespaces JET first wall spectrum as predicted by the optimal NN among all NN trained on fission spectra\relax }}{26}
+\contentsline {figure}{\numberline {21}{\ignorespaces JET first wall spectrum as predicted by the optimal NN among all NN trained on fission spectra\relax }}{27}

@@ -3,7 +3,7 @@
 %\nonstopmode
 \hbadness=100000
 \documentclass[a4paper, 12pt]{article}
-\usepackage{amsmath,amsfonts,changepage,caption,float,geometry,graphicx,mathtools,pythonhighlight,textcomp,url,verbatim,subcaption,tabularx} %,parskip
+\usepackage{amsmath,amsfonts,changepage,caption,float,geometry,graphicx,mathtools,pythonhighlight,textcomp,url,verbatim,subcaption,tabularx, longtable} %,parskip
 % \usepackage[justification=centering]{subfig}
 \geometry{ a4paper, total={170mm,257mm}, left=20mm, top=20mm}
 
@@ -566,7 +566,7 @@ The low training loss/MAE/MSE shows that the neural networks were able to learn 
 \section{Neural networks trained on real spectra}\label{RealResults}
 From the result of the previous section, we can expect the neural network to be able to identify the relationship between reaction rates and neutron spectra, while replicating the underlying pattern in the real neutron spectra, when sufficient data is given.
 
-A set of 212 neutron spectra were acquired from the IAEA+UKAEA compendium\cite{IAEAUKAEACompendium}. 137 of them were identified as fission neutron spectra and 19 of them were identified as fusion neutron spectra.
+A set of 212 neutron spectra were acquired from the IAEA+UKAEA compendium\cite{IAEAUKAEACompendium}. 137 of them were identified as fission neutron spectra and 19 of them were identified as fusion neutron spectra. These spectra are listed in the appendices \ref{fission-fusion spectra IEAEUKAEACompendium}.
 
 They were rebinned into the Vitamin-J group structure using FISPACT-II\cite{Fispact}. The Vitamin-J group structure was chosen as it is well known and widely used in neutron spectrum unfolding \cite{SpectrumUnfoldingMethodology} \cite{ADRIANA_lab_equiv} \cite{Stayslpnnl}. The corresponding activities for each spectrum was obtained by folding it through the response matrix (plotted in Figure~\ref{response_matrix}). The response matrix was obtained and explained below:
 
@@ -747,7 +747,8 @@ While the best performing neural network (Figure~\ref{5Layerfusion-fusionJET-FW}
 \subsubsection{As an a priori generator}
 An alternative method of utilise the neutron spectra predicted by the neural network is by using it as the \emph{a priori} it self. This can potentially save many hours of MCNP modelling for the purpose of neutron spectrum unfolding, as the response matrix does not need to be known.
 
-However, this is rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. An average RMS value of 9.89936 was achieved. This is likely because the flux overestimation at the $\le 14.1MeV$ bins leads to a l
+However, this is rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. An average RMS value of 9.89936 was achieved.
+% This is likely because the flux overestimation at the $\le 14.1MeV$ bins leads to a l
 
 And MAXED produced result that are also as meaningless as Figure~\ref{maxed_flat_a_priori_JET}, as the log of the flux in some bins tends to negative infinity.
 
@@ -762,35 +763,35 @@ And MAXED produced result that are also as meaningless as Figure~\ref{maxed_flat
 %     \item and already has a few similar neutron spectra to pick from;
 %     \item want a higher reproducibility/credibility than hand-drawing an a priori with reference to the previous spectra/ averaging over the existing spectra.
 % \end{itemize}
-EVEN if the response matrix is not known.
-
-Allows for a probability distribution of weights? does that account for the variance and covariance between the labels and features? *
-But this is beyond the scope of this paper, which is to demonstrate that the idea of NN works.
 
 \subsection{An attempt at using fission data to predict fusion data}
-Explain why: we have so many fission spectra... but only very few fusion spectra
+While fusion spectra are scarce, there is an abundant database of fission neutron spectra. Therefore, it would be ideal if neural networks trained on fission spectra can use it to explain fusion spectra, as we will not run into the issue of not having enough data.
 
-But even the best neural network trained on fission spectra and obtained the lowest loss value when tested on fusion spectra gave very poor results:
-\begin{figure}
+Therefore, the results of the second group of neural networks (trained on fission spectra, tested on fusion spectra) were examined. But even the best one of them performed very poorly. It uses an RMS loss value equation~\ref{RMS} giving a testing loss of 16.767817. Closer examination of its prediction shows that it is unsuitable for the neutron spectra.
+
+\begin{figure}[H]
 \centering
 \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_007_}
 \caption{(calculated) ITER spectrum as predicted by the optimal NN among all NN trained on fission spectra} \label{fission-fusionBad}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_016_}
 \caption{JET first wall spectrum as predicted by the optimal NN among all NN trained on fission spectra}\label{fission-fusionGood}
 \end{figure}
 
-For the record, this optimal neural network has the hyperparameters of (learning rate = 0.01, topology=11:32:53:90:152:256:175).
+For the record, this neural network (which performed the best out of all neural networks trained on fission spectra) has the hyperparameters of (learning rate = 0.01, topology=11:32:53:90:152:256:175).
 
 \section{Potential Future improvements}
+Fusion neutron spectra unfolding suffer from the fundamental problem of not having previous neutron spectra to tell when we're accurate or not.
+
 \begin{itemize}
     \item Transfer learning: start with fission data, fix the weights of the second half of the matrix as it gives the connection
     \item Use RBF NN or GRNN, which are known to perform better under low sample number conditions, though it is more complicated to implement.
     \item infer the uncertainty ($\sigma$) associated with the neural network's prediction using Monte Carlo method
     \item Use Orthogonal Arrays instead of grid searching the entire hyperparameter space, as well as fractional factorial instead of full factorial combinations, as proposed in \cite{RDANNM}, when performing the optimization. This can reduce the amount of time required for the experimentation; or extend the range of hyperparameter space searched in the same amount of time; multiple dimensional space can be search through in the same manner as well.
+    \item we need more data
 \end{itemize}
 
 \section{Conclusion}
@@ -808,51 +809,51 @@ For the record, this optimal neural network has the hyperparameters of (learning
 
 \begin{appendices}
 
-% \section{Neural network building functions tailored for the purpose of neutron spectrum unfolding}
-% The following contains the class in which the neural network is built.\\
-% \pythoncode{neuralnetworklibrary.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworklibrary.py}
+\section{Neural network building functions tailored for the purpose of neutron spectrum unfolding}
+The following contains the class in which the neural network is built.\\
+\pythoncode{neuralnetworklibrary.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworklibrary.py}
 
-% \section{Neural network abstractions and controller}
-% The following contains the higher level abstractions, as well as functions which walks the user through the process of creating a neural network interactively.\\
-% \pythoncode{neuralnetworktrainer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworktrainer.py}
+\section{Neural network abstractions and controller}
+The following contains the higher level abstractions, as well as functions which walks the user through the process of creating a neural network interactively.\\
+\pythoncode{neuralnetworktrainer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworktrainer.py}
 
-% \section{Code for benchmarking}
-% This code uses 'unfoldingsuite', which contains implementations of MAXED and GRAVEL in python, developed locally at CCFE, to unfold spectra from various a priori. Their performance can then be used as benchmarks for the neural network unfolding results to be compared against.\\
-% \pythoncode{comparison\_with\_existing.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/comparison_with_existing.py}
+\section{Code for benchmarking}
+This code uses 'unfoldingsuite', which contains implementations of MAXED and GRAVEL in python, developed locally at CCFE, to unfold spectra from various a priori. Their performance can then be used as benchmarks for the neural network unfolding results to be compared against.\\
+\pythoncode{comparison\_with\_existing.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/comparison_with_existing.py}
 
-% \section{Fully determined simulation data generation}
-% Creates a 5 energy-bins fluence vector, which is then folded through a 5 $\times$ 5 response matrix; both of which are randomly generated. Each element both were picked from a uniform random distribution larger than 1. The upper bound of the elements in the vector were chosen as 15 and the upper bound of the elements in the response matrix were chosen to be 50.\\
-% \pythoncode{simple\_non\_singular\_case.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/simple_non_singular_case.py}
+\section{Fully determined simulation data generation}
+Creates a 5 energy-bins fluence vector, which is then folded through a 5 $\times$ 5 response matrix; both of which are randomly generated. Each element both were picked from a uniform random distribution larger than 1. The upper bound of the elements in the vector were chosen as 15 and the upper bound of the elements in the response matrix were chosen to be 50.\\
+\pythoncode{simple\_non\_singular\_case.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/simple_non_singular_case.py}
 
-% \section{Underdetermined simulation data generation}
-% For each of the 14 FISPACT reference spectra, each is parametrised into a list of peaks. The height of these peaks were then perturbed to form a `new' spectrum. This `new' spectrum is then folded through a corresponding response matrix.\\
-% \pythoncode{spectrumrandomizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/spectrumrandomizer.py}
+\section{Underdetermined simulation data generation}
+For each of the 14 FISPACT reference spectra, each is parametrised into a list of peaks. The height of these peaks were then perturbed to form a `new' spectrum. This `new' spectrum is then folded through a corresponding response matrix.\\
+\pythoncode{spectrumrandomizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/spectrumrandomizer.py}
 
-% \section{Training and evaluating neural networks on the underdetermined simulation data}
-% A demonstration of applying neuralnetworktrainer.py on the data generated by spectrumrandomizer.py .\\
-% \pythoncode{script\_for\_demo.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/script_for_demo.py}
+\section{Training and evaluating neural networks on the underdetermined simulation data}
+A demonstration of applying neuralnetworktrainer.py on the data generated by spectrumrandomizer.py .\\
+\pythoncode{script\_for\_demo.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/script_for_demo.py}
 
-% %IAEA and UKAEA compendium spectra had to be rebinned into the vitamin J spectra in order to be useful.
+%IAEA and UKAEA compendium spectra had to be rebinned into the vitamin J spectra in order to be useful.
 
-% \section{Selecting from UKAEA and IAEA compendium}
-% Rebinned spectra from the 212 IAEA + UKAEA compendium \cite{IAEAUKAEACompendium} were sorted into various training and testing sets using the following python program.\\
-% \pythoncode{getrealdata.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/Link_UKAEA_IAEA_Compendium/getrealdata.py}
+\section{Selecting from UKAEA and IAEA compendium}
+Rebinned spectra from the 212 IAEA + UKAEA compendium \cite{IAEAUKAEACompendium} were sorted into various training and testing sets using the following python program.\\
+\pythoncode{getrealdata.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/Link_UKAEA_IAEA_Compendium/getrealdata.py}
 
-% \section{hyperparameter input controller}
-% Input files for hyperparametertrainer.py using the following code, by iterating through a list of hyperparameters of interest, thus effectively performing a grid search over all hyperparameters.\\
-% \pythoncode{hyperparameterinput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/hyperparameterinput.py}
-% This program can be used to split the into multiple jobs, which can then be submitted to a cluster, parallellizing the process and massively reducing the training and evaluation time of the neural networks. This is done by calling the program with \texttt{python hyperparameterinput.py split}
+\section{hyperparameter input controller}
+Input files for hyperparametertrainer.py using the following code, by iterating through a list of hyperparameters of interest, thus effectively performing a grid search over all hyperparameters.\\
+\pythoncode{hyperparameterinput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/hyperparameterinput.py}
+This program can be used to split the into multiple jobs, which can then be submitted to a cluster, parallellizing the process and massively reducing the training and evaluation time of the neural networks. This is done by calling the program with \texttt{python hyperparameterinput.py split}
 
-% \section{hyperparameter optimization searching}
-% List the hyperparameter, training- and testing-sets used to evaluate the neural network on, when the hash\_name of the neural network is given.\\
-% \pythoncode{hyperparameteroutput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroutput.py}
+\section{hyperparameter optimization searching}
+List the hyperparameter, training- and testing-sets used to evaluate the neural network on, when the hash\_name of the neural network is given.\\
+\pythoncode{hyperparameteroutput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroutput.py}
 
-% \section{Loss value visualizer}
-% When given the names of the training- and testing-set, the following code show the loss values (and other metrics) of the neural networks with different hyperparameters achieved on them. This is plotted as a heat map, over the two dimensions of hyperparameters varied, which are `number of layers' (y-axis) and `learning rate' (x-axis) respectively.\\
-% \pythoncode{hyperparameteroptimizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroptimizer.py}
+\section{Loss value visualizer}
+When given the names of the training- and testing-set, the following code show the loss values (and other metrics) of the neural networks with different hyperparameters achieved on them. This is plotted as a heat map, over the two dimensions of hyperparameters varied, which are `number of layers' (y-axis) and `learning rate' (x-axis) respectively.\\
+\pythoncode{hyperparameteroptimizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroptimizer.py}
 
 \section{Parametrisation of the FISPACT reference spectra}
-\begin{table}
+\begin{table}[H]
 \begin{tabular}{ccccccc}
 distribution&$\mu$&$\sigma$&A&$\mu_{corr}$&$\sigma_{corr}$&$A_{corr}$\\
 \hline
@@ -902,6 +903,181 @@ log-normal&1.51e+00&3.50e-01&9.40e+16&1.0&1.0622261078184665&1.1481233202529897
 \end{tabular}
 \caption{In descending order: each section represents the parameters used to parametrise the spectra of: JAEA-FNS, Frascati-NG, ITER-DD, ITER-DT, DEMO-HCPB-FW, JET-FW, NIF-Ignition. The 2-4${}^{th}$ columns indicate the guess value inputted, while the last 3 columns indicate the correction factor multiplied onto them. E.g. $\mu_{final} = \mu * \mu_{corr}$}\label{ParametrisationParameters}
 \end{table}
+\section{neutron spectra extraed from the IAEA + UKAEA compendium}\label{fission-fusion spectra IEAEUKAEACompendium}
+List of all fission data
+\begin{longtable}{llll}[H]
+title & type &Measured/Calculated\\
+\hline
+PR\_PWR\_CZECH\_6 & PR & Czech PWR, circ. pumps, near cold side, p2  & M\\
+PR\_BWR\_DUNG\_1 & PR & BWR, Dungeness, boiler cell  & M\\
+RFT\_PU\_3 & RFT & Pu reprocessing plant, fuel pin assembly  & M\\
+RFT\_MOX\_4 & RFT & Fresh MOX, borated water shield  & M\\
+PR\_GCR\_1 & PR & CH1 GC reactor  & M\\
+RFT\_PU\_2 & RFT & Pu reprocessing plant, well shielded  & M\\
+PR\_PWR\_CZECH\_2 & PR & Czech PWR, check room, under reactor, p5  & M\\
+PR\_BWR\_SW\_4 & PR & BWR (Switzerland), under access  & M\\
+PR\_GCR\_3 & PR & Trawsfynydd GC reactor, position S3  & M\\
+PR\_PWR\_CZECH\_4 & PR & Czech PWR, check room, under reactor, p13  & M\\
+PR\_BWR\_SW\_13 & PR & PWR (Switzerland), behind generator  & M\\
+UKAEA\_029\_EBR-2 & UKAEA\_PR & EBR-2 spectra in 29 energy groups & M\\
+PR\_BWR\_SW\_8 & PR & BWR (Switzerland), near lock, closed  & M\\
+PR\_PWR\_CZECH\_7 & PR & Czech PWR, circ. pumps, hot side, p3  & M\\
+PR\_BWR\_SW\_16 & PR & PWR (Switzerland), 33 cm behind door  & M\\
+UKAEA\_1102\_BWR-MOX-Gd-0 & UKAEA\_PR & BWR-MOX-Gd-0 spectra in 1102 energy groups & M\\
+UKAEA\_100\_HFIR-lowres & UKAEA\_PR & HFIR-lowres spectra in 100 energy groups & M\\
+UKAEA\_1102\_PWR-MOX-15 & UKAEA\_PR & PWR-MOX-15 spectra in 1102 energy groups & M\\
+BT\_FRM\_2 & BT & FRM II beam, unfiltered  & M\\
+RFT\_PU\_1 & RFT & Pu reprocessing plant, little shielding, location 1  & M\\
+PR\_BWR\_SW\_14 & PR & PWR (Switzerland), at reactor axis  & M\\
+PR\_PWR\_WOLFCREEK\_3 & PR & PWR, Wolf Creek, power 50\%, 2026¢ level by valves  & M\\
+RFT\_PU\_USA\_4 & RFT & TRU plant, at conduit exit, less shielding  & M\\
+PR\_PWR\_CZECH\_13 & PR & Czech PWR, reactor hall, near cap, p10  & M\\
+IS\_TRU\_6 & IS & TRU plant, 25 g AmO2 in container  & M\\
+PR\_BWR\_SW\_2 & PR & BWR (Switzerland), at bend of maze  & M\\
+PR\_BWR\_CAORSO\_8 & PR & BWR, Caorso, position 4  & C\\
+PR\_PWR\_WOLFCREEK\_1 & PR & PWR, Wolf Creek, power 50\%, at PH 2047¢ level  & M\\
+UKAEA\_1102\_PWR-UO2-Gd-15 & UKAEA\_PR & PWR-UO2-Gd-15 spectra in 1102 energy groups & M\\
+PR\_BWR\_DUNG\_3 & PR & BWR, Dungeness, on the walkway  & M\\
+PR\_BWR\_CAORSO\_3 & PR & BWR, Caorso, position 3  & M\\
+PR\_BWR\_SW\_5 & PR & BWR (Switzerland), at stairwell  & M\\
+BT\_LVR15\_1 & BT & LVR-15, epithermal beam  & C\\
+UKAEA\_1102\_BWR-MOX-Gd-15 & UKAEA\_PR & BWR-MOX-Gd-15 spectra in 1102 energy groups & M\\
+PR\_PWR\_CZECH\_10 & PR & Czech PWR, reactor hall, at cap, p7  & M\\
+IS\_TRU\_9 & IS & 25 Ci Am ceramics, no shield  & M\\
+RFT\_WWER\_CASK\_3 & RFT & Transport cask C30/KB54, in corridor at 45 cm  & M\\
+RFT\_WWER\_CASK\_1 & RFT & Transport cask C30/KB54, in a hall at 45 cm  & M\\
+PR\_GCR\_2 & PR & CH2 GC reactor  & M\\
+BT\_BMRR\_1 & BT & BMRR spectra, filtered by 34 cm Al/AlF3  & M\\
+UKAEA\_172\_Phenix & UKAEA\_PR & Phenix spectra in 172 energy groups & M\\
+PR\_TRAWS\_1 & PR & Trawsfynnydd, filter gallery  & M\\
+RFT\_TN12\_1 & RFT & TN-12 fuel container at Valognes  & M\\
+RFT\_PU\_USA\_1 & RFT & TRU plant, lightly shielded glovebox 1  & M\\
+RFT\_VALDUC\_1 & RFT & Pu reprocessing at Valduc  & M\\
+RFT\_PU\_USA\_2 & RFT & TRU plant, heavily shielded glovebox 1  & M\\
+PR\_HINKLEY\_2 & PR & Hinkley Point, filter gallery  & M\\
+BT\_ACCEPI\_1 & BT & Accelerator based epithermal beam  & M\\
+PR\_RINGHALS\_3 & PR & Ringhals, point P  & M\\
+UKAEA\_616\_HFR-high & UKAEA\_PR & HFR-high spectra in 616 energy groups & M\\
+PR\_BWR\_SW\_15 & PR & PWR (Switzerland), 40 cm behind door  & M\\
+PR\_BWR\_CAORSO\_4 & PR & BWR, Caorso, position 4  & M\\
+PR\_BWR\_SW\_6 & PR & BWR (Switzerland), 16 m level, near pump  & M\\
+BT\_BMRR\_1\_1 & BT & BMRR beam  & M\\
+PR\_BWR\_SW\_10 & PR & PWR (Switzerland), in front of containment  & M\\
+PR\_BWR\_CAORSO\_7 & PR & BWR, Caorso, position 3  & C\\
+RFT\_MOX\_2 & RFT & MOX transport cask, ver. 03  & M\\
+UKAEA\_198\_PWR-RPV & UKAEA\_PR & PWR-RPV spectra in 198 energy groups & M\\
+UKAEA\_407\_Bigten & UKAEA\_FIS & Bigten spectra in 407 energy groups & M\\
+UKAEA\_1102\_BWR-UO2-Gd-40 & UKAEA\_PR & BWR-UO2-Gd-40 spectra in 1102 energy groups & M\\
+BT\_BMRR\_2 & BT & BMRR spectra, filtered by 22 cm 7LiF  & M\\
+UKAEA\_1102\_PWR-UO2-15 & UKAEA\_PR & PWR-UO2-15 spectra in 1102 energy groups & M\\
+BT\_BMRR\_3 & BT & BMRR spectra, filtered by 17 cm D2O  & M\\
+RFT\_1393\_2 & RFT & Transport cask 1393(2)  & M\\
+BT\_BNCT\_PETTEN\_1 & BT & BNCT in Petten, HB11 filtered beam  & M\\
+BT\_FRM\_3 & BT & FRM II beam, filtered  & M\\
+UKAEA\_1102\_BWR-UO2-Gd-15 & UKAEA\_PR & BWR-UO2-Gd-15 spectra in 1102 energy groups & M\\
+PR\_PWR\_GOSGEN\_1 & PR & PWR, Gosgen, position 1  & M\\
+UKAEA\_198\_BWR-RPV & UKAEA\_PR & BWR-RPV spectra in 198 energy groups & M\\
+RFT\_PU\_USA\_5 & RFT & TRU plant, lightly shielded glovebox 2  & M\\
+PR\_RINGHALS\_4 & PR & Ringhals, point B2  & M\\
+IS\_TRU\_7 & IS & TRU plant, 244Cm in glovebox, no shield  & M\\
+PR\_BWR\_CAORSO\_2 & PR & BWR, Caorso, position 2  & M\\
+RFT\_PU\_USA\_3 & RFT & TRU plant, at operator desk  & M\\
+UKAEA\_1102\_PWR-UO2-0 & UKAEA\_PR & PWR-UO2-0 spectra in 1102 energy groups & M\\
+PR\_RINGHALS\_5 & PR & Ringhals, point B4  & M\\
+PR\_BWR\_CAORSO\_5 & PR & BWR, Caorso, position 1  & C\\
+PR\_PWR\_WOLFCREEK\_2 & PR & PWR, Wolf Creek, power 50\%, 2 m from PH 2047¢ level  & M\\
+PR\_RINGHALS\_1 & PR & Ringhals, point D  & M\\
+PR\_BWR\_CAORSO\_6 & PR & BWR, Caorso, position 2  & C\\
+PR\_BWR\_SW\_7 & PR & BWR (Switzerland), 16 m level, near tap  & M\\
+UKAEA\_172\_Paluel & UKAEA\_PR & Paluel spectra in 172 energy groups & M\\
+RFT\_POLLUX\_2 & RFT & Pollux container above ground level  & M\\
+PR\_BWR\_CAORSO\_1 & PR & BWR, Caorso, position 1  & M\\
+PR\_PWR\_CP\_1 & PR & CP reactor, site 5, SPUNIT code  & M\\
+PR\_PWR\_CZECH\_8 & PR & Czech PWR, circ. pumps, near door, p4  & M\\
+PR\_BWR\_SW\_9 & PR & BWR (Switzerland), near lock, open  & M\\
+RFT\_MOX\_1 & RFT & MOX transport cask, ver. 02  & M\\
+PR\_PWR\_CP\_2 & PR & CP reactor, site 6, SPUNIT code  & M\\
+PR\_PWR\_CZECH\_3 & PR & Czech PWR, check room, in middle, p12  & M\\
+RFT\_WWER\_CASK\_4 & RFT & Transport cask C30/KB54, in corridor at 2 m  & M\\
+PR\_PWR\_CZECH\_11 & PR & Czech PWR, reactor hall, at valve, p8  & M\\
+IS\_TRU\_8 & IS & AmBe sources in gloveboxes in line  & M\\
+PR\_BWR\_SW\_11 & PR & PWR (Switzerland), 1 m from platform  & M\\
+UKAEA\_070\_Cf252 & UKAEA\_IS & Cf252 spectra in 70 energy groups & M\\
+UKAEA\_1102\_PWR-MOX-40 & UKAEA\_PR & PWR-MOX-40 spectra in 1102 energy groups & M\\
+PR\_PWR\_CZECH\_12 & PR & Czech PWR, reactor hall, at generator, p9  & M\\
+UKAEA\_1102\_PWR-MOX-0 & UKAEA\_PR & PWR-MOX-0 spectra in 1102 energy groups & M\\
+PR\_HINKLEY\_1 & PR & Hinkley Point, pile cap  & M\\
+BT\_ACC\_2 & BT & Gantry spectrum  & C\\
+PR\_PWR\_WOLFCREEK\_4 & PR & PWR, Wolf Creek, power 100\%, at PH 2047¢ level  & M\\
+PR\_PWR\_CZECH\_9 & PR & "Czech PWR, circ. pumps, 4 \& 4, p11 " & M\\
+PR\_BWR\_SW\_3 & PR & BWR (Switzerland), at drywell  & M\\
+UKAEA\_1102\_BWR-UO2-Gd-0 & UKAEA\_PR & BWR-UO2-Gd-0 spectra in 1102 energy groups & M\\
+BT\_ACC\_1 & BT & Accelerator based spectrum, 2.5 MeV protons on 7Li  & C\\
+RFT\_POLLUX\_1 & RFT & Pollux container in salt mine  & M\\
+RFT\_LK100\_1 & RFT & LK-100 fuel container at La Hague, position1  & M\\
+UKAEA\_616\_HFR-low & UKAEA\_PR & HFR-low spectra in 616 energy groups & M\\
+RFT\_MOX\_5 & RFT & Fresh MOX, no shield  & M\\
+RFT\_NTL\_1 & RFT & Transport cask NTL-111, at 115 cm  & M\\
+RFT\_HANAU\_1 & RFT & Fission material deposition, BS measurements  & M\\
+PR\_PWR\_WOLFCREEK\_5 & PR & PWR, Wolf Creek, power 100\%, 2026¢ level at loop penetration  & M\\
+UKAEA\_172\_Superphenix & UKAEA\_PR & Superphenix spectra in 172 energy groups & M\\
+RFT\_WWER\_CASK\_2 & RFT & Transport cask C30/KB54, in a hall at 2 m  & M\\
+RFT\_MOX\_3 & RFT & New MOX at 20 cm, no shield  & M\\
+PR\_PWR\_CZECH\_5 & PR & Czech PWR, check room, corridor, p6  & M\\
+PR\_PWR\_CP\_4 & PR & CP reactor, site 4, YOGI code  & M\\
+RFT\_HANAU\_2 & RFT & Fission material deposition, LS measurements  & M\\
+UKAEA\_1102\_PWR-UO2-40 & UKAEA\_PR & PWR-UO2-40 spectra in 1102 energy groups & M\\
+PR\_GCR\_4 & PR & Trawsfynydd GC reactor, position S4  & M\\
+UKAEA\_1102\_PWR-UO2-Gd-40 & UKAEA\_PR & PWR-UO2-Gd-40 spectra in 1102 energy groups & M\\
+PR\_RINGHALS\_2 & PR & Ringhals, point E  & M\\
+BT\_SPALL\_1 & BT & Spallation source, 72 MeV protons on W  & C\\
+RFT\_LK100\_2 & RFT & LK-100 fuel container at La Hague, position 2  & M\\
+PR\_BWR\_SW\_12 & PR & PWR (Switzerland), 3 m from platform  & M\\
+PR\_PWR\_GOSGEN\_2 & PR & PWR, Gosgen, position 2  & M\\
+UKAEA\_1102\_PWR-UO2-Gd-0 & UKAEA\_PR & PWR-UO2-Gd-0 spectra in 1102 energy groups & M\\
+RFT\_PU\_5 & RFT & Pu reprocessing plant, little shielding, location 5  & M\\
+RFT\_NTL\_2 & RFT & Transport cask NTL-111, at 367 cm  & M\\
+RFT\_PU\_4 & RFT & Pu reprocessing plant, little shielding, location 4  & M\\
+PR\_PWR\_CP\_3 & PR & CP reactor, site 4, SPUNIT code  & M\\
+PR\_PWR\_CZECH\_1 & PR & Czech PWR, circ. pumps, cold side, p1  & M\\
+PR\_BWR\_DUNG\_2 & PR & BWR, Dungeness, on the roof  & M\\
+BT\_FRM\_1 & BT & FRM I beam  & M\\
+RFT\_1392\_1 & RFT & Transport cask 1392(1)  & M\\
+UKAEA\_1102\_BWR-MOX-Gd-40 & UKAEA\_PR & BWR-MOX-Gd-40 spectra in 1102 energy groups & M\\
+PR\_BWR\_SW\_1 & PR & BWR (Switzerland), at maze entrance  & M
+% \caption{}
+\end{longtable}
+
+List of all fusion data used as the training set
+\begin{longtable}{llll}[H]
+title&type&description&Measured/Calculated\\
+\hline
+UKAEA\_616\_DEMO-HCPB-VV&UKAEA\_FUS&DEMO-HCPB-VV spectra in 616 energy groups&M\\
+UKAEA\_150\_NIF-ignition&UKAEA\_FUS&NIF-ignition spectra in 150 energy groups&M\\
+UKAEA\_616\_DEMO-HCPB-BP&UKAEA\_FUS&DEMO-HCPB-BP spectra in 616 energy groups&M\\
+UKAEA\_616\_WCLL-VV&UKAEA\_FUS&WCLL-VV spectra in 616 energy groups&M\\
+UKAEA\_616\_HCPB-VV&UKAEA\_FUS&HCPB-VV spectra in 616 energy groups&M\\
+UKAEA\_616\_WCCB-VV&UKAEA\_FUS&WCCB-VV spectra in 616 energy groups&M\\
+UKAEA\_175\_JAEA-FNS&UKAEA\_FUS&JAEA-FNS spectra in 175 energy groups&M\\
+UKAEA\_175\_ITER-DD&UKAEA\_FUS&ITER-DD spectra in 175 energy groups&M\\
+UKAEA\_161\_LMJ-g&UKAEA\_FUS&LMJ-g spectra in 161 energy groups&M\\
+UKAEA\_175\_ITER-DT&UKAEA\_FUS&ITER-DT spectra in 175 energy groups&M\\
+UKAEA\_616\_HCPB-FW&UKAEA\_FUS&HCPB-FW spectra in 616 energy groups&M\\
+UKAEA\_616\_DEMO-HCPB-FW&UKAEA\_FUS&DEMO-HCPB-FW spectra in 616 energy groups&M\\
+UKAEA\_175\_TUD-NG&UKAEA\_FUS&TUD-NG spectra in 175 energy groups&M\\
+UKAEA\_616\_WCLL-FW&UKAEA\_FUS&WCLL-FW spectra in 616 energy groups&M\\
+UKAEA\_616\_HCLL-FW&UKAEA\_FUS&HCLL-FW spectra in 616 energy groups&M
+\end{longtable}
+
+List of all fusion data used as the testing set
+\begin{longtable}{llll}[H]
+title&type&description&Measured/Calculated\\
+\hline
+UKAEA\_175\_Frascati-NG&UKAEA\_FUS&Frascati-NG spectra in 175 energy groups&M\\
+UKAEA\_100\_JET-FW&UKAEA\_FUS&JET-FW spectra in 100 energy groups&M\\
+UKAEA\_616\_WCCB-FW&UKAEA\_FUS&WCCB-FW spectra in 616 energy groups&M\\
+UKAEA\_616\_HCLL-VV&UKAEA\_FUS&HCLL-VV spectra in 616 energy groups&M
+\end{longtable}
 
 \end{appendices}
 
