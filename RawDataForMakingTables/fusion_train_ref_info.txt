@@ -1,0 +1,16 @@
+title&type&description&Measured/Calculated
+UKAEA\_616\_DEMO-HCPB-VV&UKAEA\_FUS&DEMO-HCPB-VV spectra in 616 energy groups&M
+UKAEA\_150\_NIF-ignition&UKAEA\_FUS&NIF-ignition spectra in 150 energy groups&M
+UKAEA\_616\_DEMO-HCPB-BP&UKAEA\_FUS&DEMO-HCPB-BP spectra in 616 energy groups&M
+UKAEA\_616\_WCLL-VV&UKAEA\_FUS&WCLL-VV spectra in 616 energy groups&M
+UKAEA\_616\_HCPB-VV&UKAEA\_FUS&HCPB-VV spectra in 616 energy groups&M
+UKAEA\_616\_WCCB-VV&UKAEA\_FUS&WCCB-VV spectra in 616 energy groups&M
+UKAEA\_175\_JAEA-FNS&UKAEA\_FUS&JAEA-FNS spectra in 175 energy groups&M
+UKAEA\_175\_ITER-DD&UKAEA\_FUS&ITER-DD spectra in 175 energy groups&M
+UKAEA\_161\_LMJ-g&UKAEA\_FUS&LMJ-g spectra in 161 energy groups&M
+UKAEA\_175\_ITER-DT&UKAEA\_FUS&ITER-DT spectra in 175 energy groups&M
+UKAEA\_616\_HCPB-FW&UKAEA\_FUS&HCPB-FW spectra in 616 energy groups&M
+UKAEA\_616\_DEMO-HCPB-FW&UKAEA\_FUS&DEMO-HCPB-FW spectra in 616 energy groups&M
+UKAEA\_175\_TUD-NG&UKAEA\_FUS&TUD-NG spectra in 175 energy groups&M
+UKAEA\_616\_WCLL-FW&UKAEA\_FUS&WCLL-FW spectra in 616 energy groups&M
+UKAEA\_616\_HCLL-FW&UKAEA\_FUS&HCLL-FW spectra in 616 energy groups&M

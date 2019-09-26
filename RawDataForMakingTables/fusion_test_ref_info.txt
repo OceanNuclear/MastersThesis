@@ -1,0 +1,5 @@
+title&type&description&Measured/Calculated
+UKAEA\_175\_Frascati-NG&UKAEA\_FUS&Frascati-NG spectra in 175 energy groups&M
+UKAEA\_100\_JET-FW&UKAEA\_FUS&JET-FW spectra in 100 energy groups&M
+UKAEA\_616\_WCCB-FW&UKAEA\_FUS&WCCB-FW spectra in 616 energy groups&M
+UKAEA\_616\_HCLL-VV&UKAEA\_FUS&HCLL-VV spectra in 616 energy groups&M

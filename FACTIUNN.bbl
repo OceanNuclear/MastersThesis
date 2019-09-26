@@ -98,6 +98,13 @@ Seyed~Abolfazl Hosseini.
   modified least square method.
 \newblock {\em Radiation Physics and Chemistry}, 126:75--84, 2016.
 
+\bibitem{14MeVNNeutonYieldCalibration-JET}
+S~Jednorog, E~Laszynska, P~Batistoni, B~Bienkowska, A~Cufar, Z~Ghani,
+  L~Giacomelli, A~Klix, S~Loreti, K~Mikszuta, et~al.
+\newblock Activation measurements in support of the 14 mev neutron calibration
+  of jet neutron monitors.
+\newblock {\em Fusion Engineering and Design}, 125:50--56, 2017.
+
 \bibitem{Accelerator-basedANNUnfolding}
 T.~Kin, Y.~Sanzen, M.~Kamida, K.~Aoki, N.~Araki, and Y.~Watanabe.
 \newblock Artificial neural network for unfolding accelerator-based neutron
@@ -111,6 +118,11 @@ A~Klix, A~Domula, U~Fischer, D~Gehre, P~Pereslavtsev, and I~Rovni.
 \newblock Neutronics diagnostics for european iter tbms: Activation foil
   spectrometer for short measurement cycles.
 \newblock {\em Fusion Engineering and Design}, 87(7-8):1301--1306, 2012.
+
+\bibitem{Knoll2010}
+Glenn~F. Knoll.
+\newblock {\em Radiation Detection and Measurement}.
+\newblock Wiley, 2010.
 
 \bibitem{BirminghamUnfolding}
 Slobodan Krčevinac.
@@ -225,6 +237,13 @@ M.~Reginatto and P.~Goldhagen.
 \newblock Maxed, a computer code for maximum entropy deconvolution of
   multisphere neutron spectrometer data.
 \newblock {\em Health Phys.}, 77(5):579--83, 1999.
+
+\bibitem{ScintillationDetectorResponseFunction}
+K~Schweda and D~Schmidt.
+\newblock Improved response function calculations for scintillation detectors
+  using an extended version of the mcnp code.
+\newblock {\em Nuclear Inst. and Methods in Physics Research, A},
+  476(1-2):155--159, 2002.
 
 \bibitem{ParticleSwamp_NE-213}
 H.~Shahabinejad and M.~Sohrabpour.

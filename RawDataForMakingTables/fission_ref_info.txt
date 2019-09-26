@@ -1,0 +1,138 @@
+title & type & description & Measured/Calculated
+PR\_PWR\_CZECH\_6 & PR & Czech PWR, circ. pumps, near cold side, p2  & M
+PR\_BWR\_DUNG\_1 & PR & BWR, Dungeness, boiler cell  & M
+RFT\_PU\_3 & RFT & Pu reprocessing plant, fuel pin assembly  & M
+RFT\_MOX\_4 & RFT & Fresh MOX, borated water shield  & M
+PR\_GCR\_1 & PR & CH1 GC reactor  & M
+RFT\_PU\_2 & RFT & Pu reprocessing plant, well shielded  & M
+PR\_PWR\_CZECH\_2 & PR & Czech PWR, check room, under reactor, p5  & M
+PR\_BWR\_SW\_4 & PR & BWR (Switzerland), under access  & M
+PR\_GCR\_3 & PR & Trawsfynydd GC reactor, position S3  & M
+PR\_PWR\_CZECH\_4 & PR & Czech PWR, check room, under reactor, p13  & M
+PR\_BWR\_SW\_13 & PR & PWR (Switzerland), behind generator  & M
+UKAEA\_029\_EBR-2 & UKAEA\_PR & EBR-2 spectra in 29 energy groups & M
+PR\_BWR\_SW\_8 & PR & BWR (Switzerland), near lock, closed  & M
+PR\_PWR\_CZECH\_7 & PR & Czech PWR, circ. pumps, hot side, p3  & M
+PR\_BWR\_SW\_16 & PR & PWR (Switzerland), 33 cm behind door  & M
+UKAEA\_1102\_BWR-MOX-Gd-0 & UKAEA\_PR & BWR-MOX-Gd-0 spectra in 1102 energy groups & M
+UKAEA\_100\_HFIR-lowres & UKAEA\_PR & HFIR-lowres spectra in 100 energy groups & M
+UKAEA\_1102\_PWR-MOX-15 & UKAEA\_PR & PWR-MOX-15 spectra in 1102 energy groups & M
+BT\_FRM\_2 & BT & FRM II beam, unfiltered  & M
+RFT\_PU\_1 & RFT & Pu reprocessing plant, little shielding, location 1  & M
+PR\_BWR\_SW\_14 & PR & PWR (Switzerland), at reactor axis  & M
+PR\_PWR\_WOLFCREEK\_3 & PR & PWR, Wolf Creek, power 50%, 2026¢ level by valves  & M
+RFT\_PU\_USA\_4 & RFT & TRU plant, at conduit exit, less shielding  & M
+PR\_PWR\_CZECH\_13 & PR & Czech PWR, reactor hall, near cap, p10  & M
+IS\_TRU\_6 & IS & TRU plant, 25 g AmO2 in container  & M
+PR\_BWR\_SW\_2 & PR & BWR (Switzerland), at bend of maze  & M
+PR\_BWR\_CAORSO\_8 & PR & BWR, Caorso, position 4  & C
+PR\_PWR\_WOLFCREEK\_1 & PR & PWR, Wolf Creek, power 50%, at PH 2047¢ level  & M
+UKAEA\_1102\_PWR-UO2-Gd-15 & UKAEA\_PR & PWR-UO2-Gd-15 spectra in 1102 energy groups & M
+PR\_BWR\_DUNG\_3 & PR & BWR, Dungeness, on the walkway  & M
+PR\_BWR\_CAORSO\_3 & PR & BWR, Caorso, position 3  & M
+PR\_BWR\_SW\_5 & PR & BWR (Switzerland), at stairwell  & M
+BT\_LVR15\_1 & BT & LVR-15, epithermal beam  & C
+UKAEA\_1102\_BWR-MOX-Gd-15 & UKAEA\_PR & BWR-MOX-Gd-15 spectra in 1102 energy groups & M
+PR\_PWR\_CZECH\_10 & PR & Czech PWR, reactor hall, at cap, p7  & M
+IS\_TRU\_9 & IS & 25 Ci Am ceramics, no shield  & M
+RFT\_WWER\_CASK\_3 & RFT & Transport cask C30/KB54, in corridor at 45 cm  & M
+RFT\_WWER\_CASK\_1 & RFT & Transport cask C30/KB54, in a hall at 45 cm  & M
+PR\_GCR\_2 & PR & CH2 GC reactor  & M
+BT\_BMRR\_1 & BT & BMRR spectra, filtered by 34 cm Al/AlF3  & M
+UKAEA\_172\_Phenix & UKAEA\_PR & Phenix spectra in 172 energy groups & M
+PR\_TRAWS\_1 & PR & Trawsfynnydd, filter gallery  & M
+RFT\_TN12\_1 & RFT & TN-12 fuel container at Valognes  & M
+RFT\_PU\_USA\_1 & RFT & TRU plant, lightly shielded glovebox 1  & M
+RFT\_VALDUC\_1 & RFT & Pu reprocessing at Valduc  & M
+RFT\_PU\_USA\_2 & RFT & TRU plant, heavily shielded glovebox 1  & M
+PR\_HINKLEY\_2 & PR & Hinkley Point, filter gallery  & M
+BT\_ACCEPI\_1 & BT & Accelerator based epithermal beam  & M
+PR\_RINGHALS\_3 & PR & Ringhals, point P  & M
+UKAEA\_616\_HFR-high & UKAEA\_PR & HFR-high spectra in 616 energy groups & M
+PR\_BWR\_SW\_15 & PR & PWR (Switzerland), 40 cm behind door  & M
+PR\_BWR\_CAORSO\_4 & PR & BWR, Caorso, position 4  & M
+PR\_BWR\_SW\_6 & PR & BWR (Switzerland), 16 m level, near pump  & M
+BT\_BMRR\_1\_1 & BT & BMRR beam  & M
+PR\_BWR\_SW\_10 & PR & PWR (Switzerland), in front of containment  & M
+PR\_BWR\_CAORSO\_7 & PR & BWR, Caorso, position 3  & C
+RFT\_MOX\_2 & RFT & MOX transport cask, ver. 03  & M
+UKAEA\_198\_PWR-RPV & UKAEA\_PR & PWR-RPV spectra in 198 energy groups & M
+UKAEA\_407\_Bigten & UKAEA\_FIS & Bigten spectra in 407 energy groups & M
+UKAEA\_1102\_BWR-UO2-Gd-40 & UKAEA\_PR & BWR-UO2-Gd-40 spectra in 1102 energy groups & M
+BT\_BMRR\_2 & BT & BMRR spectra, filtered by 22 cm 7LiF  & M
+UKAEA\_1102\_PWR-UO2-15 & UKAEA\_PR & PWR-UO2-15 spectra in 1102 energy groups & M
+BT\_BMRR\_3 & BT & BMRR spectra, filtered by 17 cm D2O  & M
+RFT\_1393\_2 & RFT & Transport cask 1393(2)  & M
+BT\_BNCT\_PETTEN\_1 & BT & BNCT in Petten, HB11 filtered beam  & M
+BT\_FRM\_3 & BT & FRM II beam, filtered  & M
+UKAEA\_1102\_BWR-UO2-Gd-15 & UKAEA\_PR & BWR-UO2-Gd-15 spectra in 1102 energy groups & M
+PR\_PWR\_GOSGEN\_1 & PR & PWR, Gosgen, position 1  & M
+UKAEA\_198\_BWR-RPV & UKAEA\_PR & BWR-RPV spectra in 198 energy groups & M
+RFT\_PU\_USA\_5 & RFT & TRU plant, lightly shielded glovebox 2  & M
+PR\_RINGHALS\_4 & PR & Ringhals, point B2  & M
+IS\_TRU\_7 & IS & TRU plant, 244Cm in glovebox, no shield  & M
+PR\_BWR\_CAORSO\_2 & PR & BWR, Caorso, position 2  & M
+RFT\_PU\_USA\_3 & RFT & TRU plant, at operator desk  & M
+UKAEA\_1102\_PWR-UO2-0 & UKAEA\_PR & PWR-UO2-0 spectra in 1102 energy groups & M
+PR\_RINGHALS\_5 & PR & Ringhals, point B4  & M
+PR\_BWR\_CAORSO\_5 & PR & BWR, Caorso, position 1  & C
+PR\_PWR\_WOLFCREEK\_2 & PR & PWR, Wolf Creek, power 50%, 2 m from PH 2047¢ level  & M
+PR\_RINGHALS\_1 & PR & Ringhals, point D  & M
+PR\_BWR\_CAORSO\_6 & PR & BWR, Caorso, position 2  & C
+PR\_BWR\_SW\_7 & PR & BWR (Switzerland), 16 m level, near tap  & M
+UKAEA\_172\_Paluel & UKAEA\_PR & Paluel spectra in 172 energy groups & M
+RFT\_POLLUX\_2 & RFT & Pollux container above ground level  & M
+PR\_BWR\_CAORSO\_1 & PR & BWR, Caorso, position 1  & M
+PR\_PWR\_CP\_1 & PR & CP reactor, site 5, SPUNIT code  & M
+PR\_PWR\_CZECH\_8 & PR & Czech PWR, circ. pumps, near door, p4  & M
+PR\_BWR\_SW\_9 & PR & BWR (Switzerland), near lock, open  & M
+RFT\_MOX\_1 & RFT & MOX transport cask, ver. 02  & M
+PR\_PWR\_CP\_2 & PR & CP reactor, site 6, SPUNIT code  & M
+PR\_PWR\_CZECH\_3 & PR & Czech PWR, check room, in middle, p12  & M
+RFT\_WWER\_CASK\_4 & RFT & Transport cask C30/KB54, in corridor at 2 m  & M
+PR\_PWR\_CZECH\_11 & PR & Czech PWR, reactor hall, at valve, p8  & M
+IS\_TRU\_8 & IS & AmBe sources in gloveboxes in line  & M
+PR\_BWR\_SW\_11 & PR & PWR (Switzerland), 1 m from platform  & M
+UKAEA\_070\_Cf252 & UKAEA\_IS & Cf252 spectra in 70 energy groups & M
+UKAEA\_1102\_PWR-MOX-40 & UKAEA\_PR & PWR-MOX-40 spectra in 1102 energy groups & M
+PR\_PWR\_CZECH\_12 & PR & Czech PWR, reactor hall, at generator, p9  & M
+UKAEA\_1102\_PWR-MOX-0 & UKAEA\_PR & PWR-MOX-0 spectra in 1102 energy groups & M
+PR\_HINKLEY\_1 & PR & Hinkley Point, pile cap  & M
+BT\_ACC\_2 & BT & Gantry spectrum  & C
+PR\_PWR\_WOLFCREEK\_4 & PR & PWR, Wolf Creek, power 100%, at PH 2047¢ level  & M
+PR\_PWR\_CZECH\_9 & PR & "Czech PWR, circ. pumps, 4 & 4, p11 " & M
+PR\_BWR\_SW\_3 & PR & BWR (Switzerland), at drywell  & M
+UKAEA\_1102\_BWR-UO2-Gd-0 & UKAEA\_PR & BWR-UO2-Gd-0 spectra in 1102 energy groups & M
+BT\_ACC\_1 & BT & Accelerator based spectrum, 2.5 MeV protons on 7Li  & C
+RFT\_POLLUX\_1 & RFT & Pollux container in salt mine  & M
+RFT\_LK100\_1 & RFT & LK-100 fuel container at La Hague, position1  & M
+UKAEA\_616\_HFR-low & UKAEA\_PR & HFR-low spectra in 616 energy groups & M
+RFT\_MOX\_5 & RFT & Fresh MOX, no shield  & M
+RFT\_NTL\_1 & RFT & Transport cask NTL-111, at 115 cm  & M
+RFT\_HANAU\_1 & RFT & Fission material deposition, BS measurements  & M
+PR\_PWR\_WOLFCREEK\_5 & PR & PWR, Wolf Creek, power 100%, 2026¢ level at loop penetration  & M
+UKAEA\_172\_Superphenix & UKAEA\_PR & Superphenix spectra in 172 energy groups & M
+RFT\_WWER\_CASK\_2 & RFT & Transport cask C30/KB54, in a hall at 2 m  & M
+RFT\_MOX\_3 & RFT & New MOX at 20 cm, no shield  & M
+PR\_PWR\_CZECH\_5 & PR & Czech PWR, check room, corridor, p6  & M
+PR\_PWR\_CP\_4 & PR & CP reactor, site 4, YOGI code  & M
+RFT\_HANAU\_2 & RFT & Fission material deposition, LS measurements  & M
+UKAEA\_1102\_PWR-UO2-40 & UKAEA\_PR & PWR-UO2-40 spectra in 1102 energy groups & M
+PR\_GCR\_4 & PR & Trawsfynydd GC reactor, position S4  & M
+UKAEA\_1102\_PWR-UO2-Gd-40 & UKAEA\_PR & PWR-UO2-Gd-40 spectra in 1102 energy groups & M
+PR\_RINGHALS\_2 & PR & Ringhals, point E  & M
+BT\_SPALL\_1 & BT & Spallation source, 72 MeV protons on W  & C
+RFT\_LK100\_2 & RFT & LK-100 fuel container at La Hague, position 2  & M
+PR\_BWR\_SW\_12 & PR & PWR (Switzerland), 3 m from platform  & M
+PR\_PWR\_GOSGEN\_2 & PR & PWR, Gosgen, position 2  & M
+UKAEA\_1102\_PWR-UO2-Gd-0 & UKAEA\_PR & PWR-UO2-Gd-0 spectra in 1102 energy groups & M
+RFT\_PU\_5 & RFT & Pu reprocessing plant, little shielding, location 5  & M
+RFT\_NTL\_2 & RFT & Transport cask NTL-111, at 367 cm  & M
+RFT\_PU\_4 & RFT & Pu reprocessing plant, little shielding, location 4  & M
+PR\_PWR\_CP\_3 & PR & CP reactor, site 4, SPUNIT code  & M
+PR\_PWR\_CZECH\_1 & PR & Czech PWR, circ. pumps, cold side, p1  & M
+PR\_BWR\_DUNG\_2 & PR & BWR, Dungeness, on the roof  & M
+BT\_FRM\_1 & BT & FRM I beam  & M
+RFT\_1392\_1 & RFT & Transport cask 1392(1)  & M
+UKAEA\_1102\_BWR-MOX-Gd-40 & UKAEA\_PR & BWR-MOX-Gd-40 spectra in 1102 energy groups & M
+PR\_BWR\_SW\_1 & PR & BWR (Switzerland), at maze entrance  & M

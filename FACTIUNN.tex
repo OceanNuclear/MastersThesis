@@ -92,38 +92,41 @@ Include these things:
     
 %Bullshit something about the importance of Fusion later in this paper.
 
-In a fusion reactor, the neutron fluence can go up to as high as $1.6 \times 10^{21}$[citation needed]. (For JET, [citation needed]; for ITER, [citation needed]). This leads to an unprecedented need of shielding against neutrons of up to 14.1 MeV or higher energies, which has not been experienced in fission reactors before [citation needed].
+In a fusion reactor, the neutron fluence can go up to as high as $1.7 \times 10^{21}$\cite{14MeVNNeutonYieldCalibration-JET}.
+This leads to an unprecedented need of shielding against neutrons of up to 14.1 MeV or higher energies.
 
-Neutrons are notoriously difficult to shield against due to their uncharged nature, and therefore low propensity to interact with matter[citation needed]. To develop effective shielding for various components of the reactor from these high energy neutrons, the energy spectrum of the neutrons created inside the nuclear reactor has to be well understood \cite{TechnologicalExploitationOfDT}. It is also important to understand the neutron spectrum inside the reactor in order to develop Tritium breeding modules, which is essential for making fusion a sustainable source of clean energy \cite{TBMD_Design}. Last but not least, the power output of future fusion power plants can only be quantified when the neutron spectrum is characterised \cite{FusionYieldMeasurementOnJETAndTheirCalibration}.
+Neutrons are notoriously difficult to shield against due to their uncharged nature, and therefore low propensity to interact with matter[citation needed]. To develop effective shielding for various components of the reactor from these high energy neutrons, the energy spectrum of the neutrons created inside the nuclear reactor has to be well understood \cite{TechnologicalExploitationOfDT}.
+
+It is also important to understand the neutron spectrum inside the reactor in order to develop Tritium breeding modules; a Tritium Breeding Ratio $TBR>1$ is essential for making fusion a sustainable source of clean energy \cite{TBMD_Design}.
 %Can expand on the Tritium breeding part.
+Last but not least, the power output of future fusion power plants can only be quantified when the neutron spectrum is characterised \cite{FusionYieldMeasurementOnJETAndTheirCalibration}.
 An accurate measurement of the neutron spectrum is required to properly model the energy distribution of neutrons to be used in neutron transport simulations for the above purposes.
 % Additionally, knowing the energy distribution of neutrons is beneficial to advancing the current understanding of the the nuclear processes and scattering interactions inside the reactor [citation needed].
 
-Therefore, neutron energy measurement is a key focus [rewording needed] in the diagnostic systems in all fusion reactors.
+All of the above activities relies on having accurate knowledge of the neutron spectrum. Therefore neutron spectroscopy is a key focus in the diagnostic systems in all fusion reactors.
 
-Ironically, for the same reason that they are difficult to shield against, neutron energy is also difficult to measure. Neutrons, especially high energy neutrons such as the 14.1 MeV neutrons created in fusion reactors, do not easily deposit their full energy into a sufficiently small detection volume to allow direct measurement[citation needed]. Various neutron detectors has been developed to deal with this problem[citation needed] ;%Cite any neutron detector, e.g. organic
+Incidentally, for the same reason that they are difficult to shield against, neutron energy is also difficult to measure. Neutrons, especially high energy neutrons such as the 14.1 MeV neutrons created in fusion reactors, do not easily deposit their full energy into a sufficiently small detection volume to allow direct measurement\cite{Knoll2010}. Various neutron detectors has been developed to deal with this proble;%Cite any neutron detector, e.g. organic
 %Including magnetic proton recoil?
 %And fission chambers (energy indep), neutron cameras
-however, most of them cannot stand this high neutron fluence that is found at the first wall of fusion reactors without additional shielding that changes the flux profile, defeating the objective of trying to measure neutrons energy distribution with minimal disturbance to the spectrum itself.[citation needed]
+however, most of them cannot stand this high neutron fluence at the first wall of fusion reactors without additional shielding that changes the flux profile \cite{ScintillationDetectorResponseFunction}.
 The extreme temperature and magnetic fields inside the nuclear fusion reactor compounds the difficulty of employing other means of neutron measurement as most electronics will not be able to function in such environments effectively. \cite{CCDCameraDamage}
 %List the other two, but say that neutron activation stands out in the following way:
 
-This is where the technique of neutron activation stands out: 
+This is where the technique of activation foil unfolding stands out: By analyzing the level of activations in various elements induced by neutrons, relying on the variation of reaction cross-sections across different elements and energies, one can infer the neutron spectra that was previously present at the first wall.
 
-By analyzing the level of activations in various elements induced by neutrons, relying on the fact that different reactions has different sizes of reaction cross-sections, each with varying sensitivities to neutrons of different energies, one can infer the neutron spectra that was previously present at the first wall.
+This is a very robust method as it does not require any active components, thus can be employed for very high neutron fluxes \cite{NSpecHistoricalReviewAndPresentStatus}, as the total number of neutron activation reactions can be controlled by changing the volume of the activation foils used \cite{bethColling_TBMD} according to the anticipated neutron fluence in the next irradiation period, so not to paralyze the $\gamma$ radiation detector. It is also insensitive to $\gamma$ rays, thus removing most of the challenges facing mixed-field spectrometry. \cite{NeutronSpectrometryInMixedFieldsMultiSphereSpectrometers}
 
-This is a very robust method as it does not require any active components, thus can be employed for very high neutron fluxes and fluences\cite{NSpecHistoricalReviewAndPresentStatus}, as the total number of neutron activation reactions can be controlled by changing the thickness of the activation foils used \cite{bethColling_TBMD} according to the anticipated neutron fluence in the next irradiation period, so not to paralyze the $\gamma$ radiation detector. It is also insensitive to $\gamma$ rays, thus removing most of the challenges facing mixed-field spectrometry. \cite{NeutronSpectrometryInMixedFieldsMultiSphereSpectrometers}
+The disadvantage of this method is that it has to be time-integrated over the whole irradiation period, thus no information about the temporal variation in the neutron spectrum can be gleamed from its measurements.
 
-The disadvantage of this method is that it has to be time-integrated (over the whole irradiation period), i.e. no information about the temporal variation in the neutron spectrum can be extracted.
-
-Another disadvantage of using neutron activation as the means of measuring the neutron spectrum in a fusion reactor is that it is an indirect method of measurement, requiring the measured reaction rates to be `unfolded' back into reaction rates. This is a `mathematically incorrectly posed ' problem\cite{BirminghamUnfolding}, as will be further explained in the next section (\ref{Neural Network Theory}), requiring an \emph{a priori} spectrum to be provided before the unfolding procedure can take place. This is because the number of activities recorded (usually denoted as M) is fewer than the number of neutron groups (usually denoted as N) of whose activity we would like to know, i.e. M$<$N, thus the problem is underdetermined (the number of contraints is fewer than the number of variables). The \emph{a priori} has to be used in order to introduce extra information into the problem. However, if this \emph{a priori} spectrum deviates too much from the actual spectrum, then the result of the unfolding will be inaccurate.
+Another disadvantage of using neutron activation as the means of measuring the neutron spectrum in a fusion reactor is that it is an indirect method of measurement, requiring the measured reaction rates to be `unfolded' back into reaction rates. This is a `mathematically incorrectly posed ' problem\cite{BirminghamUnfolding}, as will be further explained in the next section (\ref{Neural Network Theory}), requiring an initial guess spectrum to be provided before the unfolding procedure can take place. This is because the number of reaction channels recorded (usually denoted as M) is fewer than the number of neutron groups (usually denoted as N) whose neutron flux we would like to know, i.e. M$<$N, thus this problem is underdetermined (the number of contraints is fewer than the number of variables). The \emph{a priori} has to be used in order to introduce extra information into the problem. However, if this \emph{a priori} spectrum deviates too much from the actual spectrum, then the result of the unfolding will be inaccurate.
 
 To address this problem, an investigation into using neural networks for the purpose of unfolding is presented in this thesis.
 Neural networks excels in incorperating previous spectra as \emph{a priori} information, without requiring users to explicitly input an \emph{a priori}.
+% It effectively incorperates multiple spectra together as the \emph{a priori}; while MAXED and GRAVEL uses only 1.
 Two approaches are proposed. The first one is to use neural networks directly as an unfolding tool; and the second one is to use them as an \emph{a priori} generator, which is then fed into an existing unfolding code, where the actual neutrons spectra is then calculated out of.
 
 \section{Theory}
-When a nuclide is placed in the activation module at the irradiation position inside a nuclear fusion reactor (or any other neutron sources), it is activated via one or more nuclear reactions with the incoming neutrons. The probability of interacting with the incoming neutron via reaction $j$ is proportional to the microscopic cross-section $\sigma_j (E)$, where $E$ is the neutron's energy, and reaction $j$ is a neutron-induced reaction, i.e. (n,??) reaction.
+When a nuclide is placed in the activation module at the irradiation position inside a nuclear fusion reactor (or any other neutron sources), it is activated via one or more nuclear reactions with the incoming neutrons. The probability of interacting with the incoming neutron via reaction $j$ is proportional to the microscopic cross-section $\sigma_j (E)$, where $E$ is the neutron's energy, and reaction $j$ is a neutron-induced reaction, i.e. (n,\textit{any}) reaction.
 
 % The measured activity = (count rate)/(absolute efficiency of set-up at energy for decay of daughter j) /(count period);
 % The total number of reaction $j$ = (measured activity)/(probability of daughter's gamma decay per second)
@@ -485,7 +488,7 @@ NIF-ignition & Inertial confinement fusion, NIF ignited\\
 \end{table}
 The data were rebinned into a modified Vitamin-J group structure, where the last 4 (highest energy) bins are discarded to avoid the need of extrapolating some of the spectra beyond their recorded energy ranges.
 
-Each neutron spectrum was parametrised as a sum of 3-7 normal and log-normal distributions(see Figure~\ref{Parametrisation}). The full table of the parameters used to parametrise the spectra is listed in Table~\ref{ParametrisationParameters}. The parametrisation was carried out using a parameterised code currently under development at CCFE. %citation needed
+Each neutron spectrum was parametrised as a sum of 3-7 normal and log-normal distributions(see Figure~\ref{Parametrisation}). The full table of the parameters used to parametrise the spectra is listed in Table~\ref{ParametrisationParameters}. The parametrisation was carried out using a parameterised code currently under development at CCFE.
 
 Each simulated new spectrum is created using the following procedure: using the parametrised representation of one of the above spectra, 40\% of these distributions in the parametrised representation were randomly selected to have their amplitudes of scaled up/down by a random factor(picked from a lognormal distribution with $\mu =0, \sigma = 1$), leaving the remaining 60\% of them un-perturbed.
 
@@ -634,7 +637,7 @@ Optimizer algorithm & using the Adam optimizer\cite{AdamOptimizer} with its defa
 \textbf{metric used to calculate loss value} & ranges from equation \ref{MSE} to \ref{MPSE_including_folded_reaction_rates}\\
 \textbf{training set} & Either fusion spectra or fission spectra is used; if fusion spectra is used, then only 80\% (15 spectra) are used as the training set (drawn at random), the remaining 20\%(4) are reserved for testing. \\
 testing set & fusion spectra\\
-validation set & 20\% of the test set, drawn at random
+validation set & 20\% of the testing set, drawn at random
 \end{tabularx}
 \caption{Hyperparameters chosen for building neural networks for investigations}\label{HyperparameterRange}
 \end{table}
@@ -647,9 +650,9 @@ For each group of the data, the resulting loss values, MAE, MSE, and std-dev-log
 
 \begin{figure}
 \centering
-\includegraphics[width=15cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/mse_including_folded/fusion-fusion_mse_inc_folded_test_loss.png}
+\includegraphics[width=\linewidth]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/mse_including_folded/fusion-fusion_mse_inc_folded_test_loss.png}
 \caption{Heatmap visualizing the loss values of the nerual networks' prediction on the test dataset.}\label{hyperparametersearchTestLoss}
-Each square represents a neural network with a particular set of hyperparameters, i.e. learning rate and number of layers. The learning rate increases logarithmically across the x-axis; while the number of layers increase linearly across the y-axis. The number of nodes per layer is increased logarithmically from 32 to 256 (if the number of layers $\ge 2$).\\
+Each square represents a neural network with a particular set of hyperparameters, i.e. learning rate and number of layers. The learning rate increases logarithmically across the x-axis; while the number of layers increase linearly across the y-axis. The number of nodes per layer is increased logarithmically from 32 to 256 (if the number of hidden layers $\ge 2$).\\
 Neural networks which performs better has lower loss values, and are represented with darker colours.\\
 \end{figure}
 
@@ -695,13 +698,13 @@ But in the end it was concluded that this 5-hidden-layer neural network likely o
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_002_}
 \caption{Water-cooled ceramic breeder blanket TOKAMAK's first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionWCCB-FW}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_003_}
 \caption{Helium-cooled LiPb TOKAMAK's spectrum at the vacuum vessel, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionHCLL-VV}
 \end{figure}
 
@@ -733,13 +736,13 @@ Therefore to fairly compare a neural network against the usual unfolding codes, 
 \end{figure}
     
 While MAXED performed very poorly when given a flat \emph{a priori}, GRAVEL was able to unfold a neutron spectrum from the flat \emph{a priori}, though with an underestimated low energy region and overestimated high energy range neutrons.
-An RMS value (as defined in equation\ref{RMS}) of 10.188233 was obtained when comparing the unfolded spectra against the true spectra in log space.
+An MSE value (as defined in equation\ref{MSE}) of 10.188233 was obtained when comparing the unfolded spectra against the true spectra in log space.
 
 \begin{figure}
 \centering
     \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_gravel_test_001_}
     \caption{JET first wall spectrum as unfolded by GRAVEL upon using a flat neutron spectrum as the \emph{a priori}}\label{gravel_flat_a_priori_JET}
-    An average RMS value (as defined in equation\ref{RMS}) of 10.188233 was obtained when comparing the unfolded spectra against the 4 true spectra in testing set.
+    An average MSE value (as defined in equation\ref{MSE}) of 10.188233 was obtained when comparing the unfolded spectra against the 4 true spectra in testing set.
 \end{figure}
 
 While the best performing neural network (Figure~\ref{5Layerfusion-fusionJET-FW}) gives a slightly better result, both Figure~\ref{5Layerfusion-fusionJET-FW} and Figure~\ref{gravel_flat_a_priori_JET} are far from being applicable to real neutron spectrum unfolding, where the unfolding accuracy is much higher (currently the unfolded spectrum gives a total flux that differs from measured total flux by $\pm 7\%$\cite{bethColling_TBMD}).
@@ -747,7 +750,7 @@ While the best performing neural network (Figure~\ref{5Layerfusion-fusionJET-FW}
 \subsubsection{As an a priori generator}
 An alternative method of utilise the neutron spectra predicted by the neural network is by using it as the \emph{a priori} it self. This can potentially save many hours of MCNP modelling for the purpose of neutron spectrum unfolding, as the response matrix does not need to be known.
 
-However, this is rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. An average RMS value of 9.89936 was achieved.
+However, this is rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. An average MSE value of 9.89936 was achieved.
 % This is likely because the flux overestimation at the $\le 14.1MeV$ bins leads to a l
 
 And MAXED produced result that are also as meaningless as Figure~\ref{maxed_flat_a_priori_JET}, as the log of the flux in some bins tends to negative infinity.
@@ -767,7 +770,7 @@ And MAXED produced result that are also as meaningless as Figure~\ref{maxed_flat
 \subsection{An attempt at using fission data to predict fusion data}
 While fusion spectra are scarce, there is an abundant database of fission neutron spectra. Therefore, it would be ideal if neural networks trained on fission spectra can use it to explain fusion spectra, as we will not run into the issue of not having enough data.
 
-Therefore, the results of the second group of neural networks (trained on fission spectra, tested on fusion spectra) were examined. But even the best one of them performed very poorly. It uses an RMS loss value equation~\ref{RMS} giving a testing loss of 16.767817. Closer examination of its prediction shows that it is unsuitable for the neutron spectra.
+Therefore, the results of the second group of neural networks (trained on fission spectra, tested on fusion spectra) were examined. But even the best one of them performed very poorly. It uses an MSE loss value equation~\ref{MSE} giving a testing loss of 16.767817. Closer examination of its prediction shows that it is unsuitable for the neutron spectra.
 
 \begin{figure}[H]
 \centering
@@ -799,7 +802,8 @@ Fusion neutron spectra unfolding suffer from the fundamental problem of not havi
     \item What's the loss values
     \item achieved using what topology of NN
     \item trained upon what data
-    \item How does it compare to neutron spectrum unfolding using other methods
+    \item How does it compare to neutron spectrum unfolding using GRAVEL and MAXED
+    \item Can we use Fission data to train it? (no)
     \item What's the significance on the unfolding community: should they use it more? Should they improve upon it?
     \item what additional observation did you find regarding training on different dataset.
 \end{itemize}
