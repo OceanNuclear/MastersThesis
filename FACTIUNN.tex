@@ -466,24 +466,47 @@ As expected, larger deviations were observed when the absolute value of $\phi_{0
 
 \subsection{Underdetermined case}
 % Creating simulated spectra by data augmentation
-To demonstrate that the neural network is capable of doing the unfolding procedure in an underdetermined condition, 1800 spectra were made to train the neural network. They are generated from 300
-%To create a large enough dataset, [explain parametrisation]
-%Commonly used practice in Neural network is to introduce noise into the photos; But we can't just add random noise into the spectra and expect it to unfold the noise as well because adding meaningless information in case of an under-determined information condition will sqeeze away useful information out of the way.
-Further increase in complexities (number of layers and numebr of nodes per layers) yield no significant improvement in the fit. This is because increasing the complexity further will simply lead to over-fitting, as the neural network `memorizes' the relationship between features and labels. This was reflected by the continual decrease in the loss value over the training dataset, while the loss value over the validation dataset stops improving.
+To demonstrate that the neural network is capable of performing the unfolding procedure in an underdetermined condition, 2100 spectra were made from 7 fusion neutron spectra, and then used to train and test the neural network. The 7 spectra used are listed in Table~\ref{DataAugmentationSource}.
 
+\begin{table}
+\begin{tabularx}{\textwidth}{ccX}
+Code & reactor\\
+\hline
+JAEA-FNS & JAEA Fusion Neutron Source D-T\\
+Frascati-NG & ENEA Frascati Neutron Generator D-T\\
+ITER-DD & Magnetic confinement fusion, ITER D-D\\
+ITER-DT & Magnetic confinement fusion, ITER D-T\\
+DEMO-HCPB-FW & DEMO fusion concept He-cooled pebble bed, first wall\\
+JET-FW & Joint European Torus, first wall vacuum vessel\\
+NIF-ignition & Inertial confinement fusion, NIF ignited\\
+\end{tabularx}
+\caption{The neutron spectra used as the starting point for creating more simulated fusion neutron spectra, obtained from \cite{FISPACT_reference_spectra} }\label{DataAugmentationSource}
+\end{table}
+The data were rebinned into a modified Vitamin-J group structure, where the last 4 (highest energy) bins are discarded to avoid the need of extrapolating some of the spectra beyond their recorded energy ranges.
+
+Each neutron spectrum was parametrised as a sum of 3-7 normal and log-normal distributions(see Figure~\ref{Parametrisation}). The full table of the parameters used to parametrise the spectra is listed in Table~\ref{ParametrisationParameters}. The parametrisation was done using the code in JET. %citation needed
+
+Each simulated new spectrum is created using the following procedure: using the parametrised representation of one of the above spectra, 40\% of these distributions in the parametrised representation were randomly selected to have their amplitudes of scaled up/down by a random factor(picked from a lognormal distribution with $\mu =0, \sigma = 1$), leaving the remaining 60\% of them un-perturbed.
+
+This process was repeated 300 times per spectrum in Table~\ref{DataAugmentationSource}, giving the 2100 spectra in Figure~\ref{SimulatedCollection}.
+
+% Further increase in complexities (number of layers and numebr of nodes per layers) yield no significant improvement in the fit. This is because increasing the complexity further will simply lead to over-fitting, as the neural network `memorizes' the relationship between features and labels. This was reflected by the continual decrease in the loss value over the training dataset, while the loss value over the validation dataset stops improving.
 \begin{figure}
 \centering
     \begin{subfigure}[b]{.3\linewidth}
-        \includegraphics[height=4cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/6_JET_FW_parametrised_spectrum_approximation_.png}
-        \caption{An example of parametrisation performed on the JET spectra. These flux values are the total flux inside each energy bin, \emph{not} divided by the lethargy span of each bin, so they are higher/lower in wider/narrower energy bins.}
+        \includegraphics[height=4cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/7_NIF_Ignition.png}
+        \caption{An example of parametrisation performed on the the NIF spectra. These flux values are the total flux inside each energy bin, \emph{not} divided by the lethargy span of each bin, so they are higher/lower in wider/narrower energy bins. The top plot is the initial guess parametrisation, the bottom plot is the final parametrised spectrum.}\label{Parametrisation}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{.65\linewidth}
         \includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/_256_256_mse_training_spectra.png}
-        \caption{300 $\times$ 6 perturbed spectra were generated for each of the 6 original fusion spectra and plotted here, in flux per unit lethargy.}
+        \caption{300 perturbed spectra were generated for each of the 7 original fusion spectra and plotted here, in flux per unit lethargy.}\label{SimulatedCollection}
     \end{subfigure}
-\caption{Data augmentation performed to create simulated spectra.}\label{Parametrisation}
+\caption{Data augmentation performed to create simulated spectra.}
 \end{figure}
+Four neural networks were created, each with 
+
+The purpose of this was to show that the neural network
 
 \begin{figure}
 \centering
@@ -499,7 +522,7 @@ Further increase in complexities (number of layers and numebr of nodes per layer
     \end{subfigure}
 \caption{The neural network's attempt at predicting a perturbed JET first wall spectrum.} \label{SimulatedExample}
 \end{figure}
-After being trained on variants of the same spectrum (only with slighly different peak heights), along with the perturbed spectra of 6 other fusion neutron sources.
+% After being trained on variants of the same spectrum (only with slighly different peak heights), along with the perturbed spectra of 6 other fusion neutron sources.
 
 It should be trying to approximate the underlying pattern,
 In deed it does quite well.
@@ -716,7 +739,7 @@ For the record, this optimal neural network has the hyperparameters of (learning
 \bibliographystyle{plain}
 \bibliography{FACTIUNN}
 
-% \begin{appendices}
+%\begin{appendices}
 
 % \section{Neural network building functions tailored for the purpose of neutron spectrum unfolding}
 % The following contains the class in which the neural network is built.\\
@@ -761,7 +784,59 @@ For the record, this optimal neural network has the hyperparameters of (learning
 % When given the names of the training- and testing-set, the following code show the loss values (and other metrics) of the neural networks with different hyperparameters achieved on them. This is plotted as a heat map, over the two dimensions of hyperparameters varied, which are `number of layers' (y-axis) and `learning rate' (x-axis) respectively.\\
 % \pythoncode{hyperparameteroptimizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroptimizer.py}
 
-% \end{appendices}
+\section{Parametrisation of the FISPACT reference spectra}
+\begin{table}
+\begin{tabular}{ccccccc}
+distribution&$\mu$&$\sigma$&A&$\mu_{corr}$&$\sigma_{corr}$&$A_{corr}$\\
+\hline
+log-normal&-1.48e+01&1.20e+00&1.00e+00&1.0&0.6536070787201796&0.6465171468399362\\
+log-normal&-1.17e+01&1.20e+00&5.54e+01&1.0&0.6923014193474084&0.41834840464375106\\
+log-normal&-8.61e+00&1.20e+00&3.07e+03&1.0&0.5802541895436414&0.3391941243798774\\
+log-normal&-5.52e+00&1.20e+00&1.70e+05&1.0&0.769982827091882&0.5451675762326162\\
+log-normal&-2.43e+00&1.20e+00&9.40e+06&1.0&0.6705439760036781&0.6056530392573959\\
+log-normal&6.55e-01&1.20e+00&5.20e+08&1.0&0.6485812808091918&0.6213932412543168\\
+log-normal&3.74e+00&1.20e+00&2.88e+10&1.0&0.33687762989691133&1.754564218248171\\
+\hline
+log-normal&-1.44e+01&1.50e+00&1.00e+09&1.0&1.1087020488776023&1.2837241483881578\\
+log-normal&-8.60e+00&1.50e+00&3.22e+11&1.0&0.7012835343191862&0.6774642293787084\\
+log-normal&-2.83e+00&1.50e+00&1.04e+14&1.0&0.9732542967472964&1.0011605034609532\\
+log-normal&2.94e+00&1.50e+00&3.33e+16&1.0&0.9872173030484698&0.99379684387792\\
+normal&1.41e+01&4.00e-01&1.00e+19&1.023&1.0500657332932959&1.128662095083972\\
+\hline
+log-normal&-1.54e+01&1.10e+00&1.00e+03&1.0&1.0295086712444834&1.0871973190897086\\
+log-normal&-1.18e+01&1.10e+00&3.59e+04&1.0&1.0470576309590907&1.1133327728488918\\
+log-normal&-8.26e+00&1.10e+00&1.29e+06&1.0&0.9512570373593815&1.0428424889188541\\
+log-normal&-4.67e+00&1.10e+00&4.64e+07&1.0&1.1561895212201019&1.1532829852822521\\
+log-normal&-1.09e+00&1.10e+00&1.67e+09&1.0&1.0181223850843093&1.018626898626218\\
+normal&1.41e+01&4.00e-01&1.00e+10&1.0&1.32722437503459&1.8671520930196117\\
+normal&2.45e+00&1.00e-01&1.00e+12&1.0&0.8152984470618088&0.5530754449242801\\
+\hline
+log-normal&-1.26e+01&2.00e+00&1.00e+05&1.0&1.094149298940297&1.17454890924765\\
+log-normal&-7.12e+00&2.00e+00&2.47e+07&1.0&1.7120265659905378&1.12525321665773\\
+log-normal&-1.61e+00&2.00e+00&6.08e+09&1.0&1.2209065015914118&1.5577920026942778\\
+log-normal&3.89e+00&2.00e+00&1.50e+12&1.0&1.0538009149767102&1.5525710802981993\\
+normal&1.41e+01&4.00e-01&1.00e+14&1.0&0.9946385566258605&1.1958058458498946\\
+\hline
+log-normal&3.00e+00&2.00e+00&1.00e+13&1.0&0.985831182477408&1.191099325784018\\
+log-normal&-3.20e+00&2.00e+00&1.00e+11&1.0&1.0163826189572225&1.037504496747917\\
+normal&1.41e+01&4.00e-01&1.00e+14&1.0&1.132214159680078&1.3221159758391146\\
+\hline
+log-normal&-5.60e+00&2.30e+00&4.00e+05&1.0&0.912896343655827&0.9707283164160951\\
+log-normal&-4.80e+00&5.00e-01&1.00e+06&1.0&0.9724734344690737&1.3093741751167056\\
+log-normal&3.00e+00&1.80e+00&5.00e+09&1.0&1.1626572027366295&0.8373153796607655\\
+normal&1.41e+01&4.00e-01&1.00e+10&1.0&1.1868044101095476&1.555176012813058\\
+\hline
+normal&1.35e+01&2.00e+00&2.00e+20&1.0&1.0094598165344801&1.0398929376955228\\
+log-normal&-2.40e+00&3.50e-01&1.00e+14&1.0&0.9999755394847119&1.0437028488962274\\
+log-normal&-1.43e+00&3.50e-01&5.54e+14&1.0&1.0040524756949494&1.2576232255047286\\
+log-normal&-4.47e-01&3.50e-01&3.07e+15&1.0&1.0213050801706227&1.2668031933646988\\
+log-normal&5.31e-01&3.50e-01&1.70e+16&1.0&1.0185780833110203&1.3543132306863206\\
+log-normal&1.51e+00&3.50e-01&9.40e+16&1.0&1.0622261078184665&1.1481233202529897
+\end{tabular}
+\caption{In descending order: each section represents the parameters used to parametrise the spectra of: JAEA-FNS, Frascati-NG, ITER-DD, ITER-DT, DEMO-HCPB-FW, JET-FW, NIF-Ignition. The 2-4${}^{th}$ columns indicate the guess value inputted, while the last 3 columns indicate the correction factor multiplied onto them. E.g. $\mu_{final} = \mu * \mu_{corr}$}\label{ParametrisationParameters}
+\end{table}
+
+\end{appendices}
 
 \end{document}
 
