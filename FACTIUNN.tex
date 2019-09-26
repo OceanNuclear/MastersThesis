@@ -245,7 +245,7 @@ Some programs, such as GRAVEL\cite{ManfredMatzkeHEPRO} and SAND-II\cite{SAND-II}
 Current fusion neutron measurements relies on MCNP simulations heavily to supplement their unfolding procedure. They use MCNP model of thre reactor to calculate a neutron spectrum, which is used as the \emph{a priori} \cite{MatzkeUnfoldingProcedure} \cite{InternalReportOnDeliverables_LWP}; and the response matrix is usually obtained in the same way as well \cite{bethColling_TBMD}.
 
 \subsection{Neural Networks} \label{Neural Network Theory}
-Neuralnetworks, on the other hand, learns the relationship between reaction rates and the original neutron spectrum. Ideally it will make use of information in previous neutron spectra, effectively bypassing the problem of underdetermination.
+Neural networks, on the other hand, learns the relationship between reaction rates and the original neutron spectrum. Ideally it will make use of information in previous neutron spectra, effectively bypassing the problem of underdetermination.
 
 A typical neural network learns the relationship between the inputs (the two nodes in the leftmost layer in Figure~\ref{SimpleNNArchitecture}) and outputs (the node in the rightmost layer in Figure~\ref{SimpleNNArchitecture}) of a function via training, thus becoming an approximator for that function.
 
@@ -465,7 +465,7 @@ The loss function used is as defined in equation~\ref{MSE}.
 
 As expected, larger deviations were observed when the absolute value of $\phi_{0i}$ is high, as the loss value contribution from each $\phi_{pred\:i}$ is proportional to $\frac{log_{10}(\phi_{0i})}{log_{10}(\phi_{pred\:i})}$
 
-\subsection{Underdetermined case}
+\subsection{Underdetermined case}\label{Underdetermined case}
 % Creating simulated spectra by data augmentation
 To demonstrate that the neural network is capable of performing the unfolding procedure in an underdetermined condition, 2100 spectra were made from 7 fusion neutron spectra, and then used to train and test the neural network. The 7 spectra used are listed in Table~\ref{DataAugmentationSource}.
 
@@ -545,7 +545,7 @@ The last row in Table~\ref{SimulatedLoss} is defined as
 This quantity measures the sum of squares of deviation of reaction rates in log space,
 where $Z_{pred}$ is obtained via equation \ref{unfolding general equation prediction}.
 
-An examlpe of the second neural network's prediction is shown in Figure~\ref{SimulatedExample} .
+An examlpe of the second neural network's prediction is shown in Figure~\ref{SimulatedExample}.
 
 \begin{figure}
 \centering
@@ -632,7 +632,9 @@ number of nodes in each layer & with refernce to Table~\ref{NNtopology}, the fir
 Optimizer algorithm & using the Adam optimizer\cite{AdamOptimizer} with its default parameters (except for the learning rate, which is specified below), as it is a widely used algorithm in various machine learning projects.\\
 \textbf{learning rate} & ranges from $10^{-2}$ to $10^{-2}$, logarithmically spaced, 6 steps per decade.\\
 \textbf{metric used to calculate loss value} & ranges from equation \ref{MSE} to \ref{MPSE_including_folded_reaction_rates}\\
-\textbf{Training set} & Either fusion spectra or fission spectra were used.\\
+\textbf{training set} & Either fusion spectra or fission spectra is used; if fusion spectra is used, then only 80\% (15 spectra) are used as the training set (drawn at random), the remaining 20\%(4) are reserved for testing. \\
+testing set & fusion spectra
+validation set & 20\% of the test set, drawn at random
 \end{tabularx}
 \caption{Hyperparameters chosen for building neural networks for investigations}\label{HyperparameterRange}
 \end{table}
@@ -651,49 +653,65 @@ Each square represents a neural network with a particular set of hyperparameters
 Neural networks which performs better has lower loss values, and are represented with darker colours.\\
 \end{figure}
 
-The optimally performing neural network was identified in this manner. As the loss metric of mean-squared-error-including-folded-reaction-rates was observed to be useful at the 
+General effects of learning rate and number of layers were identified in this manner. For all of the dataset and loss function used concerned, a general trend of increasing testing loss was identified as the number of layers increases; while the learning rate has no significant effect on it (except for causing a preiodic oscillation in the testing loss as the learning rate increases logarithmically).
 
-, i.e. the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. Therefore this neural network is regarded as the neural network with the optimal hyperparameter, and further investigation into the predictions of this neural network is conducted.
+However, a closer examination of the performance of these few-layer neural networks reveals that their performance are mediocre. 
+
+For example, below are some of the predicitons made by these few-layer neural networks.
+
+\begin{figure}[H]
+\centering
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion-final/0926_1935_0_layerfinal_investigation_2_test_001_}
+\caption{A typical 0-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion-final/0926_1933_1_layerfinal_investigation_1_test_001_}
+\caption{A typical 1-hidden-layer neural network's prediction of JET's first wall spectra when trained on fusion spectra(learning rate=0.01)}
+\end{figure}
 
 \begin{figure}
+\centering
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_2_layer_typical_mse_including_folded_test_001_}
+\caption{A typical 2-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)}\label{3Layerfusion-fusionJET-FW}
+\end{figure}
+
+They are unable to replicate the 14.1 MeV peak at the correct width, and occassionally massively underestimate the high energy tail.
+
+This is likely due to the small dataset of fusion data available. This explanation is supported by the small number of epochs required for training to finish: most of the neural networks finished training in fewer than 50 epochs, i.e. showed no further improvement in the validation loss in the next 1000 epoch after that. This is unusually early stopping of compared to the number of epochs the neural network required to be trained in Section~\ref{Underdetermined case}.
+
+However, one particular extremum showed up on some of the graphs. This is the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. This neural network is found to be as the neural network with the lowest testing loss and testing MSE. Therefore it was thought that the neural network was able to generalize from such small dataset, so its predicted spectra were looked into in greater detail.
+
+\begin{figure}[H]
 \centering
 \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
 \caption{JET first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionJET-FW}
 \end{figure}
 
-\begin{figure}
+But in the end it was concluded that this 5-hidden-layer neural network likely only achieves the above average performance serendipiteously by re-tracing the same average spectrum. This hypothesis is supported by it replicating a very similar spectrum when it attempts to deduce the spectra corresponding to the other two test data. 
+% Figure~\ref{5Layerfusion-fusionJET-FW} 
+% The experiment was repeated using other metrics as the loss values. All four loss value metrics in equation~\ref{MSE} to \ref{MPSE_including_folded_reaction_rates} were tested.
+
+\begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_3_layer_typical_mpse_test_001_}
-\caption{JET first wall spectrum as predicted by the second best performing NN among all NN trained on fusion data.}\label{3Layerfusion-fusionJET-FW}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
+\caption{Water-cooled ceramic breeder blanket TOKAMAK's first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionWCCB-FW}
 \end{figure}
 
-The experiment was repeated using other metrics as the loss values. All four loss value metrics in equation~\ref{MSE} to \ref{MPSE_including_folded_reaction_rates} were tested.
+\begin{figure}[H]
+\centering
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
+\caption{Helium-cooled LiPb TOKAMAK's spectrum at the vacuum vessel, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionHCLL-VV}
+\end{figure}
 
-This shows that Figure~\ref{5Layerfusion-fusionJET-FW} likely only achieves the above average performance serendipiteously by re-tracing the same average spectrum. This hypothesis is supported by it replicating a very similar spectrum when it attempts to deduce the spectra corresponding to the other two test data.
+\begin{figure}[H]
+\centering
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_000_}
+\caption{Frascati neutron generator spectrum, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionFNG}
+\end{figure}
 
-% \begin{figure}
-% \centering
-% \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
-% \caption{Water-cooled ceramic breeder blanket TOKAMAK's first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionWCCB-FW}
-% \end{figure}
-
-% \begin{figure}
-% \centering
-% \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
-% \caption{Helium-cooled LiPb TOKAMAK's spectrum at the vacuum vessel, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionHCLL-VV}
-% \end{figure}
-
-% \begin{figure}
-% \centering
-% \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_000_}
-% \caption{Frascati neutron generator spectrum, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionFNG}
-% \end{figure}
-
-% Regardless, we think it might be useful to make it a 
-
-- What work has been done to find the optimal
-
-- How to quantify optimal
+% Regardless, we think it might be useful to make it 
 
 % \subsection{potential future improvements}
 % 1. In the future we can calculate the spectral index? plug THOSE values in, instead of plugging in the direct values, it might be better at picking out these differences, because it may be more obvious, and can pick it out even when the data is sparse.
@@ -702,6 +720,8 @@ Use RBF-NN.
 
 \subsection{Benchmarking against existing codes}
 \subsubsection{As an unfolding tool}
+The method of method of unfolding using neural networks has the inherent advantage of not having to provide an \emph{a priori} spectrum. Therefore the height of the neural network can be discussed as follows:
+
 If they would like to use it directly as an unfolding tool, then they can incorperate the whole folding process into the loss function; but this method requires:
 \begin{itemize}
     \item (optional) The response matrix to already been known $\rightarrow$ better results?
