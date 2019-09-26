@@ -159,7 +159,7 @@ $V$ is the volume of the foil (unit: ${cm}^3$) Note that $\sigma(E)$ (unit: $bar
 
 The neutron spectrum can be discretized into N energy bins:
 \begin{equation} \label{unfolding equation jth component}
-    Z_{0j}= \sum_{i=1}^{N} R_{ij} \phi_{0i}
+    Z_{0j}= \sum_{i=1}^{N} R_{ji} \phi_{0i}
 \end{equation}
 
 where $\phi_{0i}$ is the scalar flux integrated over the energy bin's range 
@@ -170,7 +170,7 @@ where $\phi_{0i}$ is the scalar flux integrated over the energy bin's range
 
 By assuming that the scalar flux distribution inside each energy bin is relatively flat, equation \ref{unfolding equation jth component} calculates $Z_{0j}$ by replacing ($R_j (E), E_{i-1}\le E\le E_{i}$) with 
 \begin{equation}
-    R_{ij}=R_j (E_{i-1})
+    R_{ji}=R_j (E_{i-1})
 \end{equation}
 
 Let there be M neutron-induced reactions whose reaction rate was measured,
@@ -191,40 +191,40 @@ where $\matr{R}$ is a $M\times N$ matrix, termed the \emph{response matrix}. $\v
 
 For nuclear fusion applications, the number of possible reaction investigated $M$ is very limited \cite{MaterialSelection}, as the parent nuclide of each of these reactions must exist in solids which:
 \begin{itemize}
-    \item does not melt in the reactor,
-    \item can be machined into specified shape and thickness,
+    \item can be manufactured into specified shape and thickness, with well measured number density and impurity contents,
     \item are safe to be handled,
-    \item has a cutoff/threshold energy in the region of interest (in the MeV range),
+    \item has a threshold energy in the region of interest (in the MeV range),
     \item has well-characterised cross-section values in nuclear data libraries (see \cite{MaterialSelectionASTM})
-    \item has sifficiently stable parent and daughter isotopes for the activation and $\gamma$ measurement to be carried out respectively.
+    \item has stable parent isotope and daughter isotopes of medium length half-lives such that it can be activated and measured.
 \end{itemize}
-in practice, very few types of metals/alloys can be used in these systems. For the ACT in JET in particular, in recent experiments, only 7 types of foil materials and 11 reactions can be examined. \cite{LWP_LTIS}.
+in practice, very few types of metals/alloys can be used in these systems. For the ACT in JET in particular, in recent experiments, only 7 types of foil materials and 11 reactions were examined. \cite{LWP_LTIS}
 
 Meanwhile, the number of bins, $N$, can be arbitrarily high. For some investigations, such at the one in \cite{EmbargoPaper_LWP} it goes up to 709 bins. 
-This makes the unfolding problem a very underdetermined one.
+This makes the unfolding problem a strongly underdetermined one.
 
-In the mathematical sense of the problem, an inverse does not exist. This is because, theoretically, multiple neutron spectra, say $\ve{\phi_0}$ , $\ve{\phi_1}$ and $\ve{\phi_2}$, can give the same set of reaction rates $\ve{Z_0}$, so there is no correct, unique choice of mapping of $\ve{Z_0}$ back to $\ve{\phi_0}$ , $\ve{\phi_1}$ and $\ve{\phi_2}$. \cite{BirminghamUnfolding} A conceivable situation is detailed below as an example:
+In the mathematical sense of the problem, an inverse does not exist. This is because, theoretically, multiple neutron spectra, say $\ve{\phi_0}$ , $\ve{\phi_1}$ and $\ve{\phi_2}$, can give the same set of reaction rates $\ve{Z_0}$, so there is no correct, unique choice of mapping of $\ve{Z_0}$ back to $\ve{\phi_0}$ , $\ve{\phi_1}$ and $\ve{\phi_2}$. 
+% A conceivable situation is detailed below as an example:
 
-The three spectra $\ve{\phi_0}$, $\ve{\phi_1}$, $\ve{\phi_2}$ has identical flux values in all but the first two energy bins:
+% The three spectra $\ve{\phi_0}$, $\ve{\phi_1}$, $\ve{\phi_2}$ has identical flux values in all but the first two energy bins:
 
-\begin{itemize}
-    \item $\ve{\phi_0}$ has a flux of $0                cm^{-1} s^{-1}$ in the $1^{st}$ bin and a flux of $2 \times 10^{10} cm^{-2} s^{-1}$ in the $2^{nd}$ bin;
-    \item $\ve{\phi_1}$ has a flux of $2 \times 10^{10} cm^{-2} s^{-1}$ in the $1^{st}$ bin and a flux of $1 \times 10^{10} cm^{-2} s^{-1}$ in the $2^{nd}$ bin;
-    \item $\ve{\phi_2}$ has a flux of $4 \times 10^{10} cm^{-2} s^{-1}$ in the $1^{st}$ bin and a flux of $0                cm^{-2} s^{-1}$ in the $2^{nd}$ bin;
-\end{itemize}
+% \begin{itemize}
+%     \item $\ve{\phi_0}$ has a flux of $0                cm^{-1} s^{-1}$ in the $1^{st}$ bin and a flux of $2 \times 10^{10} cm^{-2} s^{-1}$ in the $2^{nd}$ bin;
+%     \item $\ve{\phi_1}$ has a flux of $2 \times 10^{10} cm^{-2} s^{-1}$ in the $1^{st}$ bin and a flux of $1 \times 10^{10} cm^{-2} s^{-1}$ in the $2^{nd}$ bin;
+%     \item $\ve{\phi_2}$ has a flux of $4 \times 10^{10} cm^{-2} s^{-1}$ in the $1^{st}$ bin and a flux of $0                cm^{-2} s^{-1}$ in the $2^{nd}$ bin;
+% \end{itemize}
 
-And the reaction cross-sections in this energy range (very low neutron energy/thermal energy) for all but the $1^{st}$ reaction is vanishingly small, as all other reactions than the $1^{st}$ reaction are threshold reactions.
+% And the reaction cross-sections in this energy range (very low neutron energy/thermal energy) for all but the $1^{st}$ reaction is vanishingly small, as all other reactions than the $1^{st}$ reaction are threshold reactions.
 
-If the first two columns of the response matrix \matr{R} are given as follows:
-\begin{align}
-    R_{1,j} = \delta_{1j}(5 \times 10^{-11}) cm^2 \\
-    R_{2,j} = \delta_{1j}(1 \times 10^{-10}) cm^2
-\end{align}
-where the $\delta$ used is the Kronecker delta,
+% If the first two columns of the response matrix \matr{R} are given as follows:
+% \begin{align}
+%     R_{1,j} = \delta_{1j}(5 \times 10^{-11}) cm^2 \\
+%     R_{2,j} = \delta_{1j}(1 \times 10^{-10}) cm^2
+% \end{align}
+% where the $\delta$ used is the Kronecker delta,
 
-then one can see that $\ve{\phi_{0}}$, $\ve{\phi_{1}}$ and $\ve{\phi_2}$ will all lead to the same reaction rate $Z_{0}$. This is because, in each of these cases, the first two bins of each of the $\ve{\phi}$ contributes the same amount of reaction rate of 2 counts $s^{-1}$ to the $1^{st}$ reaction rate ($Z_{0j}$ where j=1), ultimately resulting in the same measured reaction rate of $\ve{Z_{0}}$.
+% then one can see that $\ve{\phi_{0}}$, $\ve{\phi_{1}}$ and $\ve{\phi_2}$ will all lead to the same reaction rate $Z_{0}$. This is because, in each of these cases, the first two bins of each of the $\ve{\phi}$ contributes the same amount of reaction rate of 2 counts $s^{-1}$ to the $1^{st}$ reaction rate ($Z_{0j}$ where j=1), ultimately resulting in the same measured reaction rate of $\ve{Z_{0}}$.
 
-Such a problem is termed `mathematically incorrectly posed'. \cite{BirminghamUnfolding}
+Such an inverse problem is termed `mathematically incorrectly posed'. \cite{BirminghamUnfolding}
 
 %I'll skip the bit about the additional problem of lack of variations across cross-section profiles leads to high condition number i.e. worse unfolding performance.
 
@@ -236,13 +236,13 @@ Therefore to start the unfolding process, extra information has to be given to t
 The most general unfolding program can, ideally, find a solution $\ve{Z}$, \matr{R} and $\ve{\phi}$ \cite{theorypdf}, such that their overall deviation from the measured reaction rates ($\ve{Z_0}$), expected response matrix ($\underline{\underline{\mathbf{R_0}}}$), and the initial guessed neutron spectrum ($\ve{\phi_0}$), is minimized. The deviation of the solution reaction rates from the measured reaction rate is calculated from its covariance matrix $\underline{\underline{\mathbf{S_Z}}}$, as the $(\chi^2)_Z = Z^T \underline{\underline{\mathbf{S_Z}^{-1}}} Z$. Equivalently the deviation of $\ve{\phi}$ from $\ve{\phi_0}$ and \matr{R} from $\underline{\underline{\mathbf{R_0}}}$ can be calculated from their respective covariance matrix..
 
 \subsection{Current practice}
-In practice, the ambiguity in the response matrix is nearly always ignored, by assuming that the response matrix $\underline{\underline{\mathbf{R_0}}}$ is accurately and precisely defined, fixing the response matrix during the solution search. This reduce the number of dimensions in the solution search by $M\times N$, massively reducing the computational complexity. It also assumes that the covariance matrix of the reaction rates is diagonal, i.e. there are no covariance matrix across different reaction rates.
+In practice, the ambiguity in the response matrix is nearly always ignored, by assuming that the response matrix $\underline{\underline{\mathbf{R_0}}}$ is accurately and precisely defined, fixing the response matrix during the solution search. This reduce the number of dimensions in the solution search by $M\times N$, massively reducing the computational complexity. It also assumes that the covariance matrix of the reaction rates is diagonal, i.e. there are no covariance across different reaction rates.
 
-Some programs, such as GRAVEL\cite{ManfredMatzkeHEPRO} and SAND-II\cite{SAND-II}, simply start their iterative solution search from this \emph{a priori} spectrum, with the aim of minimizing the $\chi^2$ (which measures the deviation of $\ve{Z}$ from $\ve{Z_0}$); while others, such as MAXED \cite{MAXED1998Reginatto} add the deviation of the solution spectrum from the \emph{a priori} spectrum ($\ve{\phi}$ from $\ve{\phi_0}$) \textbf{on top of} the deviation of the solution reaction rates from the measured reaction rates ($\ve{Z}$ from $\ve{Z_0}$) when evaluating the $\chi^2$.
+Some programs, such as GRAVEL\cite{ManfredMatzkeHEPRO} and SAND-II\cite{SAND-II}, simply start their iterative solution search from this \emph{a priori} spectrum, with the aim of minimizing the $\chi^2$ (which measures the deviation of $\ve{Z}$ from $\ve{Z_0}$); while others, such as MAXED \cite{MAXED1998Reginatto} add the deviation of the solution spectrum from the \emph{a priori} spectrum ($\ve{\phi}$ from $\ve{\phi_0}$) on top of the deviation of the solution reaction rates from the measured reaction rates ($\ve{Z}$ from $\ve{Z_0}$) when evaluating the $\chi^2$.
 %cite MAXED, SAND-II and GRAVEL
 
 %Cite papers on properly selecting an a priori?
-Current fusion neutron measurements relies on MCNP simulations heavily to supplement their unfolding procedure. They use MCNP model of thre reactor to obtain a guess neutron spectrum, which is used as the \emph{a priori} \cite{MatzkeUnfoldingProcedure} \cite{InternalReportOnDeliverables_LWP}, and the response matrix is usually obtained in the same way as well \cite{bethColling_TBMD}.
+Current fusion neutron measurements relies on MCNP simulations heavily to supplement their unfolding procedure. They use MCNP model of thre reactor to calculate a neutron spectrum, which is used as the \emph{a priori} \cite{MatzkeUnfoldingProcedure} \cite{InternalReportOnDeliverables_LWP}; and the response matrix is usually obtained in the same way as well \cite{bethColling_TBMD}.
 
 \subsection{Neural Networks} \label{Neural Network Theory}
 Neuralnetworks, on the other hand, learns the relationship between reaction rates and the original neutron spectrum. Ideally it will make use of information in previous neutron spectra, effectively bypassing the problem of underdetermination.
@@ -258,7 +258,7 @@ A typical neural network learns the relationship between the inputs (the two nod
 
 The inputs to the neural network are known as ``\underline{features}" and the outputs are known as the ``\underline{labels}".
 
-In the context of neutron spectrum unfolding using neural networks, there are M features (reaction rates $Z_i$ for $1\le i\le M$) and N labels (neutron flux in each bin $\phi_j$ for $1 \le j \le N$). 
+In the context of neutron spectrum unfolding using neural networks, there are M features (reaction rates $Z_j$ for $1\le j\le M$) and N labels (neutron flux in each bin $\phi_j$ for $1 \le j \le N$). 
 
 The ``\underline{activation}" $A_i$ of the $i^{th}$ node refers to the value that it takes.
 $w_{ij}$ denotes the ``\underline{weight}" of each connection from the $j^{th}$ node to the $i^{th}$.
@@ -328,7 +328,7 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
     This method is called ``\underline{Early Stopping}"; it catches the neural network before it begins overfitting aggressively.
 
 \subsubsection{Applying neural network to the unfolding problem}
-    To apply neural networks as unfolding tools, we will want neutron spectra as the output and reaction rates as the input, i.e. M features (reaction rates $Z_i$ for $1\le i\le M$) and N labels (neutron flux in each bin $\phi_j$ for $1 \le j \le N$).
+    To apply neural networks as unfolding tools, we will want neutron spectra as the output and reaction rates as the input, i.e. M features (reaction rates $Z_j$ for $1\le j\le M$) and N labels (neutron flux in each bin $\phi_j$ for $1 \le j \le N$).
 
     By using a neural network to do the unfolding, we are assuming that the inverese equation (below) exist,
 
@@ -429,13 +429,13 @@ There are very few existing nuclear fusion facilities in the world, many of whic
 Some method are available to overcoming the challenge of data scarcity. Namely, it is to use Radial Basis Function Neural Networks (RBFNN) and General Regression Networks (GRNN), which are subsets of Probabilistic Neural Networks (PNN). They are more intricately designed than the typical Feedforward Neural Network (FNN), which is the type of neural network that has been discussed in this thesis so far.
 But neutron spectra unfolding with RBFNN\cite{RBF-NN}\cite{ThreeAIUnfolding} and GRNN\cite{NNNeutronFluenceAmbientDoseEquivalent}\cite{unfoldingCodeBasedOnGeneralizedRegressionANN}\cite{ThreeAIUnfolding} are more complicated than unfolding, so in thesis only FNN will be investigated in details; further investigation into using RBFNN and GRNN may follow from this thesis, in an attempt to improve fusion neutron spectrum unfolding performance.
 
-Some of these authors\cite{ThreeAIUnfolding} has also attempted to unfold neutron spectra via other artificial intelligence methods, such as Genetic Algorithm (GA). There are some interest on this topic\cite{SVitishaGeneticAlgorithm}\cite{HighResGeneticAlgorithm}, but recent work here in JET has shown that GA is unpromising for the purpose of unfolding fusion neutron spectra \cite{R.WorrallThesis}. For completeness, other AI methods that were considered for the purpose of neutron spectra unfolding includes Particle Swamp \cite{ParticleSwamp_NE-213} and Artificial Bee Colony \cite{BeeColony}. None of these methods will be considered in detail as it is beyond the scope of this thesis.
+Some of these authors\cite{ThreeAIUnfolding} has also attempted to unfold neutron spectra via other artificial intelligence methods, such as Genetic Algorithm (GA). There are some interest on this topic\cite{SVitishaGeneticAlgorithm}\cite{HighResGeneticAlgorithm}, but recent work here in CCFE has shown that GA is unpromising for the purpose of unfolding fusion neutron spectra \cite{R.WorrallThesis}. For completeness, other AI methods that were considered for the purpose of neutron spectra unfolding includes Particle Swamp \cite{ParticleSwamp_NE-213} and Artificial Bee Colony \cite{BeeColony}. None of these methods will be considered in detail as it is beyond the scope of this thesis.
 
 \section{Proof of concept on simulated spectra}
 To demonstrate that the neural network is able to unfold neutron spectra at all, fictitious neutron spectra were created and folded through a response function, and neural networks were used to unfold them.
 
 \subsection{Fully determined case}
-A square response matrix consisting of $5\times5$ randomly picked numbers (uniformly distributed across $1\le R_{ij}\le50$) was generated.
+A square response matrix consisting of $5\times5$ randomly picked numbers (uniformly distributed across $1\le R_{ji}\le50$) was generated.
 
 A set of 100 spectra, each containing 5 randomly picked numbers (uniformly distributed across the range $1\le\phi_i\le15$) were also generated. They are regarded as the ``true" neutron flux distributions. The ``true" reaction rates corresponding to each spectrum was obtained by folding it through the response matrix according to equation \ref{unfolding general equation}. These forms the features and labels respectively.
 
@@ -447,7 +447,7 @@ The idea of logarithmizing the numerical values of features and labels in the pr
 
 Since logarithms destroys the linearity of this problem, two hidden layers were added to account for the increased complexity of the problem. (Preliminary experimentation showed that adding only one hidden layer is insufficient, as the loss value does not go down as far as with the two hidden layer neural network.)
 
-The neural network was still able to reproduce the original spectra with a somewhat satisfactory level of accuracy after training for 10000 epoch over 50 training data. Figure~\ref{5x5} contains 4 example plots from the testing set, as predicted by the neural network.
+The neural network was still able to reproduce the original spectra with a somewhat satisfactory level of accuracy after training for 10000 epoch at a learning rate=0.001 over the 50 training data. Training was done using the Adam algorithm, which is the default tensoflow algorithm. Figure~\ref{5x5} contains 4 example plots from the testing set, as predicted by the neural network.
 
 \begin{figure}
 \centering
@@ -505,81 +505,83 @@ This process was repeated 300 times for each spectrum in Table~\ref{DataAugmenta
     \end{subfigure}
 \caption{Data augmentation performed to create simulated spectra.}
 \end{figure}
-Two neural networks were created, each with 
 
-The purpose of this was to show that the neural network
+The purpose of this parametrisation is such that an underlying pattern can be introduced into the spectrum, which the neural networks are expected to identify on its own during the training stage.
+
+Two neural networks were created. An arbitrarily chosen network topology of 11:128:256:175 was used. 80\% of the data were randomly selected to become the training set; while the remaining becomes the testing set. The training set is further subdivided such that 20\% of it is used as the validation set (i.e. 16\% of the original features-labels pair becomes the validation set). The technique of Early Stopping was applied so that if the neural network shows no improvement in validation loss in 1000 epohcs, the training will be stopped and the parameters (weight and biases of every layer) will be restored to the values achieved in that epoch which has the minimum validiation loss. The maximum number of epoch allowed for the training was set to 10000; however both neural networks fininshed training (i.e. reached a minimum validation value with no further improvement for 1000 epoch) before reaching the 10000 epochs mark.
+
+The first neural network uses mean-squared-error as the metric for calculating loss value (equation~\ref{MSE}); while the second uses mean-squared-error-including-folded-reaction-rates (equation~\ref{MSE_including_folded_reaction_rates}). 
+%/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e-1/0918_0150_2_layer_128_256_mse_error_variation.png
+%/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e-1/0918_0228_2_layer_128_256_mse_inc_error_variation.png
+
+Interestingly, the latter achieved a slightly lower loss value instead of the former, and finishes training earlier than the former, despite having its loss function sum over a longer vector and therefor more terms to sum over more terms to obtain the loss value. The details are shown in Table~\ref{SimulatedLoss}.
+
+\begin{table}
+\begin{tabular}{ccc}
+loss value & defined in eq. \ref{MSE} & defined in eq. \ref{MSE_including_folded_reaction_rates}\\
+\hline
+number of epochs of training required & 6607 & 5078 \\
+before a minimum val. loss is reached\\
+training loss & 0.29554 & 0.27586 \\
+training MAE & 0.38083 & 0.37598 \\
+training MSE${}^\dagger$ & 0.29554 & 0.29201 \\
+validation loss & 0.34390 & 0.30682 \\
+validation MAE & 0.37107 & 0.36681 \\
+validation MSE${}^\dagger$ & 0.34390 & 0.32596 \\
+testing loss & 0.45329 & 0.37592 \\
+testing MAE & 0.41419 & 0.40527 \\
+testing MSE${}^\dagger$ & 0.45329 & 0.39924 \\
+standard deviation of log of $\frac{Z_{pred}}{Z_{0}}$ ${}^\dagger$${}^\dagger$ & 0.34263 & 0.14875\\
+\end{tabular}
+\caption{Performance of the two neural networks trained on simulated (171 group) data}\label{SimulatedLoss}
+${}^\dagger$ MAE = mean-absolute-error; MSE = mean squared error. Since MSE is identifically defined as in eq.\ref{MSE}, the * loss value in column 2 is equivalent to * MSE.\\
+${}^\dagger$${}^\dagger$ standard deviation of log of $\frac{Z_{pred}}{Z_{0}}$ (shortened to std-dev-log(C/E) below) is defined with equation~\ref{std-dev-log(C/E)}
+\end{table}
+
+The last row in Table~\ref{SimulatedLoss} is defined as
+\begin{equation}
+    \text{std-dev-log(C/E)} = \sum_j^M ln\left(\frac{Z_{pred\:j}}{Z_{0j}}\right)
+\end{equation}
+This quantity measures the sum of squares of deviation of reaction rates in log space,
+where $Z_{pred}$ is obtained via equation \ref{unfolding general equation prediction}.
+
+An examlpe of the second neural network's prediction is shown in Figure~\ref{SimulatedExample} .
 
 \begin{figure}
 \centering
     \begin{subfigure}[b]{11cm}
     \includegraphics[width=11cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e-1/0918_0228_2_layer_128_256_mse_inc_test_258_fluence.png}
-    \caption{The neural network's predicted fluence was not normalized unlike the other two, therefore it was scaled up by a constant factor relative to the true fluence.}\label{SimulatedFluence}
+    \caption{The predicted label (neutron flux as unfolded by the neural network) compared with the original flux. Note that the colour scheme is reversed, i.e. the blue bars denote the reaction rates predicted by the neural network instead of the true reaction rates, vice versa.}\label{SimulatedFluence}
     \end{subfigure}
     \begin{subfigure}[b]{5cm}
-    \includegraphics[width=5cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e1/0918_0207_2_layer_256_256_mse_test_222_activities.png}
-    \caption{The activities (features) used. The neural network was given the true activities, and asked to predict the fluence (Figure~\ref{SimulatedFluence}).
-    \\Note that the colour scheme is reversed, i.e. the blue bars denote the reaction rates predicted by the neural network instead of the true reaction rates, and vice versa.
-    }
+    \includegraphics[width=5cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e-1/0918_0228_2_layer_128_256_mse_inc_test_258_activities.png}
+    \caption{The activities (features) obtained using equation~\ref{unfolding general equation prediction}. The neural network was given the true activities, and asked to predict the fluence (Figure~\ref{SimulatedFluence}).}\label{SimulatedActivity}
     \end{subfigure}
-\caption{The neural network's attempt at predicting a perturbed JET first wall spectrum.} \label{SimulatedExample}
+\caption{An example of the neutron spectrum as unfolded by the  predicting a perturbed JET first wall spectrum.} \label{SimulatedExample}
 \end{figure}
 % After being trained on variants of the same spectrum (only with slighly different peak heights), along with the perturbed spectra of 6 other fusion neutron sources.
 
-It should be trying to approximate the underlying pattern,
-In deed it does quite well.
-But it's still not perfect.
-Though that doesn't matter too much for our purpose. We deem it as good enough; move on.
+The low training loss/MAE/MSE shows that the neural networks were able to learn the relationship between the features (reaction rates) and labels (neutron spectra), and then replicate the underlying pattern in the label; while the test loss/MAE/MSE were only slightly higher than the training loss/MAE/MSE (i.e. it is within a factor of 2 of the latter), suggesting that the neural network has learnt to do so without loss of generality.
 
-\section{Neural networks trained on Real spectra}\label{RealResults}
+\section{Neural networks trained on real spectra}\label{RealResults}
+From the result of the previous section, we can expect the neural network to be able to identify the relationship between reaction rates and neutron spectra, while replicating the underlying pattern in the real neutron spectra, when sufficient data is given.
 
-IF there's an underlying pattern, it will pick it out.
-It performs just as well.
+A set of 212 neutron spectra were acquired from the IAEA+UKAEA compendium\cite{IAEAUKAEACompendium}. 137 of them were identified as fission neutron spectra and 19 of them were identified as fusion neutron spectra.
 
-\subsection{How Neural Networks are applied in this investigation}
-    
-    Since the of each neural network varies according to the hyperparameters used and the data that it is trained on, when investigating the real fusion spectra in section~\ref{RealResults}, multiple neural networks were generated, each with different hyperparameters, to investigate the combination of optimal hyperparameters which may be applied onto this problem.
+They were rebinned into the Vitamin-J group structure using FISPACT-II\cite{Fispact}. The Vitamin-J group structure was chosen as it is well known and widely used in neutron spectrum unfolding \cite{SpectrumUnfoldingMethodology} \cite{ADRIANA_lab_equiv} \cite{Stayslpnnl}. The corresponding activities for each spectrum was obtained by folding it through the response matrix (plotted in Figure~\ref{response_matrix}). The response matrix was obtained and explained below:
 
-    The following hyperparameters/variables were considered:
-    \begin{itemize}
-        \item activation function used
-        \item strategies applied to prevent overfitting
-        \begin{itemize}
-            \item weight regularization
-            \item dropout
-        \end{itemize}
-        \item number of layers
-        \item number of nodes in each layer
-        \item number of epochs trained
-        \item optimizer algorithm, which has the following parameters:
-        \begin{itemize}
-            \item momentum term (if applicable)
-            \item acceleration term (if applicable)
-            \item epsilon (denominator offset parameter) (if applicable)
-            \item learning rate
-        \end{itemize}
-        \item Normalization techniques applied:
-        \begin{itemize}
-            \item logarithmize the numerical values of features
-            % \item take log of labels (spectrum)
-            % \item take fourier transform of labels (spectrum)
-        \end{itemize}
-        \item metric used to evaluate the loss value (See Section \ref{unfolding inverse equation})
-        \item Training set/testing set
-    \end{itemize}
-
-After some consideration, the following choices were made for each of the hyperparameter:
-\begin{itemize}
-    \item The choice of number of nodes in each layer was chosen as 32 for the first hidden layer, and then logarithmically increased up to 256. This number takes into consideration the results in \cite{RDANNM}, where a 7 reaction rates input, 10 hidden neurons, 75 output energy bins were found to be optimal for a single layer neural network unfolding; and the fact that most typical neural network research numbers were.
-
-\end{itemize}
-    The 
-    However, if a grid search for optimal hyperparametres were considered, then an optimal grid search over all 
-
-
-Acquired from the IAEA+UKAEA compendium\cite{IAEAUKAEACompendium}.
-
-\subsection{Results of predicting using the real spectra}
-Rebinning
+\begin{figure}
+\centering
+% \includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/referencesuite/175_group_test_set/ACT_raw_data/ACT_LogLogCrossSections.png}
+\includegraphics[height=7cm]{PPT/response_matrix.png}
+\caption{Microscopic cross-section of each reaction}\label{response_matrix}
+These values are obtained from TENDL15 via FISPACT-II \cite{Fispact} at the left edge of each bin in the Vitamin-J group structure. 
+\end{figure}
+By assuming that the flux per unit lethargy inside each bin are relatively flat (energy independent), the reaction rates contributed by the neutron flux in each bin is then proportional to the product of neutron flux with the microscopic. Symbolically,
+\begin{equation} \label{unfolding proportional equation}
+    Z_j \propto \sum_i \sigma_{ji} \phi_i
+\end{equation}
+Akin to the equation \ref{unfolding equation jth component}. Therefore these microscopic cross-section values were used in place of the response function for each of the reaction, assuming the constant of proportionality in equation \ref{unfolding proportional equation} is unity.
 
 \begin{figure}
 \centering
@@ -587,23 +589,59 @@ Rebinning
 \caption{All fusion spectra used, obtained from \cite{IAEAUKAEACompendium}}\label{RealFusionTrain}
 \end{figure}
 
-The neural networks were trained on 19 fusion neutron spectra, which were all rebinned into the Vitamin-J group structure. The Vitamin-J group structure was used as it is well known and widely used in neutron spectrum unfolding \ref{SpectrumUnfoldingMethodology.pdf} \ref{ADRIANA_lab_equiv.pdf} \ref{STAY-SLPNNL}.
+\subsection{Hyperparameter Optimization}
+Since the of each neural network varies according to the hyperparameters used and the data that it is trained on, when investigating the real fusion spectra in section~\ref{RealResults}, multiple neural networks were generated, each with different hyperparameters, to investigate the combination of optimal hyperparameters which may be applied onto this problem.
 
-How did you sort it
+The following hyperparameters/variables were considered:
+\begin{itemize}
+    \item activation function used
+    \item strategies applied to prevent overfitting
+    \begin{itemize}
+        \item weight regularization
+        \item dropout
+    \end{itemize}
+    \item number of layers
+    \item number of nodes in each layer
+    \item number of epochs trained
+    \item optimizer algorithm, which has the following parameters:
+    \begin{itemize}
+        \item momentum term (if applicable)
+        \item acceleration term (if applicable)
+        \item epsilon (denominator offset parameter) (if applicable)
+        \item learning rate
+    \end{itemize}
+    \item Normalization techniques applied:
+    \begin{itemize}
+        \item logarithmize the numerical values of features
+        % \item take log of labels (spectrum)
+        % \item take fourier transform of labels (spectrum)
+    \end{itemize}
+    \item metric used to evaluate the loss value (See Section \ref{unfolding inverse equation})
+    \item Training set/testing set
+\end{itemize}
+It is nearly impossible to optimize all 14 parameters listed above simulatenously in a grid search as it will be very computationally intensive and laborious. Therefore the following choices were made for each of the hyperparameter to reduce the amount of variations required for the grid search:
+\begin{table}[H]
+\begin{tabularx}{\textwidth}{lX}
+hyperparameter & choice  \\
+\hline
+activation function & ReLU\cite{ReLU} for nodes in all layers, as it is the most widely used activation fucntion in machine learning and simplest function. \\
+overfitting prevention strategies & Early Stopping (stopping the training when the validiation loss does not see improvement in 1000 epochs); while the complexity of the model is restricted by limiting the number of layers to 5 or fewer, so neither dropout or weight regularization will be applied. \\
+number of epochs trained & 10000 (subject to change by tensorflow's EarlyStopping callback) \\
+\textbf{number of hidden layers} & ranges from 0-5, as this includes all the configurations stated in Table~\ref{NNtopology}. \\
+number of nodes in each layer & with refernce to Table~\ref{NNtopology}, the first hidden layer starts with 32 nodes, and logarithmically increases to the last hidden layer, which has 256 nodes. Therefore the six resulting neural network topologies are 11:175, 11:32:175, 11:32:256:175, 11:32:90:256:175, 11:32:64:128:256:175, 11:32:53:90:152:256:175.\\
+Optimizer algorithm & using the Adam optimizer\cite{AdamOptimizer} with its default parameters (except for the learning rate, which is specified below), as it is a widely used algorithm in various machine learning projects.\\
+\textbf{learning rate} & ranges from $10^{-2}$ to $10^{-2}$, logarithmically spaced, 6 steps per decade.\\
+\textbf{metric used to calculate loss value} & ranges from equation \ref{MSE} to \ref{MPSE_including_folded_reaction_rates}\\
+\textbf{Training set} & Either fusion spectra or fission spectra were used.\\
+\end{tabularx}
+\caption{Hyperparameters chosen for building neural networks for investigations}\label{HyperparameterRange}
+\end{table}
+For combination of variable hyperparameters in Table~\ref{HyperparameterRange} (highlighted with bold typeface), a neural network is created; all other hyperparameters are fixed according to the rows in Table~\ref{HyperparameterRange} with plain font.
 
-\begin{figure}
-\centering
-% \includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/referencesuite/175_group_test_set/ACT_raw_data/ACT_LogLogCrossSections.png}
-\includegraphics[height=7cm]{PPT/response_matrix.png}
-\caption{Microscopic cross-section of each reaction}\label{response_matrix}
-These values are obtained from TENDL15 via FISPACT-II \cite{FISPACT} at the left edge of each bin in the Vitamin-J group structure. 
-\end{figure}
-By assuming that the flux per unit lethargy inside each bin are relatively flat (energy independent), the reaction rates contributed by the neutron flux in each bin is then proportional to the product of neutron flux with the microscopic. Symbolically,
-\begin{equation} \label{unfolding proportional equation}
-    Z_j \propto \sum_i \sigma_{ij} \phi_i
-\end{equation}
-Akin to the equation \ref{unfolding equation jth component}. Therefore these microscopic cross-section values were used in place of the response function for each of the reaction, assuming the constant of proportionality in equation \ref{unfolding proportional equation} is unity.
-% No correction factors were applied as this is only a proof-of-concept experiment; applying correction factors that account for the number densities and foil volumes will only multiply the reaction rates by a fixed constant, thus effectively nullifying its effect.
+\subsection{Results of predicting using the real spectra}
+The resulting neural networks were sorted into two groups according to the training set (into "trained on fission" and "trained on fusion"), then each of them were sorted into 4 smaller groups according to the loss value used during training.
+
+For each group of the data, the resulting loss values, MAE, MSE, and std-dev-log(C/E) were all plotted as heatmaps (see Figure~\ref{hyperparametersearchTestLoss} for example).
 
 \begin{figure}
 \centering
@@ -611,8 +649,11 @@ Akin to the equation \ref{unfolding equation jth component}. Therefore these mic
 \caption{Heatmap visualizing the loss values of the nerual networks' prediction on the test dataset.}\label{hyperparametersearchTestLoss}
 Each square represents a neural network with a particular set of hyperparameters, i.e. learning rate and number of layers. The learning rate increases logarithmically across the x-axis; while the number of layers increase linearly across the y-axis. The number of nodes per layer is increased logarithmically from 32 to 256 (if the number of layers $\ge 2$).\\
 Neural networks which performs better has lower loss values, and are represented with darker colours.\\
-At the top right hand corner, i.e. the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. Therefore this neural network is regarded as the neural network with the optimal hyperparameter, and further investigation into the predictions of this neural network is conducted.
 \end{figure}
+
+The optimally performing neural network was identified in this manner. As the loss metric of mean-squared-error-including-folded-reaction-rates was observed to be useful at the 
+
+, i.e. the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. Therefore this neural network is regarded as the neural network with the optimal hyperparameter, and further investigation into the predictions of this neural network is conducted.
 
 \begin{figure}
 \centering
@@ -657,11 +698,10 @@ This shows that Figure~\ref{5Layerfusion-fusionJET-FW} likely only achieves the 
 % \subsection{potential future improvements}
 % 1. In the future we can calculate the spectral index? plug THOSE values in, instead of plugging in the direct values, it might be better at picking out these differences, because it may be more obvious, and can pick it out even when the data is sparse.
 
-
 Use RBF-NN.
 
-\section{Benchmarking against existing codes}
-\subsection{As an unfolding tool}
+\subsection{Benchmarking against existing codes}
+\subsubsection{As an unfolding tool}
 If they would like to use it directly as an unfolding tool, then they can incorperate the whole folding process into the loss function; but this method requires:
 \begin{itemize}
     \item (optional) The response matrix to already been known $\rightarrow$ better results?
@@ -669,7 +709,7 @@ If they would like to use it directly as an unfolding tool, then they can incorp
 *Gotta make a fair comparison between a neural network unfolded against an a priori unfolded one.
 
 The more exciting aspect arises from the fact that it can be used as an a priori generator code:
-\subsection{As an a priori generator}
+\subsubsection{As an a priori generator}
 Can be used as the a priori generator?\\
 But it also sucks as an a priori generator, giving , which is only a marginal improvement on the 10.188233 stated in Figure~\ref{gravel_flat_a_priori_JET}
 \begin{figure}
@@ -698,7 +738,7 @@ EVEN if the response matrix is not known.
 Allows for a probability distribution of weights? does that account for the variance and covariance between the labels and features? *
 But this is beyond the scope of this paper, which is to demonstrate that the idea of NN works.
 
-\section{An attempt at using fission data to predict fusion data}
+\subsection{An attempt at using fission data to predict fusion data}
 Explain why: we have so many fission spectra... but only very few fusion spectra
 
 But even the best neural network trained on fission spectra and obtained the lowest loss value when tested on fusion spectra gave very poor results:
@@ -737,104 +777,104 @@ For the record, this optimal neural network has the hyperparameters of (learning
 \bibliographystyle{plain}
 \bibliography{FACTIUNN}
 
-%\begin{appendices}
+\begin{appendices}
 
-% \section{Neural network building functions tailored for the purpose of neutron spectrum unfolding}
-% The following contains the class in which the neural network is built.\\
-% \pythoncode{neuralnetworklibrary.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworklibrary.py}
+\section{Neural network building functions tailored for the purpose of neutron spectrum unfolding}
+The following contains the class in which the neural network is built.\\
+\pythoncode{neuralnetworklibrary.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworklibrary.py}
 
-% \section{Neural network abstractions and controller}
-% The following contains the higher level abstractions, as well as functions which walks the user through the process of creating a neural network interactively.\\
-% \pythoncode{neuralnetworktrainer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworktrainer.py}
+\section{Neural network abstractions and controller}
+The following contains the higher level abstractions, as well as functions which walks the user through the process of creating a neural network interactively.\\
+\pythoncode{neuralnetworktrainer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/neuralnetworktrainer.py}
 
-% \section{Code for benchmarking}
-% This code uses 'unfoldingsuite', which contains implementations of MAXED and GRAVEL in python, developed locally at CCFE, to unfold spectra from various a priori. Their performance can then be used as benchmarks for the neural network unfolding results to be compared against.\\
-% \pythoncode{comparison\_with\_existing.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/comparison_with_existing.py}
+\section{Code for benchmarking}
+This code uses 'unfoldingsuite', which contains implementations of MAXED and GRAVEL in python, developed locally at CCFE, to unfold spectra from various a priori. Their performance can then be used as benchmarks for the neural network unfolding results to be compared against.\\
+\pythoncode{comparison\_with\_existing.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/comparison_with_existing.py}
 
-% \section{Fully determined simulation data generation}
-% Creates a 5 energy-bins fluence vector, which is then folded through a 5 $\times$ 5 response matrix; both of which are randomly generated. Each element both were picked from a uniform random distribution larger than 1. The upper bound of the elements in the vector were chosen as 15 and the upper bound of the elements in the response matrix were chosen to be 50.\\
-% \pythoncode{simple\_non\_singular\_case.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/simple_non_singular_case.py}
+\section{Fully determined simulation data generation}
+Creates a 5 energy-bins fluence vector, which is then folded through a 5 $\times$ 5 response matrix; both of which are randomly generated. Each element both were picked from a uniform random distribution larger than 1. The upper bound of the elements in the vector were chosen as 15 and the upper bound of the elements in the response matrix were chosen to be 50.\\
+\pythoncode{simple\_non\_singular\_case.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/simple_non_singular_case.py}
 
-% \section{Underdetermined simulation data generation}
-% For each of the 14 FISPACT reference spectra, each is parametrised into a list of peaks. The height of these peaks were then perturbed to form a `new' spectrum. This `new' spectrum is then folded through a corresponding response matrix.\\
-% \pythoncode{spectrumrandomizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/spectrumrandomizer.py}
+\section{Underdetermined simulation data generation}
+For each of the 14 FISPACT reference spectra, each is parametrised into a list of peaks. The height of these peaks were then perturbed to form a `new' spectrum. This `new' spectrum is then folded through a corresponding response matrix.\\
+\pythoncode{spectrumrandomizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/demogenerator/spectrumrandomizer.py}
 
-% \section{Training and evaluating neural networks on the underdetermined simulation data}
-% A demonstration of applying neuralnetworktrainer.py on the data generated by spectrumrandomizer.py .\\
-% \pythoncode{script\_for\_demo.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/script_for_demo.py}
+\section{Training and evaluating neural networks on the underdetermined simulation data}
+A demonstration of applying neuralnetworktrainer.py on the data generated by spectrumrandomizer.py .\\
+\pythoncode{script\_for\_demo.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/script_for_demo.py}
 
-% %IAEA and UKAEA compendium spectra had to be rebinned into the vitamin J spectra in order to be useful.
+%IAEA and UKAEA compendium spectra had to be rebinned into the vitamin J spectra in order to be useful.
 
-% \section{Selecting from UKAEA and IAEA compendium}
-% Rebinned spectra from the 212 IAEA + UKAEA compendium \cite{IAEAUKAEACompendium} were sorted into various training and testing sets using the following python program.\\
-% \pythoncode{getrealdata.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/Link_UKAEA_IAEA_Compendium/getrealdata.py}
+\section{Selecting from UKAEA and IAEA compendium}
+Rebinned spectra from the 212 IAEA + UKAEA compendium \cite{IAEAUKAEACompendium} were sorted into various training and testing sets using the following python program.\\
+\pythoncode{getrealdata.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/Link_UKAEA_IAEA_Compendium/getrealdata.py}
 
-% \section{hyperparameter input controller}
-% Input files for hyperparametertrainer.py using the following code, by iterating through a list of hyperparameters of interest, thus effectively performing a grid search over all hyperparameters.\\
-% \pythoncode{hyperparameterinput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/hyperparameterinput.py}
-% This program can be used to split the into multiple jobs, which can then be submitted to a cluster, parallellizing the process and massively reducing the training and evaluation time of the neural networks. This is done by calling the program with \texttt{python hyperparameterinput.py split}
+\section{hyperparameter input controller}
+Input files for hyperparametertrainer.py using the following code, by iterating through a list of hyperparameters of interest, thus effectively performing a grid search over all hyperparameters.\\
+\pythoncode{hyperparameterinput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/hyperparameterinput.py}
+This program can be used to split the into multiple jobs, which can then be submitted to a cluster, parallellizing the process and massively reducing the training and evaluation time of the neural networks. This is done by calling the program with \texttt{python hyperparameterinput.py split}
 
-% \section{hyperparameter optimization searching}
-% List the hyperparameter, training- and testing-sets used to evaluate the neural network on, when the hash\_name of the neural network is given.\\
-% \pythoncode{hyperparameteroutput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroutput.py}
+\section{hyperparameter optimization searching}
+List the hyperparameter, training- and testing-sets used to evaluate the neural network on, when the hash\_name of the neural network is given.\\
+\pythoncode{hyperparameteroutput.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroutput.py}
 
-% \section{Loss value visualizer}
-% When given the names of the training- and testing-set, the following code show the loss values (and other metrics) of the neural networks with different hyperparameters achieved on them. This is plotted as a heat map, over the two dimensions of hyperparameters varied, which are `number of layers' (y-axis) and `learning rate' (x-axis) respectively.\\
-% \pythoncode{hyperparameteroptimizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroptimizer.py}
+\section{Loss value visualizer}
+When given the names of the training- and testing-set, the following code show the loss values (and other metrics) of the neural networks with different hyperparameters achieved on them. This is plotted as a heat map, over the two dimensions of hyperparameters varied, which are `number of layers' (y-axis) and `learning rate' (x-axis) respectively.\\
+\pythoncode{hyperparameteroptimizer.py}{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/hyperparameteroptimizer.py}
 
-% \section{Parametrisation of the FISPACT reference spectra}
-% \begin{table}
-% \begin{tabular}{ccccccc}
-% distribution&$\mu$&$\sigma$&A&$\mu_{corr}$&$\sigma_{corr}$&$A_{corr}$\\
-% \hline
-% log-normal&-1.48e+01&1.20e+00&1.00e+00&1.0&0.6536070787201796&0.6465171468399362\\
-% log-normal&-1.17e+01&1.20e+00&5.54e+01&1.0&0.6923014193474084&0.41834840464375106\\
-% log-normal&-8.61e+00&1.20e+00&3.07e+03&1.0&0.5802541895436414&0.3391941243798774\\
-% log-normal&-5.52e+00&1.20e+00&1.70e+05&1.0&0.769982827091882&0.5451675762326162\\
-% log-normal&-2.43e+00&1.20e+00&9.40e+06&1.0&0.6705439760036781&0.6056530392573959\\
-% log-normal&6.55e-01&1.20e+00&5.20e+08&1.0&0.6485812808091918&0.6213932412543168\\
-% log-normal&3.74e+00&1.20e+00&2.88e+10&1.0&0.33687762989691133&1.754564218248171\\
-% \hline
-% log-normal&-1.44e+01&1.50e+00&1.00e+09&1.0&1.1087020488776023&1.2837241483881578\\
-% log-normal&-8.60e+00&1.50e+00&3.22e+11&1.0&0.7012835343191862&0.6774642293787084\\
-% log-normal&-2.83e+00&1.50e+00&1.04e+14&1.0&0.9732542967472964&1.0011605034609532\\
-% log-normal&2.94e+00&1.50e+00&3.33e+16&1.0&0.9872173030484698&0.99379684387792\\
-% normal&1.41e+01&4.00e-01&1.00e+19&1.023&1.0500657332932959&1.128662095083972\\
-% \hline
-% log-normal&-1.54e+01&1.10e+00&1.00e+03&1.0&1.0295086712444834&1.0871973190897086\\
-% log-normal&-1.18e+01&1.10e+00&3.59e+04&1.0&1.0470576309590907&1.1133327728488918\\
-% log-normal&-8.26e+00&1.10e+00&1.29e+06&1.0&0.9512570373593815&1.0428424889188541\\
-% log-normal&-4.67e+00&1.10e+00&4.64e+07&1.0&1.1561895212201019&1.1532829852822521\\
-% log-normal&-1.09e+00&1.10e+00&1.67e+09&1.0&1.0181223850843093&1.018626898626218\\
-% normal&1.41e+01&4.00e-01&1.00e+10&1.0&1.32722437503459&1.8671520930196117\\
-% normal&2.45e+00&1.00e-01&1.00e+12&1.0&0.8152984470618088&0.5530754449242801\\
-% \hline
-% log-normal&-1.26e+01&2.00e+00&1.00e+05&1.0&1.094149298940297&1.17454890924765\\
-% log-normal&-7.12e+00&2.00e+00&2.47e+07&1.0&1.7120265659905378&1.12525321665773\\
-% log-normal&-1.61e+00&2.00e+00&6.08e+09&1.0&1.2209065015914118&1.5577920026942778\\
-% log-normal&3.89e+00&2.00e+00&1.50e+12&1.0&1.0538009149767102&1.5525710802981993\\
-% normal&1.41e+01&4.00e-01&1.00e+14&1.0&0.9946385566258605&1.1958058458498946\\
-% \hline
-% log-normal&3.00e+00&2.00e+00&1.00e+13&1.0&0.985831182477408&1.191099325784018\\
-% log-normal&-3.20e+00&2.00e+00&1.00e+11&1.0&1.0163826189572225&1.037504496747917\\
-% normal&1.41e+01&4.00e-01&1.00e+14&1.0&1.132214159680078&1.3221159758391146\\
-% \hline
-% log-normal&-5.60e+00&2.30e+00&4.00e+05&1.0&0.912896343655827&0.9707283164160951\\
-% log-normal&-4.80e+00&5.00e-01&1.00e+06&1.0&0.9724734344690737&1.3093741751167056\\
-% log-normal&3.00e+00&1.80e+00&5.00e+09&1.0&1.1626572027366295&0.8373153796607655\\
-% normal&1.41e+01&4.00e-01&1.00e+10&1.0&1.1868044101095476&1.555176012813058\\
-% \hline
-% normal&1.35e+01&2.00e+00&2.00e+20&1.0&1.0094598165344801&1.0398929376955228\\
-% log-normal&-2.40e+00&3.50e-01&1.00e+14&1.0&0.9999755394847119&1.0437028488962274\\
-% log-normal&-1.43e+00&3.50e-01&5.54e+14&1.0&1.0040524756949494&1.2576232255047286\\
-% log-normal&-4.47e-01&3.50e-01&3.07e+15&1.0&1.0213050801706227&1.2668031933646988\\
-% log-normal&5.31e-01&3.50e-01&1.70e+16&1.0&1.0185780833110203&1.3543132306863206\\
-% log-normal&1.51e+00&3.50e-01&9.40e+16&1.0&1.0622261078184665&1.1481233202529897
-% \end{tabular}
-% \caption{In descending order: each section represents the parameters used to parametrise the spectra of: JAEA-FNS, Frascati-NG, ITER-DD, ITER-DT, DEMO-HCPB-FW, JET-FW, NIF-Ignition. The 2-4${}^{th}$ columns indicate the guess value inputted, while the last 3 columns indicate the correction factor multiplied onto them. E.g. $\mu_{final} = \mu * \mu_{corr}$}\label{ParametrisationParameters}
-% \end{table}
+\section{Parametrisation of the FISPACT reference spectra}
+\begin{table}
+\begin{tabular}{ccccccc}
+distribution&$\mu$&$\sigma$&A&$\mu_{corr}$&$\sigma_{corr}$&$A_{corr}$\\
+\hline
+log-normal&-1.48e+01&1.20e+00&1.00e+00&1.0&0.6536070787201796&0.6465171468399362\\
+log-normal&-1.17e+01&1.20e+00&5.54e+01&1.0&0.6923014193474084&0.41834840464375106\\
+log-normal&-8.61e+00&1.20e+00&3.07e+03&1.0&0.5802541895436414&0.3391941243798774\\
+log-normal&-5.52e+00&1.20e+00&1.70e+05&1.0&0.769982827091882&0.5451675762326162\\
+log-normal&-2.43e+00&1.20e+00&9.40e+06&1.0&0.6705439760036781&0.6056530392573959\\
+log-normal&6.55e-01&1.20e+00&5.20e+08&1.0&0.6485812808091918&0.6213932412543168\\
+log-normal&3.74e+00&1.20e+00&2.88e+10&1.0&0.33687762989691133&1.754564218248171\\
+\hline
+log-normal&-1.44e+01&1.50e+00&1.00e+09&1.0&1.1087020488776023&1.2837241483881578\\
+log-normal&-8.60e+00&1.50e+00&3.22e+11&1.0&0.7012835343191862&0.6774642293787084\\
+log-normal&-2.83e+00&1.50e+00&1.04e+14&1.0&0.9732542967472964&1.0011605034609532\\
+log-normal&2.94e+00&1.50e+00&3.33e+16&1.0&0.9872173030484698&0.99379684387792\\
+normal&1.41e+01&4.00e-01&1.00e+19&1.023&1.0500657332932959&1.128662095083972\\
+\hline
+log-normal&-1.54e+01&1.10e+00&1.00e+03&1.0&1.0295086712444834&1.0871973190897086\\
+log-normal&-1.18e+01&1.10e+00&3.59e+04&1.0&1.0470576309590907&1.1133327728488918\\
+log-normal&-8.26e+00&1.10e+00&1.29e+06&1.0&0.9512570373593815&1.0428424889188541\\
+log-normal&-4.67e+00&1.10e+00&4.64e+07&1.0&1.1561895212201019&1.1532829852822521\\
+log-normal&-1.09e+00&1.10e+00&1.67e+09&1.0&1.0181223850843093&1.018626898626218\\
+normal&1.41e+01&4.00e-01&1.00e+10&1.0&1.32722437503459&1.8671520930196117\\
+normal&2.45e+00&1.00e-01&1.00e+12&1.0&0.8152984470618088&0.5530754449242801\\
+\hline
+log-normal&-1.26e+01&2.00e+00&1.00e+05&1.0&1.094149298940297&1.17454890924765\\
+log-normal&-7.12e+00&2.00e+00&2.47e+07&1.0&1.7120265659905378&1.12525321665773\\
+log-normal&-1.61e+00&2.00e+00&6.08e+09&1.0&1.2209065015914118&1.5577920026942778\\
+log-normal&3.89e+00&2.00e+00&1.50e+12&1.0&1.0538009149767102&1.5525710802981993\\
+normal&1.41e+01&4.00e-01&1.00e+14&1.0&0.9946385566258605&1.1958058458498946\\
+\hline
+log-normal&3.00e+00&2.00e+00&1.00e+13&1.0&0.985831182477408&1.191099325784018\\
+log-normal&-3.20e+00&2.00e+00&1.00e+11&1.0&1.0163826189572225&1.037504496747917\\
+normal&1.41e+01&4.00e-01&1.00e+14&1.0&1.132214159680078&1.3221159758391146\\
+\hline
+log-normal&-5.60e+00&2.30e+00&4.00e+05&1.0&0.912896343655827&0.9707283164160951\\
+log-normal&-4.80e+00&5.00e-01&1.00e+06&1.0&0.9724734344690737&1.3093741751167056\\
+log-normal&3.00e+00&1.80e+00&5.00e+09&1.0&1.1626572027366295&0.8373153796607655\\
+normal&1.41e+01&4.00e-01&1.00e+10&1.0&1.1868044101095476&1.555176012813058\\
+\hline
+normal&1.35e+01&2.00e+00&2.00e+20&1.0&1.0094598165344801&1.0398929376955228\\
+log-normal&-2.40e+00&3.50e-01&1.00e+14&1.0&0.9999755394847119&1.0437028488962274\\
+log-normal&-1.43e+00&3.50e-01&5.54e+14&1.0&1.0040524756949494&1.2576232255047286\\
+log-normal&-4.47e-01&3.50e-01&3.07e+15&1.0&1.0213050801706227&1.2668031933646988\\
+log-normal&5.31e-01&3.50e-01&1.70e+16&1.0&1.0185780833110203&1.3543132306863206\\
+log-normal&1.51e+00&3.50e-01&9.40e+16&1.0&1.0622261078184665&1.1481233202529897
+\end{tabular}
+\caption{In descending order: each section represents the parameters used to parametrise the spectra of: JAEA-FNS, Frascati-NG, ITER-DD, ITER-DT, DEMO-HCPB-FW, JET-FW, NIF-Ignition. The 2-4${}^{th}$ columns indicate the guess value inputted, while the last 3 columns indicate the correction factor multiplied onto them. E.g. $\mu_{final} = \mu * \mu_{corr}$}\label{ParametrisationParameters}
+\end{table}
 
-% \end{appendices}
+\end{appendices}
 
 \end{document}
 

@@ -1,7 +1,16 @@
 \begin{thebibliography}{10}
 
+\bibitem{Fispact}
+Ukaea: Fistact-ii, 2017.
+
 \bibitem{TensorflowOverfitting}
 explore overfitting and underfitting tensorflow core 2019, 2019.
+
+\bibitem{ReLU}
+tf.nn.relu, 2019.
+
+\bibitem{AdamOptimizer}
+tf.train.adamoptimizer, 2019.
 
 \bibitem{NeutronSpectrometryInMixedFieldsMultiSphereSpectrometers}
 AV~Alevra and DJ~Thomas.
@@ -77,9 +86,11 @@ G~Fehrenbacher, R~Sch{\"u}tz, K~Hahn, M~Sprunck, E~Cordes, JP~Biersack, and
   information obtained by application of artificial neural networks.
 \newblock {\em Radiation protection dosimetry}, 83(4):293--301, 1999.
 
-\bibitem{FISPACT}
-Culham~Centre for Fusion~Energy.
-\newblock Ukaea: Fistact-ii, 2017.
+\bibitem{Stayslpnnl}
+Lawrence~R. Greenwood and Christian~D. Johnson.
+\newblock User guide for the staysl pnnl suite of software tools.
+\newblock Technical report, Pacific Northwest National Lab.(PNNL), Richland, WA
+  (United States), 2013.
 
 \bibitem{ANN-ModifiedLeastSquare}
 Seyed~Abolfazl Hosseini.
@@ -202,6 +213,13 @@ LW~Packer, P~Batistoni, SC~Bradnam, B~Colling, Sean Conroy, Z~Ghani,
   experiments for the long-term irradiation station.
 \newblock {\em Nuclear Fusion}, 58(9):096013, 2018.
 
+\bibitem{SpectrumUnfoldingMethodology}
+Prasoon Raj, Steven~C. Bradnam, Bethany Colling, Axel Klix, Mitja Majerle,
+  Chantal~R. Nobs, Lee~W. Packer, Mario Pillon, and Milan Štefánik.
+\newblock Evaluation of the spectrum unfolding methodology for neutron
+  activation system of fusion devices.
+\newblock {\em Fusion Engineering and Design}, 146:1272--1275, 2019.
+
 \bibitem{MAXED1998Reginatto}
 M.~Reginatto and P.~Goldhagen.
 \newblock Maxed, a computer code for maximum entropy deconvolution of
@@ -241,6 +259,13 @@ D.B. Syme, S.~Popovichev, S.~Conroy, I.~Lengar, and L.~Snoj.
 \bibitem{FISPACT_reference_spectra}
 {UKAEA}.
 \newblock Ukaea: Fistact-ii reference spectra, 2017.
+
+\bibitem{ADRIANA_lab_equiv}
+T.~Vasilopoulou, I.E. Stamatelatos, P.~Batistoni, N.~Fonnesu, R.~Villari,
+  J.~Naish, S.~Popovichev, and B.~Obryk.
+\newblock Activation foil measurements at jet in preparation for d-t plasma
+  operation.
+\newblock {\em Fusion Engineering and Design}, 146:250--255, 2019.
 
 \bibitem{NNNeutronFluenceAmbientDoseEquivalent}
 Jie Wang, Zhirong Guo, Xianglei Chen, and Yulin Zhou.

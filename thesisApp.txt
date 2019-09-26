@@ -1,3 +1,32 @@
+This is because,
+theoretically, multiple neutron spectra, say φ 0 , φ 1 and φ 2 , can give the same set of
+reaction rates Z 0 , so there is no correct, unique choice of mapping of Z 0 back to φ 0 , φ 1
+and φ 2 . [17] A conceivable situation is detailed below as an example:
+The three spectra φ 0 , φ 1 , φ 2 has identical flux values in all but the first two energy
+bins:
+ φ 0 has a flux of 0cm −1 s −1 in the 1 st bin and a flux of 2 × 10 10 cm −2 s −1 in the 2 nd
+bin;
+ φ 1 has a flux of 2 × 10 10 cm −2 s −1 in the 1 st bin and a flux of 1 × 10 10 cm −2 s −1 in the
+2 nd bin;
+ φ 2 has a flux of 4 × 10 10 cm −2 s −1 in the 1 st bin and a flux of 0cm −2 s −1 in the 2 nd
+bin;
+And the reaction cross-sections in this energy range (very low neutron energy/thermal
+energy) for all but the 1 st reaction is vanishingly small, as all other reactions than the 1 st
+reaction are threshold reactions.
+6If the first two columns of the response matrix R are given as follows:
+R 1,j = δ 1j (5 × 10 −11 )cm 2
+−10
+R 2,j = δ 1j (1 × 10
+)cm
+2
+(9)
+(10)
+where the δ used is the Kronecker delta,
+then one can see that φ 0 , φ 1 and φ 2 will all lead to the same reaction rate Z 0 . This
+is because, in each of these cases, the first two bins of each of the φ contributes the same
+amount of reaction rate of 2 counts s −1 to the 1 st reaction rate (Z 0j where j=1), ultimately
+resulting in the same measured reaction rate of Z 0 .
+
 1-JAEA-FNS\\
 distribution&mu&sigma&amplitude-fixed&a-corr&b-corr&amplitude-corr\\
 log-normal-fixed-mean&-1.48e+01&1.20e+00&1.00e+00&1.0&0.6536070787201796&0.6465171468399362\\
