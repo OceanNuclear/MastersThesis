@@ -512,7 +512,7 @@ The purpose of this was to show that the neural network
 \begin{figure}
 \centering
     \begin{subfigure}[b]{11cm}
-    \includegraphics[width=11cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e1/0918_0228_2_layer_128_256_mse_inc_test_258_fluence.png}
+    \includegraphics[width=11cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e-1/0918_0228_2_layer_128_256_mse_inc_test_258_fluence.png}
     \caption{The neural network's predicted fluence was not normalized unlike the other two, therefore it was scaled up by a constant factor relative to the true fluence.}\label{SimulatedFluence}
     \end{subfigure}
     \begin{subfigure}[b]{5cm}
@@ -553,14 +553,16 @@ It performs just as well.
         \item optimizer algorithm, which has the following parameters:
         \begin{itemize}
             \item momentum term (if applicable)
+            \item acceleration term (if applicable)
+            \item epsilon (denominator offset parameter) (if applicable)
             \item learning rate
         \end{itemize}
         \item Normalization techniques applied
-        \begin{item}
+        \begin{itemize}
             \item Take log of features
             % \item take log of labels (spectrum)
-            % % \item take fourier transform of labels (spectrum)
-        \end{item}
+            % \item take fourier transform of labels (spectrum)
+        \end{itemize}
         \item metric used to evaluate the loss value (See Section \ref{unfolding inverse equation})
         \item Training set/testing set
     \end{itemize}
@@ -609,7 +611,7 @@ Akin to the equation \ref{unfolding equation jth component}. Therefore these mic
 \caption{Heatmap visualizing the loss values of the nerual networks' prediction on the test dataset.}\label{hyperparametersearchTestLoss}
 Each square represents a neural network with a particular set of hyperparameters, i.e. learning rate and number of layers. The learning rate increases logarithmically across the x-axis; while the number of layers increase linearly across the y-axis. The number of nodes per layer is increased logarithmically from 32 to 256 (if the number of layers $\ge 2$).\\
 Neural networks which performs better has lower loss values, and are represented with darker colours.\\
-At the top right hand corner, i.e. the neural network with the hyperparameters of (learning rate=0.01, number of nodes in each layer=[32,53,90,152,256]), a particularly loss value is obtained. Therefore this neural network is regarded as the neural network with the optimal hyperparameter, and further investigation into the predictions of this neural network is conducted.
+At the top right hand corner, i.e. the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. Therefore this neural network is regarded as the neural network with the optimal hyperparameter, and further investigation into the predictions of this neural network is conducted.
 \end{figure}
 
 \begin{figure}
@@ -624,13 +626,7 @@ At the top right hand corner, i.e. the neural network with the hyperparameters o
 \caption{JET first wall spectrum as predicted by the second best performing NN among all NN trained on fusion data.}\label{3Layerfusion-fusionJET-FW}
 \end{figure}
 
-The experiment was repeated using other metrics as the loss values. The complete list of tested loss values are listed below:
-\begin{itemize}
-    \item mean-squared-error (rms) $=\sum_i$
-    \item mean-pairwise-squared-error
-    \item mean-squared-error-including-folded-reaction-rates
-    \item mean-pairwise-squared-error-including-folded-reaction-rates
-\end{itemize}
+The experiment was repeated using other metrics as the loss values. All four loss value metrics in equation~\ref{MSE} to \ref{MPSE_including_folded_reaction_rates} were tested.
 
 This shows that Figure~\ref{5Layerfusion-fusionJET-FW} likely only achieves the above average performance serendipiteously by re-tracing the same average spectrum. This hypothesis is supported by it replicating a very similar spectrum when it attempts to deduce the spectra corresponding to the other two test data.
 
@@ -718,7 +714,7 @@ But even the best neural network trained on fission spectra and obtained the low
 \caption{JET first wall spectrum as predicted by the optimal NN among all NN trained on fission spectra}\label{fission-fusionGood}
 \end{figure}
 
-For the record, this optimal neural network has the hyperparameters of (learning rate = 0.01, number of nodes in each layer=[32,53,90,152,256]).
+For the record, this optimal neural network has the hyperparameters of (learning rate = 0.01, topology=11:32:53:90:152:256:175).
 
 \section{Potential Future improvements}
 \begin{itemize}
