@@ -8,6 +8,17 @@ AV~Alevra and DJ~Thomas.
 \newblock Neutron spectrometry in mixed fields: multisphere spectrometers.
 \newblock {\em Radiation Protection Dosimetry}, 107(1-3):33--68, 2003.
 
+\bibitem{RBF-NN}
+Amin~Asgharzadeh Alvar, Mohammad~Reza Deevband, and Meghdad Ashtiyani.
+\newblock Neutron spectrum unfolding using radial basis function neural
+  networks.
+\newblock {\em Applied Radiation and Isotopes}, 129:35--41, 2017.
+
+\bibitem{LancasterNN}
+Matthew Balmer.
+\newblock {\em Design and testing of a novel neutron survey meter}.
+\newblock PhD thesis, Lancaster University, 2016.
+
 \bibitem{TechnologicalExploitationOfDT}
 P~Batistoni, D~Campling, Sean Conroy, D~Croft, T~Giegerich, T~Huddleston,
   X~Lefebvre, I~Lengar, S~Lilley, A~Peacock, et~al.
@@ -43,6 +54,21 @@ Bethany Colling, P.~Batistoni, S.C. Bradnam, Z.~Ghani, M.R. Gilbert, C.R. Nobs,
 \newblock Testing of tritium breeder blanket activation foil spectrometer
   during jet operations.
 \newblock {\em Fusion Engineering and Design}, 136:258--264, 2018.
+
+\bibitem{FisherRegularization}
+Fatma~Zohra Dehimi, Abdeslam Seghour, and Saddik El~Hak Abaidia.
+\newblock Unfolding of neutron energy spectra with fisher regularisation.
+\newblock {\em IEEE Transactions on Nuclear Science}, 57(2):768--774, 2010.
+
+\bibitem{unfoldingCodeBasedOnGeneralizedRegressionANN}
+Ma. Del Rosario Martinez-Blanco, Gerardo Ornelas-Vargas, Celina~Lizeth
+  Castañeda-Miranda, Luis~Octavio Solís-Sánchez, Rodrigo
+  Castañeda-Miranada, Héctor~René Vega-Carrillo, Jose~M Celaya-Padilla,
+  Idalia Garza-Veloz, Margarita Martínez-Fierro, and José~Manuel
+  Ortiz-Rodríguez.
+\newblock A neutron spectrum unfolding code based on generalized regression
+  artificial neural networks.
+\newblock {\em Applied Radiation and Isotopes}, 117:8--14, 2016.
 
 \bibitem{ANNDoseQuantitiesPrediction}
 G~Fehrenbacher, R~Sch{\"u}tz, K~Hahn, M~Sprunck, E~Cordes, JP~Biersack, and
@@ -124,6 +150,18 @@ Alberto Milocco.
   (jet).
 \newblock {\em Radiation protection dosimetry}, 180(1-4), 2017.
 
+\bibitem{MATLAB}
+Cleve~B Moler.
+\newblock {\em Numerical Computing with MATLAB: Revised Reprint}, volume~87.
+\newblock Siam, 2008.
+
+\bibitem{HighResGeneticAlgorithm}
+Bhaskar Mukherjee.
+\newblock A high-resolution neutron spectra unfolding method using the genetic
+  algorithm technique.
+\newblock {\em Nuclear Inst. and Methods in Physics Research, A},
+  476(1-2):247--251, 2002.
+
 \bibitem{AndrewNgNormalization}
 Andrew Ng.
 \newblock Normalizing inputs (c2w1l09), 2017.
@@ -182,6 +220,12 @@ John Shore and Rodney Johnson.
   principle of minimum cross-entropy.
 \newblock {\em IEEE Transactions on information theory}, 26(1):26--37, 1980.
 
+\bibitem{BeeColony}
+Everton~R Silva, Bruno~M Freitas, Denison~S Santos, and Cláudia L~P Maurício.
+\newblock Algorithm based on artificial bee colony for unfolding of neutron
+  spectra obtained with bonner spheres.
+\newblock {\em Radiation Protection Dosimetry}, 180(1-4):89--93, 2018.
+
 \bibitem{SVitishaGeneticAlgorithm}
 Vitisha Suman and P.K. Sarkar.
 \newblock Neutron spectrum unfolding using genetic algorithm in a monte carlo
@@ -193,5 +237,24 @@ Vitisha Suman and P.K. Sarkar.
 D.B. Syme, S.~Popovichev, S.~Conroy, I.~Lengar, and L.~Snoj.
 \newblock Fusion yield measurements on jet and their calibration.
 \newblock {\em Nuclear Engineering and Design}, 246(C):185--190, 2012.
+
+\bibitem{NNNeutronFluenceAmbientDoseEquivalent}
+Jie Wang, Zhirong Guo, Xianglei Chen, and Yulin Zhou.
+\newblock Neutron spectrum unfolding based on generalized regression neural
+  networks for neutron fluence and neutron ambient dose equivalent estimations.
+\newblock {\em Applied Radiation and Isotopes}, 154, 2019.
+
+\bibitem{ThreeAIUnfolding}
+Jie Wang, Yulin Zhou, Zhirong Guo, and Haifeng Liu.
+\newblock Neutron spectrum unfolding using three artificial intelligence
+  optimization methods.
+\newblock {\em Applied Radiation and Isotopes}, 147:136--143, 2019.
+
+\bibitem{R.WorrallThesis}
+Ross Worrall.
+\newblock Developing a genetic algorithm for the unfolding of neutron energy
+  spectra.
+\newblock Master's thesis, UNIVERSITY OF BIRMINGHAM, Culham Science Centre,
+  Abingdon OX14 3EB, 9 2014.
 
 \end{thebibliography}

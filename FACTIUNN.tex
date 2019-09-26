@@ -3,7 +3,7 @@
 %\nonstopmode
 \hbadness=100000
 \documentclass[a4paper, 12pt]{article}
-\usepackage{amsmath,amsfonts,changepage,caption,float,geometry,graphicx,mathtools,pythonhighlight,textcomp,url,verbatim,subcaption} %,parskip
+\usepackage{amsmath,amsfonts,changepage,caption,float,geometry,graphicx,mathtools,pythonhighlight,textcomp,url,verbatim,subcaption,tabularx} %,parskip
 % \usepackage[justification=centering]{subfig}
 \geometry{ a4paper, total={170mm,257mm}, left=20mm, top=20mm}
 
@@ -317,7 +317,7 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
 \subsubsection{Training the neural network}\label{sec:training}
     Before adjusting the parameters, a fraction of the data is drawn out and reserved for \underline{testing}. The remaining is used as the \underline{training} dataset. These ``training" and ``testing" data are chosen in such a way that they cover the same range of domain and co-domain in the feature- and label-space respectively.
     
-    The parameters are adjusted in iterative steps to minimize the loss value. Each step requires calculation of the gradient value over the entire dataset, known as an ``\underline{epoch}", obtained by calculating the average $\frac{\partial (loss)}{\partial w}$ or $\frac{\partial (loss)}{\partial b}$ over the entire training dataset. When further training no longer improves the loss value over the training set (i.e. the ``\underline{training loss}"), training can be stopped, and the parameters are then fixed at their final values. The size of each step is calculated as (learning rate)$\times$(gradient of the loss value in parameter space)
+    The parameters are adjusted in iteratively to minimize the loss value. Each step requires calculation of the gradient value over the entire dataset, known as an ``\underline{epoch}", obtained by calculating the average $\frac{\partial (loss)}{\partial w}$ or $\frac{\partial (loss)}{\partial b}$ over the entire training dataset. The parameters is adjusted according to an algorithm known as the ``\underline{optimizer}"; this algorithm may require some more hyperparameters, such as the ``\underline{momentum}", ``\underline{acceleration}" term to be defined. When further training no longer improves the loss value over the training set (i.e. the ``\underline{training loss}"), training can be stopped, and the parameters are then fixed at their final values. The size of each step is calculated as (learning rate)$\times$(gradient of the loss value in parameter space)
 
     The performance of the neural network is then evaluated over the testing set to obtain an average loss value, known as the ``\underline{testing loss}". If the testing loss is much higher than the training loss, it signifies that the neural network was ``\underline{overfitting}", i.e. it reached a minimum training loss by ``memorizing" the relationship between training features and training labels, and is unable to generalize these relationships to the testing set. This may suggest that the neural network is too complex, i.e. has too many nodes or neurons.
 
@@ -386,43 +386,68 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
     \end{equation}
     and Z is, in turn, obtained by equation \ref{unfolding general equation}:
 
-    \begin{align*}
+    \begin{align}
         \ve{Z_{pred}} &= \matr{R} \ve{\phi_{pred} }\\
         \ve{Z_{0}} &= \matr{R} \ve{\phi_{0} }
-    \end{align*}
+    \end{align}
 
     This is analogous to the technique of regularization\cite{FisherRegularization} in normal unfolding procedures, where both deviation from the \emph{a priori} spectrum and the reaction rates are calculated and used as the $\chi^2$ value. In this case, the regularization constnat (weight of the neutron flux's deviation relative to the reaction rates' deviation) is simply chosen as 1.
 
     These two metrics will give loss value = 0 when $\phi_{pred}$ and $\phi_0$ matches perfectly; but the neural network will be penalized by an additional amount if it makes a mistakes in the spectrum that leads to a greater deviation of the $Z_{pred}$ from the $Z_{0}$ (which is a mistake that other linear/non-linear least-square unfolding codes such as MAXED and GRAVEL will not make. This effectively incorperate some physics into the neural network with the hopes of improving its accuracy.
 
 \section{Literature review}
+There are no previous attempts of unfolding fusion neutron spectra using neural networks. Therefore this technique is entreily new and not applied.
+
 Some work has been carried out in the field of neutron spectrum unfolding using neural networks. Only one of them are directly related to the method of activation foil neutron spectrum unfolding \cite{Accelerator-basedANNUnfolding}, which has a more pathological response matrix than the other two methods typically discussed in unfolding (Bonner Spheres and liquid scintillators). The condition number of the response matrix (i.e. the ratio of the maximum to minimum singular value\cite{MATLAB}) is likely worse due to the similarities between reaction cross-sectinos as dictated by nuclear physics; unlike in the other two detectors, where the response matrix is almost guaranteed to be triangular-matrix, so that the condition number is likely to be small, i.e. they are less ill-conditioned than the problem of activation foil neutron spectrum unfolding. Therefore the neural networks are likely to find it easier to unfold them as well.
 
 For the purpose of neutron spectrum measurement in a nuclear fusion reactor, which has very high neutron and $\gamma$ fluence, the other two methods of neutron measurement and unfolding are unsuitable due to their low radiation tolerance relative to the method of activation foil. However, this does not mean the work of neural network unfolding of neutron spectrum from Bonner Spheres measurements
-\cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN} %7:10:75; a momentum =0.1 and a learning rate= 0.1, mse = 1e−4 and a trainscg learning function
+\cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN} %7:10:75 & a momentum =0.1 and a learning rate= 0.1, mse = 1e−4 and a trainscg learning function
+\cite{RDANNM} %7:14:31
 \cite{ANNDoseQuantitiesPrediction} %Fully determined: 6:16:10:6
 \cite{ClaudiaC.BonnerSphereNNUnfolding} % 10:50:52 (not as underdetermined)
-\cite{RDANNM} %7:14:31
 and liquid scintillator measurements
 \cite{ANN-ModifiedLeastSquare} %Not even under-determined; simply being lazy. (Square)
-are not useful. It does give this experiment some reference neural network topologies.
+are not useful. It does give this experiment some reference neural network topologies (Table~\ref{NNtopology})
 
-\begin{tabular}
-    \begin{table}
-            
-    \end{table}
-\end{tabular}
+\begin{table}
+\begin{tabularx}{\textwidth}{cXX}
+Source & topology of NN & comment \\
+\hline
+\cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN} & 7:10:75 & optimum: momentum =0.1, learning rate= 0.1, activation function = trainscg\\
+\cite{RDANNM} & 7:14:31 & optimum: learning rate= 0.1, optimal momentum = 0.1, activation function = trainscg (same author as \cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN})\\
+\cite{LancasterNN} & 50:50:1 & over-determined (for fluence estimation)\\
+\cite{ANNDoseQuantitiesPrediction} & 6:10:16:6 & Fully determined system \\
+\cite{ANN-ModifiedLeastSquare} & 1 input layer : 2 hidden layer : 1 output layer & Fully determined system \\
+\cite{ClaudiaC.BonnerSphereNNUnfolding} & 10: 50: 52 & used for unfolding monoenergetic and continuous spectra\\
+\end{tabularx}
+\caption{Topology of all of the feed-forward neural networks used for neutron spectra unfolding found in literature.}\label{NNtopology}
+\end{table}
 
-Problem: we don't have as much data as in fission.
-%Other techniques:
-\cite{SVitishaGeneticAlgorithm}
-\cite{ParticleSwamp_NE-213}
-Therefore the neural network approach to unfolding the few-channel case for fusion purpose is novel.
+In addition to having a more under-determined matrix than all of the cases displyed in Table~\ref{NNtopology} (number of input nodes = 11; number of output nodes = 175), the problem of unfolding fusion neutron spectra comes with the lack of data:
+There are very few existing nuclear fusion facilities in the world, many of which do not have a first-wall similar to JET, ITER or DEMO, where tritium is expected to be bred, and neutron spectra measurement is paramount. Since the first wall condition will affect the plasma physics and the neutron scattering greatly, very few existing fusion neutron spectra are useful for training the neural network. Only measurements from JET and modelled measurements from ITER will be useful(this will be discussed further in Section~\ref{RealResults}).
+
+Some method are available to overcoming the challenge of data scarcity. Namely, it is to use Radial Basis Function Neural Networks (RBFNN) and General Regression Networks (GRNN), which are subsets of Probabilistic Neural Networks (PNN). They are more intricately designed than the typical Feedforward Neural Network (FNN), which is the type of neural network that has been discussed in this thesis so far.
+But neutron spectra unfolding with RBFNN\cite{RBF-NN}\cite{ThreeAIUnfolding} and GRNN\cite{NNNeutronFluenceAmbientDoseEquivalent}\cite{unfoldingCodeBasedOnGeneralizedRegressionANN}\cite{ThreeAIUnfolding}. are more complicated than unfolding, so in thesis only FNN will be investigated in details; further investigation into using RBFNN and GRNN may follow after the investigation in this thesis has been finished, in an attempt of improving fusion neutron spectrum unfolding performance.
+
+Some of these authors\cite{ThreeAIUnfolding} has also attempted to unfold neutron spectra via other artificial intelligence methods, such as Genetic Algorithm (GA). There are some interest on this topic\cite{SVitishaGeneticAlgorithm}\cite{HighResGeneticAlgorithm}, but recent work here in JET has shown that GA is unpromising for the purpose of unfolding fusion neutron spectra \cite{R.WorrallThesis}. For completeness, other AI methods that were considered for the purpose of neutron spectra unfolding are Particle Swamp \cite{ParticleSwamp_NE-213} and Artificial Bee Colony \cite{BeeColony}. None of these methods will be considered in detail as it is beyond the scope of this thesis.
 
 \section{Proof of concept on simulated spectra}
-For the simple 5$\times$5 case, did perfectly well.
+To demonstrate that the neural network is able to unfold neutron spectra at all, fictitious neutron spectra were created and folded through a response function, and neural networks were used to unfold them.
 
-But once we take log of both sides, it's become an impossible problem because we can't take log of a matrix that's singular. See Figure~\ref{5x5}.
+\subsection{Fully determined case}
+A square response matrix consisting of $5\times5$ randomly picked numbers (uniformly distributed across $1\le R_{ij}\le50$) was generated.
+
+A set of 100 spectra, each containing 5 randomly picked numbers (uniformly distributed across the range $1\le\phi_i\le15$) were also generated. They are regarded as the ``true" neutron flux distributions. The ``true" reaction rates corresponding to each spectrum was obtained by folding it through the response matrix according to equation \ref{unfolding general equation}. These forms the features and labels respectively.
+
+A single neural network with 0-hidden layer was able to predict the remaining (testing) labels from the features perfectly after 1000 epoch of training over half the dataset (i.e. the training set consist of the first 50 features-labels pair). Note that at this stage, the neural network has not logarithmized the features' or the labels' numerical values in its pre-processing step.
+
+This is an expected and trivial result, as a 0-hidden-layer neural network is merely a matrix multiplication equation. Further examination of the weights (by enabling eager\_execution\_mode in tensorflow before re-training the neural network) shows that the weights connecting the input to the output layer forms a matrix that is identical to the transpose of the inverse matrix $\mathbf{\underline{\underline{R}}^{-1}}$ up to 3 significant figure. The difference after the $3^{rd}$ (or more) significant figure were attributed to rounding errors, and the fact that the learning rate (i.e. Adam Optimizer's default learning rate of 0.001) was too big for the neural network to settle into the minimum in the parameter space properly.
+
+The idea of logarithmizing the numerical values of features and labels in the pre-processing step were then introduced and tested on this dataset.
+
+Since logarithms destroys the linearity of this problem, two hidden layers were added to account for the increased complexity of the problem. (Preliminary experimentation showed that adding only one hidden layer is insufficient, as the loss value does not go down as far as with the two hidden layer neural network.)
+
+The neural network was still able to reproduce the original spectra with satisfactory accuracy after training for 1000 epoch over 50 training data. Figure~\ref{5x5} contains 4 example plots from the test set, as predicted by the neural network.
 
 \begin{figure}
 \centering
@@ -431,12 +456,17 @@ But once we take log of both sides, it's become an impossible problem because we
 \includegraphics[height=3cm]{/home/ocean/Documents/PTNR/CulhamFusion/Presentation2/FewChannels_fullydetermined/15simple_log.png}
 \includegraphics[height=3cm]{/home/ocean/Documents/PTNR/CulhamFusion/Presentation2/FewChannels_fullydetermined/16simple_log.png}
 \caption{The spectra predicted by a 2-hidden-layers neural network (with 16 nodes per layer) on a fully determined system.} \label{5x5}
+Abscissa: neutron bin number; ordinate: neutron flux (arb. units)
+% Edit graph to give x-y axes labels.
 % See /home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simplecase/log_simple_2_layer_error_variation.png for training progress graph
 \end{figure}
-
 % list of all spectra plotted together /home/ocean/Documents/GitHubDir/unfolding/AllSpec.png
-\subsection{Creating simulated spectra by data augmentation}
-To demonstrate that the neural network is capable of doing the unfolding procedure in an underdetermined condition, 1800 spectra were made to train the neural network.
+
+As expected, larger deviations were observed when the absolute value of $\phi_{0i}$ is high, as the loss value contribution from each $\phi_{pred\:i}$ is proportional to $\frac{log_{10}(\phi_{0i})}{log_{10}(\phi_{pred\:i})}$
+
+\subsection{Underdetermined case}
+% Creating simulated spectra by data augmentation
+To demonstrate that the neural network is capable of doing the unfolding procedure in an underdetermined condition, 1800 spectra were made to train the neural network. They are generated from 300
 %To create a large enough dataset, [explain parametrisation]
 %Commonly used practice in Neural network is to introduce noise into the photos; But we can't just add random noise into the spectra and expect it to unfold the noise as well because adding meaningless information in case of an under-determined information condition will sqeeze away useful information out of the way.
 Further increase in complexities (number of layers and numebr of nodes per layers) yield no significant improvement in the fit. This is because increasing the complexity further will simply lead to over-fitting, as the neural network `memorizes' the relationship between features and labels. This was reflected by the continual decrease in the loss value over the training dataset, while the loss value over the validation dataset stops improving.
@@ -450,7 +480,7 @@ Further increase in complexities (number of layers and numebr of nodes per layer
     \hfill
     \begin{subfigure}[b]{.65\linewidth}
         \includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/_256_256_mse_training_spectra.png}
-        \caption{300 $\times$ perturbed spectra were generated for each of the 6 original fusion spectra and plotted here, in flux per unit lethargy.}
+        \caption{300 $\times$ 6 perturbed spectra were generated for each of the 6 original fusion spectra and plotted here, in flux per unit lethargy.}
     \end{subfigure}
 \caption{Data augmentation performed to create simulated spectra.}\label{Parametrisation}
 \end{figure}
@@ -496,7 +526,11 @@ It performs just as well.
         \item number of layers
         \item number of nodes in each layer
         \item number of epochs trained
-        \item learning rate
+        \item optimizer algorithm, which has the following parameters:
+        \begin{itemize}
+            \item momentum term (if applicable)
+            \item learning rate
+        \end{itemize}
         \item Normalization techniques applied
         \begin{item}
             \item Take log of features
