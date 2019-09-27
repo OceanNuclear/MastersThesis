@@ -59,13 +59,12 @@ student ID:& 1625143        \\
 I warrant that the content of this dissertation is the direct result of my own work and that any use made in it of published or unpublished materials is fully and correctly referenced.
 
 \abstract
-    A neural network approach to neutron spectrum unfolding was attempted and explained in this thesis. The optimal hyperparemters for such a neural network was found in a grid search. 
-	
-	A value of 5.0178 was obtained when evaluating the mean of the mean-squared deviation of the best-performing neural network's predictions from the true neutron flux in log space(mean MSE in log space). This is too high for practical fusion neutron unfolding purpose, and is not significantly better than the unfolding results obtained from GRAVEL, where the mean MSE in log space was 10.188 when given only a naive prior (flat \emph{a priori} spectrum). When the neural network's output was used as the \emph{a priori} for GRAVEL instead, it only lead to an insignificant improvement in mean MSE down to 9.8994.
-	
-	Attempts to generalize the knowledge learnt across different type of spectra proved to be a failure, as the neural networks trained on fission data gave nonsensical predictions when faced with reaction rates associated with fusion neutrons, with the best neural network among all giving an mean MSE of 16.768.
-    
-	The general poor performance of the neural network is attributed to the smalla amount of data available. Some improvements upon this experiments are proposed, but their effectiveness will be limited if the fusion neutron spectra size remains small.
+Include these things:
+\begin{itemize}
+    \item Attempted this
+    \item Got this result
+    \item advice for the future
+\end{itemize}
 \emph{Keywords:} activation, neutronics, fusion
 % \hline
 % \twocolumn
@@ -646,7 +645,7 @@ For combination of variable hyperparameters in Table~\ref{HyperparameterRange} (
 \subsection{Results of predicting using the real spectra}
 The resulting neural networks were sorted into two groups according to the training set (into "trained on fission" and "trained on fusion"), then each of them were sorted into 4 smaller groups according to the loss value used during training.
 
-For each group of the data, the resulting loss value, MAE(mean-absolute-error), and MSE(mean-squared-error), evaluated over the training set, validiation set, and testing set, as well as the std-dev-log(C/E) over the testing set, were all plotted as heatmaps (see Figure~\ref{hyperparametersearchTestLoss} for example). The main focus of this section is to find the neural networks that give the minimum test loss, as they indicate that these neural networks are able to perform well on data that it has never seen before.
+For each group of the data, the resulting loss values, MAE, MSE, and std-dev-log(C/E) were all plotted as heatmaps (see Figure~\ref{hyperparametersearchTestLoss} for example).
 
 \begin{figure}
 \centering
@@ -728,15 +727,15 @@ The method of method of unfolding using neural networks has the inherent advanta
 Therefore to fairly compare a neural network against the usual unfolding codes, no meaningful information should be given to the unfolding code in form of an \emph{a priori} spectrum. Therefore a naive priori of a flat neutron spectrum (i.e. flux in each bin is simply proportional to the ``size" (lethargy span) of each bin) will be given to the unfolding code before comparing their performance against the neural network unfolded neutron spectra. The unfolding code chosen are GRAVEL and MAXED, as they are the two most commnoly used neutron unfolding code. \cite{LWP_LTIS} \cite{bethColling_TBMD}
 
 % Can be used as the a priori generator?\\
-% But it also sucks as an a priori generator, giving , which is only a marginal improvement on the 10.188 stated in Figure~\ref{gravel_nn_a_priori_JET}
+% But it also sucks as an a priori generator, giving , which is only a marginal improvement on the 10.188233 stated in Figure~\ref{gravel_nn_a_priori_JET}
 \begin{figure}[H]
 \centering
     \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_maxed_test_000_}
     \caption{JET first wall spectrum as unfolded by MAXED upon using a flat neutron spectrum as the \emph{a priori}}\label{maxed_flat_a_priori_JET}
 \end{figure}
     
-While MAXED performed very poorly (Figure~\ref{maxed_flat_a_priori_JET}) when given a flat \emph{a priori} (giving a mean MSE value of 53.442406, as defined in equation~\ref{MSE}), GRAVEL was able to unfold a neutron spectrum from the flat \emph{a priori}, though with an underestimated low energy region and overestimated high energy range neutrons.
-A mean MSE value (as defined in equation\ref{MSE}) of 10.188233 was obtained when comparing the unfolded spectra against the 4 true spectra in testing set.
+While MAXED performed very poorly (Figure~\ref{maxed_flat_a_priori_JET}) when given a flat \emph{a priori} (giving an MSE value of 53.442406, as defined in equation~\ref{MSE}), GRAVEL was able to unfold a neutron spectrum from the flat \emph{a priori}, though with an underestimated low energy region and overestimated high energy range neutrons.
+An average MSE value (as defined in equation\ref{MSE}) of 10.188233 was obtained when comparing the unfolded spectra against the 4 true spectra in testing set.
 
 \begin{figure}
 \centering
@@ -751,7 +750,7 @@ When unfolding, an \emph{a priori} spectrum with a reasonably close match to the
 
 The motivation of using a neural network's output as the \emph{a priori} is that one can save hours of MCNP calculation in order to obtain the response matrix and \emph{a priori} spectrum.
 
-However, this proves to be rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. A mean MSE value of 9.8994 was achieved.
+However, this proves to be rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. An average MSE value of 9.8994 was achieved.
 % This is likely because the flux overestimation at the $\le 14.1MeV$ bins leads to a l
 
 And MAXED produced result that are also as meaningless as Figure~\ref{maxed_flat_a_priori_JET}, as the log of the flux in some bins tends to negative infinity.
@@ -773,7 +772,7 @@ While fusion spectra are scarce, there is an abundant database of fission neutro
 
 Therefore, the results of the second group of neural networks (trained on fission spectra, tested on fusion spectra) were examined. If there is indeed a transferable underlying structure that is common to both fission and fusion spectra, e.g. the Maxwellian distribution at thermal energy, then it should be able to identify them, and piece together semblances of fusion spectra, resulting in a low test loss.
 
-But even the best one among all of these neural networks performed very poorly. It uses an MSE loss value equation~\ref{MSE} giving a testing loss of 16.768. Closer examination of its prediction shows that its predictions are nonsensical.
+But even the best one among all of these neural networks performed very poorly. It uses an MSE loss value equation~\ref{MSE} giving a testing loss of 16.767817. Closer examination of its prediction shows that its predictions are nonsensical.
 
 \begin{figure}[H]
 \centering
@@ -794,41 +793,39 @@ This suggest that the inverse function required to unfold fission-induced reacti
 \section{Potential Future improvements}
 The techqniue of neural network classification is best applied when the dataset is large, which is not the case with fusion neutron spectra.
 
-In order to improve upon the results observed in this thesis, a larger dataset, consisting the neutron spectra for magnetic confinement fusion with various plasma and first wall conditions, and potentially of other inertial confinement fusion, should be attained. These data may be obtained by numerical simulations with MCNP, or actual measurements of neutron spectra at various TOKAMAK's and various other fusion facilities; but one has to recognize that neural networks trained on a set of data only creates predictions that are as reliable as its training data. In other words, if the numerical simulations in MCNP is inaccurate, the neural network will also predict inaccurately.
-
-Other possible directions of investigation are listed below:
+In order to improve upon the results observed in this thesis, a much larger dataset, consisting the neutron spectra for magnetic confinement fusion with various plasma and first wall conditions, and potentially of other inertial confinement fusion, should be attained. These data may be obtained by numerical simulations with MCNP, or actual measurements of neutron spectra at various TOKAMAK's and various other fusion facilities; but one has to recognize that neural networks trained on a set of data only creates predictions that are as reliable as its training data.%In other words, if the numerical simulations in MCNP is inaccurate, the neural network will also predict inaccurately.
 
 \begin{itemize}
     \item Repeat this experiment using RBFNN or GRNN, as explained in section~\ref{Literature review}, which are known to perform better under low sample number conditions. However, it is doubtful as to whether these neural networks will be able to generalize their predictions to new types of fusion reactors.
     \item Transfer learning\cite{TransferLearning}: train the neural network with fission data, fix the weights and biases in the half of the neural network, and then train the weights and biases in the remaining half of the neural network using fusion data. This takes use of much large, similar, dataset of fission spectra, to complete half of the training process, reducing the amount of information required to train the neural network.
-    \item The method of RDANNM proposed in \cite{RDANNM} uses Orthogonal Arrays instead of grid searching the entire hyperparameter space, as well as fractional factorial instead of full factorial combinations when performing the optimization. This can reduce the amount of time required for the experimentation; or extend the range of hyperparameter space searched in the same amount of time; multiple dimensional space can be search through in the same manner as well. This may reveal a combination of hyperparameter which may lead to a better neural network design for fusion neutron spectra unfolding than the existing optimal design.
-	\item Since the best hyperparameter occured at the extrema of the search ranges (at the maximum number of layers and minimum learning rate), it is possible that a better set of hyperparameter lies outside of this seearch range. As \cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN} has shown the optimal learning rate may be 0.1, which is beyond the searched range in the current investigation. Therefore another possible way of improving the unfolding accuracy of the neural networks is via expanding the search range.
+    \item Use Orthogonal Arrays instead of grid searching the entire hyperparameter space, as well as fractional factorial instead of full factorial combinations, as proposed in \cite{RDANNM}, when performing the optimization. This can reduce the amount of time required for the experimentation; or extend the range of hyperparameter space searched in the same amount of time; multiple dimensional space can be search through in the same manner as well. This may reveal a combination of hyperparameter which may lead to a better neural network design for fusion neutron spectra unfolding than the existing optimal design.
 \end{itemize}
 
 Lastly, as uncertainty of the neutron spectra needs to be known for the application of fusion neutron measurements, once an optimally performing neural network has been identified, a global sensitivty analysis can be performed on the neural network using a Monte Carlo approach: by repeatedly adding in noise $\delta Z_j$ into the reaction rates $Z_j$ and allowing the neural network to carry out its prediction (forward propagation), the Monte Carlo program will be used to infer the resulting changes $\delta \phi_i$ associated with the neural network's predictions ($\phi_i$), thus propagating uncertainty in the measurements of reaction rates $\sigma{Z}$ to uncertainties in the spectrum$\sigma_{\phi}$. An unfolding code suite is already under development in CCFE to allow this to be done systematically.
 
 \section{Conclusion}
-A neural network unfolding approach to neutron spectrum unfolding was examined.
+A neural network unfolding approach to neutron spectrum unfolding was examined. A grid search for the optimal hyperparameters for the neural network was performed over 4 dimensions (training set used, learning rate, number of layers, and loss function used). Some of the neural networks with the best test losses were examined in detail.
 
-A prototype neural network unfolding code was made for a simulated 5 reaction channles$\times$5 energy bins, fully determined system with synthetic data; and then again with a 11 reaction channles $\times$ 171 energy bins, underdetermined system with synthetic data, as proofs of concept. They behaved as expected, unfolding the simulated spectra from the reaction rates without being given the response matrix explicitly.
+Two loss functions were examined in detail. The neural network
 
-Then, 19 fusion neutron spectra were acquired. They were rebinned into the Vitamin-J group structure and folded through the resopnse matrix to obtain the corresponding reaction rates. 
+Among all neural network trained on fission which achieved the best MSE value of 5.0178, and was obtained using %(MSE defined in log space, (eq.~\ref{MSE}))
 
-To find the best hyperparameters for unfolding these neutron spectra, a grid search for the optimal hyperparameters for the neural network was performed over 4 dimensions (training set used, learning rate, number of layers, and loss function used). Some of the neural networks with the best test losses were examined in detail.
+This is only a slight improvement compared with the ... obtained when the same reaction rates were given to GRAVEL, along with a flat \emph{a priori}, leading to a loss value of 10.188.
 
-Two loss functions were examined: one is a simple MSE in log space (eq.~\ref{MSE}), one is a modified MSE in log space, which takes into account the physics of the unfolding process as well (eq.~\ref{MSE_including_folded_reaction_rates}); while the number of hidden layers used in the neural networks examined ranges from 0-5. The learning rate for the Optimizer Adam used ranges from 0.01 to $10^{-9}$.
+A loss value of 9.8994 was obtained 
 
-Among all neural networks trained on fusion data, the optimal one achieved the best mean MSE value of 5.0178. It has a topology of 11:32:53:90:152:256:175. However, it is thought that the neural network is being overtrained, as it was a very complex model with lots of parameters, but very few data points; and training finished in very few epochs as well, leading to the speculation that it was only ``memorizing" the average fusion neutron spectra. Therefore this model requires much more scrutinous examination and validation before it can be deployed for predicting neutron spectra of novel fusion reactor designs.
+When trained on fission spectra, 16.767817 %Also gives nonsensical results.
 
-Also, it does not significantly improves the unfolding accuracy compared to traditional neutron spectra unfolding codes when they are given naive priors. The fusion neutron spectra unfolded from by GRAVEL, when flat \emph{a priori}'s were given, unfolds to give a mean MSE value of 10.188 over the same dataset.
+\begin{itemize}
+    \item What's the loss values
+    \item achieved using what topology of NN
+    \item trained upon what data
+    \item How does it compare to neutron spectrum unfolding using GRAVEL and MAXED
+    \item Can we use Fission data to train it? (no)
+    \item What's the significance on the unfolding community: should they use it more? Should they improve upon it?
+    \item what additional observation did you find regarding training on different dataset.
+\end{itemize}
 
-When output from the optimal neural network (with the topology of 11:32:53:90:152:256:175) was used as the \emph{a priori} for GRAVEL instead, an average RMS value of 9.8994 was obtained. This is an insignificant improvement, and shows that the optimal neural network's prediction does not make good \emph{a priori} for unfolding.
-
-When fission spectra are used as the training data for the neural networks instead, then the performance of them greatly reduces. In this case the optimal neural network gives a very poor result of mean MSE = 16.768 as well; and the spectra obtained were nonsensical. This suggest that neural networks trained to unfold fission spectra cannot be used to unfold fusion spectra directly without at least some attempts of retraining.
-
-In conclusion neutron spectra unfolding with feedforward neural network is not a suitble technique for unfolding neutron spectra given the small number of fusion neutron spectra available, as neural network is a technique designed for big data. Techniques such as RBFNN, GRNN and Transfer Learning can be applied to minimize the impact of the insufficiency of data, while RDANNM may offer a faster approach to searching through a wider range of hyperparameters for the best hyperparameter. However the validity of these techniques requires further examination beyond the scope of this thesis.
-
-%The fusion neutron spectra unfolding community should not waste time to try it without at least doubling the number of available spectra.
 \bibliographystyle{plain}
 \bibliography{FACTIUNN}
 
