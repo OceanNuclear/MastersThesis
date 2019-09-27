@@ -772,7 +772,9 @@ And MAXED produced result that are also as meaningless as Figure~\ref{maxed_flat
 \subsection{An attempt at using fission data to predict fusion data}
 While fusion spectra are scarce, there is an abundant database of fission neutron spectra. Therefore, it would be ideal if neural networks trained on fission spectra can use it to explain fusion spectra, as we will not run into the issue of not having enough data.
 
-Therefore, the results of the second group of neural networks (trained on fission spectra, tested on fusion spectra) were examined. But even the best one of them performed very poorly. It uses an MSE loss value equation~\ref{MSE} giving a testing loss of 16.767817. Closer examination of its prediction shows that it is unsuitable for the neutron spectra.
+Therefore, the results of the second group of neural networks (trained on fission spectra, tested on fusion spectra) were examined. If there is indeed a transferable underlying pattern that is common to both fission and fusion spectra, e.g. the Maxwellian
+
+But even the best one of them performed very poorly. It uses an MSE loss value equation~\ref{MSE} giving a testing loss of 16.767817. Closer examination of its prediction shows that it is unsuitable for the neutron spectra.
 
 \begin{figure}[H]
 \centering
@@ -804,9 +806,15 @@ In order to improve upon the results observed in this thesis, a much larger data
 Lastly, as uncertainty of the neutron spectra needs to be known for the application of fusion neutron measurements, a global sensitivty analysis can be performed on the neural network using a Monte Carlo approach: by repeatedly adding in noise $\delta Z_j$ into the reaction rates $Z_j$ and allowing the neural network to carry out its prediction (forward propagation), the Monte Carlo program will be used to infer the resulting changes $\delta \phi_i$ associated with the neural network's predictions ($\phi_i$), thus propagating uncertainty in the measurements of reaction rates to $\sigma{Z}$ to $\sigma_{\phi}$. An unfolding code suite is already under development in CCFE to allow this to be done systematically.
 
 \section{Conclusion}
-A neural network unfolding approach to neutron spectrum unfolding was examined. A grid search for the optimal hyperparameters for the neural network was performed over 4 dimensions (training set used, learning rate, number of layers and loss function used). The neural network with the best test loss was examined and scrutinized.
+A neural network unfolding approach to neutron spectrum unfolding was examined. A grid search for the optimal hyperparameters for the neural network was performed over 4 dimensions (training set used, learning rate, number of layers, and loss function used). The neural network with the best test loss was examined% and scrutinized.
 
-A loss value of 10.188 was obtained (MSE in log space, (eq.~\ref{MSE}))
+A loss value of 3.?
+
+This is only a slight improvement compared with the loss value of 10.188 obtained when the code was unfolded using GRAVEL.
+
+A loss value of 9. was obtained (MSE in log space, (eq.~\ref{MSE}))
+
+on fission spectra,
 
 \begin{itemize}
     \item What's the loss values
