@@ -27,10 +27,10 @@
 \contentsline {section}{\numberline {C}Code for benchmarking}{65}
 \contentsline {section}{\numberline {D}Fully determined simulation data generation}{66}
 \contentsline {section}{\numberline {E}Underdetermined simulation data generation}{67}
-\contentsline {section}{\numberline {F}Training and evaluating neural networks on the underdetermined simulation data}{72}
-\contentsline {section}{\numberline {G}Selecting from UKAEA and IAEA compendium}{73}
+\contentsline {section}{\numberline {F}Training and evaluating neural networks on the underdetermined simulation data}{73}
+\contentsline {section}{\numberline {G}Selecting from UKAEA and IAEA compendium}{74}
 \contentsline {section}{\numberline {H}hyperparameter input controller}{77}
-\contentsline {section}{\numberline {I}hyperparameter optimization searching}{80}
+\contentsline {section}{\numberline {I}hyperparameter optimization searching}{81}
 \contentsline {section}{\numberline {J}Loss value visualizer}{84}
 \contentsline {section}{\numberline {K}Parametrisation of the FISPACT reference spectra}{86}
 \contentsline {section}{\numberline {L}neutron spectra extraed from the IAEA + UKAEA compendium}{87}
