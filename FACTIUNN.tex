@@ -239,7 +239,7 @@ Therefore to start the unfolding process, extra information has to be given to t
 The most general unfolding program can, ideally, find a solution $\ve{Z}$, \matr{R} and $\ve{\phi}$ \cite{theorypdf}, such that their overall deviation from the measured reaction rates ($\ve{Z_0}$), expected response matrix ($\underline{\underline{\mathbf{R_0}}}$), and the initial guessed neutron spectrum ($\ve{\phi_0}$), is minimized. The deviation of the solution reaction rates from the measured reaction rate is calculated from its covariance matrix $\underline{\underline{\mathbf{S_Z}}}$, as the $(\chi^2)_Z = Z^T \underline{\underline{\mathbf{S_Z}^{-1}}} Z$. Equivalently the deviation of $\ve{\phi}$ from $\ve{\phi_0}$ and \matr{R} from $\underline{\underline{\mathbf{R_0}}}$ can be calculated from their respective covariance matrix..
 
 \subsection{Current practice}
-In practice, the ambiguity in the response matrix is nearly always ignored, by assuming that the response matrix $\underline{\underline{\mathbf{R_0}}}$ is accurately and precisely defined, fixing the response matrix during the solution search. This reduce the number of dimensions in the solution search by $M\times N$, massively reducing the computational complexity. It also assumes that the covariance matrix of the reaction rates is diagonal, i.e. there are no covariance across different reaction rates.
+In practice, there is always uncertainty associated with the cross-section values provided by the nuclear data libraries \cite{fluence_rate_correction_factors}. This is known as the ``ambiguity" of the response matrix. To reduce the complexitiy of the problem, however, the ambiguity in the response matrix is nearly always ignored, by assuming that the response matrix $\underline{\underline{\mathbf{R_0}}}$ is accurately and precisely defined, fixing the response matrix during the solution search. This reduce the number of dimensions in the solution search by $M\times N$, massively reducing the computational complexity. It also assumes that the covariance matrix of the reaction rates is diagonal, i.e. there are no covariance across different reaction rates.
 
 Some programs, such as GRAVEL\cite{ManfredMatzkeHEPRO} and SAND-II\cite{SAND-II}, simply start their iterative solution search from this \emph{a priori} spectrum, with the aim of minimizing the $\chi^2$ (which measures the deviation of $\ve{Z}$ from $\ve{Z_0}$); while others, such as MAXED \cite{MAXED1998Reginatto} add the deviation of the solution spectrum from the \emph{a priori} spectrum ($\ve{\phi}$ from $\ve{\phi_0}$) on top of the deviation of the solution reaction rates from the measured reaction rates ($\ve{Z}$ from $\ve{Z_0}$) when evaluating the $\chi^2$.
 %cite MAXED, SAND-II and GRAVEL
@@ -259,18 +259,18 @@ A typical neural network learns the relationship between the inputs (the two nod
     \caption{Illustration of the topology of a typical neural network} \label{SimpleNNArchitecture}
 \end{figure}
 
-The inputs to the neural network are known as ``\underline{features}" and the outputs are known as the ``\underline{labels}".
+The inputs to the neural network are known as ``features" and the outputs are known as the ``labels".
 
 In the context of neutron spectrum unfolding using neural networks, there are M features (reaction rates $Z_j$ for $1\le j\le M$) and N labels (neutron flux in each bin $\phi_j$ for $1 \le j \le N$). 
 
-The ``\underline{activation}" $A_i$ of the $i^{th}$ node refers to the value that it takes.
-$w_{ij}$ denotes the ``\underline{weight}" of each connection from the $j^{th}$ node to the $i^{th}$.
+The ``activation" $A_i$ of the $i^{th}$ node refers to the value that it takes.
+$w_{ij}$ denotes the ``weight" of each connection from the $j^{th}$ node to the $i^{th}$.
 
-When the activations in the input layer ($A_i$) are known, the activation in the next layer (in this case, the first hidden layer) is calculated as follows:
+When the activations in the input layer ($A_j$) are known, the activation in the next layer (in this case, the first hidden layer) is calculated as follows:
 \begin{equation} \label{forwardpropagation}
     A_i = \sigma_i\left({\sum_{j} (w_{ij}A_j) + b_i}\right)
 \end{equation}
-$b_{i}$ denotes a ``\underline{bias}" value which will be added onto the sums in front of each node before it is parsed through the activation function $\sigma_i$.
+$b_{i}$ denotes a ``bias" value which will be added onto the sums in front of each node before it is parsed through the activation function $\sigma_i$.
 The activation function is usually denoted as $\sigma_{i}$, i.e. it is possible to use different activation functions for different nodes $i$; however the common practice is to use the same type of activation function across the whole layer, or even across all nodes and all layers of the neural network. The typical function chosen is the ReLU function (Figure~\ref{ReLU}), i.e. for all layers, and for all values of $i$, as it is one of the simplest non-linear function whose gradient can be computed quickly.
 
 
@@ -287,7 +287,7 @@ The activation function is usually denoted as $\sigma_{i}$, i.e. it is possible 
 Equation~\ref{forwardpropagation} is applied recursively to calculate the activations in the immediate next layer. For example, to calculate the activations in second layer (i.e. the output layer) in Figure~\ref{SimpleNNArchitecture} simply by swapping the indices in for the indices of the next layer: $i\mapsto h$, $j\mapsto i$. This process is known as forward propagation.
 
 \subsubsection{Backpropagation}
-    The weights $w$ and biases $b$ are known as the \underline{parameters} of the neural network. This is in contrast with the term ``\underline{hyperparameters}", which are the numbers that describes the topology of the neural network, i.e. number of layers, number of nodes in each layer, learning rate (see section \ref{sec:training} below), etc. During the training phase of the neural network, these parameters are adjusted so that the neural network's predicted output values align with the true output values more closely. This deviation of the predicted label from the true label is termed the ``\underline{loss value}", and can be calculated in a variety of manner (see Section \ref{unfolding inverse equation} for the loss value metrics considered in this investigation). For the moment let's assume it is calculated as the mean-squared value, i.e. same as the $\chi^2$ value familiar to physicists.
+    The weights $w$ and biases $b$ are known as the \underline{parameters} of the neural network. This is in contrast with the term ``hyperparameters", which are the numbers that describes the topology of the neural network, i.e. number of layers, number of nodes in each layer, learning rate (see section \ref{sec:training} below), etc. During the training phase of the neural network, these parameters are adjusted so that the neural network's predicted output values align with the true output values more closely. This deviation of the predicted label from the true label is termed the ``loss value", and can be calculated in a variety of manner (see Section \ref{unfolding inverse equation} for the loss value metrics considered in this investigation). For the moment let's assume it is calculated as the mean-squared value, i.e. same as the $\chi^2$ value familiar to physicists.
 
     The process of adjusting parameters to reduce the loss value is known as backpropagation, as the `desired' change to each weight and bias (calculated from the gradient of the loss value with respect to $w$ or $b$, i.e. $\frac{\partial (loss)}{\partial w}$ or $\frac{\partial (loss)}{\partial b}$) is obtained by tracing the change in the output layer back to the weight and biases of each layer.
 
@@ -320,15 +320,15 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
 \subsubsection{Training the neural network}\label{sec:training}
     Before adjusting the parameters, a fraction of the data is drawn out and reserved for \underline{testing}. The remaining is used as the \underline{training} dataset. These ``training" and ``testing" data are chosen in such a way that they cover the same range of domain and co-domain in the feature- and label-space respectively.
     
-    The parameters are adjusted in iteratively to minimize the loss value. Each step requires calculation of the gradient value over the entire dataset, known as an ``\underline{epoch}", obtained by calculating the average $\frac{\partial (loss)}{\partial w}$ or $\frac{\partial (loss)}{\partial b}$ over the entire training dataset. The parameters is adjusted according to an algorithm known as the ``\underline{optimizer}"; this algorithm may require some more hyperparameters, such as the ``\underline{momentum}", ``\underline{acceleration}" term to be defined. When further training no longer improves the loss value over the training set (i.e. the ``\underline{training loss}"), training can be stopped, and the parameters are then fixed at their final values. The size of each step is calculated as (learning rate)$\times$(gradient of the loss value in parameter space)
+    The parameters are adjusted in iteratively to minimize the loss value. Each step requires calculation of the gradient value over the entire dataset, known as an ``epoch", obtained by calculating the average $\frac{\partial (loss)}{\partial w}$ or $\frac{\partial (loss)}{\partial b}$ over the entire training dataset. The parameters is adjusted according to an algorithm known as the ``optimizer"; this algorithm may require some more hyperparameters, such as the ``momentum", ``acceleration" term to be defined. When further training no longer improves the loss value over the training set (i.e. the ``training loss"), training can be stopped, and the parameters are then fixed at their final values. The size of each step is calculated as (learning rate)$\times$(gradient of the loss value in parameter space)
 
-    The performance of the neural network is then evaluated over the testing set to obtain an average loss value, known as the ``\underline{testing loss}". If the testing loss is much higher than the training loss, it signifies that the neural network was ``\underline{overfitting}", i.e. it reached a minimum training loss by ``memorizing" the relationship between training features and training labels, and is unable to generalize these relationships to the testing set. This may suggest that the neural network is too complex, i.e. has too many nodes or neurons.
+    The performance of the neural network is then evaluated over the testing set to obtain an average loss value, known as the ``testing loss". If the testing loss is much higher than the training loss, it signifies that the neural network was ``overfitting", i.e. it reached a minimum training loss by ``memorizing" the relationship between training features and training labels, and is unable to generalize these relationships to the testing set. This may suggest that the neural network is too complex, i.e. has too many nodes or neurons.
 
     Apart from reducing the complexity of the model, various techniques exist to reduces overfitting, including weight-regularization and dropout \cite{TensorflowOverfitting}. Weight regularization ensures that the numerical values of weights $w$ remains small; while dropout effectively removes a specified fraction of the connections at each layer. However, these techniques are not applied.
 
-    However, one of the most widely used method of reducing overfitting is by measuring the validation loss. A small subset of the training data is reserved and not used for backpropagation during the training, but its loss value (known as the ``\underline{validation loss}") is calculated at each epoch also. This amounts to calculating the loss value of the neural network's prediction on a set of data that it has never seen before as well. When the validation error stops decreasing, then one can be sure that the neural network has stopped identifying general patterns which applies across both the validation set and the training set, and begin memorization. The training can be stopped at this point.
+    However, one of the most widely used method of reducing overfitting is by measuring the validation loss. A small subset of the training data is reserved and not used for backpropagation during the training, but its loss value (known as the ``validation loss") is calculated at each epoch also. This amounts to calculating the loss value of the neural network's prediction on a set of data that it has never seen before as well. When the validation error stops decreasing, then one can be sure that the neural network has stopped identifying general patterns which applies across both the validation set and the training set, and begin memorization. The training can be stopped at this point.
 
-    This method is called ``\underline{Early Stopping}"; it catches the neural network before it begins overfitting aggressively.
+    This method is called ``Early Stopping"; it catches the neural network before it begins overfitting aggressively.
 
 \subsubsection{Applying neural network to the unfolding problem}
     To apply neural networks as unfolding tools, we will want neutron spectra as the output and reaction rates as the input, i.e. M features (reaction rates $Z_j$ for $1\le j\le M$) and N labels (neutron flux in each bin $\phi_j$ for $1 \le j \le N$).
@@ -339,7 +339,7 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
         \ve{Z} = \mathbf{\underline{\underline{R}}^{-1}} \ve{\phi}
     \end{equation}
     
-    i.e. all reaction rates can be unfolding back to one and only one unique solution spectrum. Ideally, the set of all possible solution for the neutron spectrum $\ve{\phi}$ is expected to be confined in an M- (or fewer-) dimensional manifold in the N-dimensional solution space, by various physical constraints. The role of this neural network is to identify this M-dimensional manifold co-domain in the solution space. 
+    i.e. all reaction rates can be unfolding back to one and only one unique solution spectrum. Ideally, the set of all possible solution for the neutron spectrum $\ve{\phi}$ can be expressed as a linear sum of M or fewer basis vectors due to the contraints of various physical processes. The role of the neural network is to identify these M- bases vectors, and relate them to the M reaction rates.
 
     Several metrics were considered for the neural networks. Since the neural networks' goal is to predict a set of labels (solution spectrum) $\phi_{pred}$ that is identical to the true spectrum $\phi_{0}$ when given the set of features $Z_{0}$ corresponding to the set of labels $\phi_{0}$, the loss function must have a minimum at $\phi_{pred}=\phi{0}$.
 
@@ -383,7 +383,7 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
         \end{equation}
         % \item loss function: pairwise, tried using cosine distance but it didn't work because it simply gave NaN's.
     \end{itemize}
-    Where $\phi'$ is the $\ve{\phi}$ and $\ve{Z}$ vector concatenated together,
+    Where $\ve{\phi'}$ is the $\ve{\phi}$ and $\ve{Z}$ vector concatenated together,
     \begin{equation}\label{NNregularization}
         \ve{\phi'} = [\phi_1, ..., \phi_N, Z_1, ..., Z_M]
     \end{equation}
@@ -398,19 +398,19 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
 
     These two metrics will give loss value = 0 when $\phi_{pred}$ and $\phi_0$ matches perfectly; but the neural network will be penalized by an additional amount if it makes a mistakes in the spectrum that leads to a greater deviation of the $Z_{pred}$ from the $Z_{0}$ (which is a mistake that other linear/non-linear least-square unfolding codes such as MAXED and GRAVEL will not make. This effectively incorperate some physics into the neural network with the hopes of improving its accuracy.
 
-\section{Literature review}
+\section{Literature review}\label{Literature review}
 There are no previous attempts of unfolding fusion neutron spectra using neural networks. Therefore this technique is entreily new and not applied.
 
-Some work has been carried out in the field of neutron spectrum unfolding using neural networks. Only one of them are directly related to the method of activation foil neutron spectrum unfolding \cite{Accelerator-basedANNUnfolding}, which has a more pathological response matrix than the other two methods typically discussed in unfolding (Bonner Spheres and liquid scintillators). The condition number of the response matrix (i.e. the ratio of the maximum to minimum singular value\cite{MATLAB}) is likely worse due to the similarities between reaction cross-sectinos as dictated by nuclear physics; unlike in the other two detectors, where the response matrix is almost guaranteed to be triangular-matrix, so that the condition number is likely to be small, i.e. they are less ill-conditioned than the problem of activation foil neutron spectrum unfolding. Therefore the neural networks are likely to find it easier to unfold them as well.
+Some work has been carried out in the field of neutron spectrum unfolding using neural networks. Only one of them are directly related to the method of activation foil neutron spectrum unfolding \cite{Accelerator-basedANNUnfolding}, which has a more pathological response matrix than the other two methods typically discussed in unfolding (Bonner Spheres and liquid scintillators). The condition number of the response matrix (i.e. the ratio of the maximum to minimum singular value\cite{MATLAB}) is likely worse due to the similarities between reaction cross-sections as dictated by nuclear physics; unlike in the other two detectors, where the response matrix is almost guaranteed to be lower-triangular matrix, where the response of each Bonner sphere/ scintillation pulse height is guaranteed to be linearly independent from each other, so that the condition number is to be small, i.e. they are less ill-conditioned than the problem of activation foil neutron spectrum unfolding. Therefore unfolding these two types of spectra are not as difficult as unfolding neutron spectra from activation foil.
 
-For the purpose of neutron spectrum measurement in a nuclear fusion reactor, which has very high neutron and $\gamma$ fluence, the other two methods of neutron measurement and unfolding are unsuitable due to their low radiation tolerance relative to the method of activation foil. However, this does not mean the work of neural network unfolding of neutron spectrum from Bonner Spheres measurements
+For the purpose of neutron spectrum measurement in a nuclear fusion reactor, which has very high neutron and $\gamma$ fluence compared to fluences typically found in medical physics and in fission reactors where Bonner spheres and liquid scintillator neutron measurement and unfolding are used. These two methods are unsuitable for measuring fusion neutron energies directly due to their low radiation tolerance relative to the method of activation foil. However, this does not mean the work of neural network unfolding of neutron spectrum from Bonner Spheres measurements
 \cite{Rodrigues-UnfoldingCompuerCodeBasedOnANN} %7:10:75 & a momentum =0.1 and a learning rate= 0.1, mse = 1e−4 and a trainscg learning function
 \cite{RDANNM} %7:14:31
 \cite{ANNDoseQuantitiesPrediction} %Fully determined: 6:16:10:6
 \cite{ClaudiaC.BonnerSphereNNUnfolding} % 10:50:52 (not as underdetermined)
 and liquid scintillator measurements
 \cite{ANN-ModifiedLeastSquare} %Not even under-determined; simply being lazy. (Square)
-are not useful. It does give this experiment some reference neural network topologies (Table~\ref{NNtopology})
+are not useful for fusion neutron spectra unfolding. They provide useful references of neural network topologies useful for neutron spectrum unfolding (Table~\ref{NNtopology}).
 
 \begin{table}
 \begin{tabularx}{\textwidth}{cXX}
@@ -426,25 +426,25 @@ Source & topology of NN & comment \\
 \caption{Topology of all of the feed-forward neural networks used for neutron spectra unfolding found in literature.}\label{NNtopology}
 \end{table}
 
-In addition to having a more under-determined matrix than all of the cases displyed in Table~\ref{NNtopology} (number of input nodes = 11; number of output nodes = 175), the problem of unfolding fusion neutron spectra comes with the lack of data:
-There are very few existing nuclear fusion facilities in the world, many of which do not have a first-wall similar to JET, ITER or DEMO, where tritium is expected to be bred, and neutron spectra measurement is paramount. Since the first wall condition will affect the plasma physics and the neutron scattering greatly, very few existing fusion neutron spectra are useful for training the neural network. Only measurements from JET and modelled measurements from ITER will be useful(this will be discussed further in Section~\ref{RealResults}).
-
-Some method are available to overcoming the challenge of data scarcity. Namely, it is to use Radial Basis Function Neural Networks (RBFNN) and General Regression Networks (GRNN), which are subsets of Probabilistic Neural Networks (PNN). They are more intricately designed than the typical Feedforward Neural Network (FNN), which is the type of neural network that has been discussed in this thesis so far.
+They also offer some insight as to how to overcome data the challenge of data scarcity. Namely, with Radial Basis Function Neural Networks (RBFNN) and General Regression Networks (GRNN), which are subsets of Probabilistic Neural Networks (PNN). They are more intricately designed than the typical Feedforward Neural Network (FNN), which is the type of neural network that has been discussed in this thesis so far.
 But neutron spectra unfolding with RBFNN\cite{RBF-NN}\cite{ThreeAIUnfolding} and GRNN\cite{NNNeutronFluenceAmbientDoseEquivalent}\cite{unfoldingCodeBasedOnGeneralizedRegressionANN}\cite{ThreeAIUnfolding} are more complicated than unfolding, so in thesis only FNN will be investigated in details; further investigation into using RBFNN and GRNN may follow from this thesis, in an attempt to improve fusion neutron spectrum unfolding performance.
 
-Some of these authors\cite{ThreeAIUnfolding} has also attempted to unfold neutron spectra via other artificial intelligence methods, such as Genetic Algorithm (GA). There are some interest on this topic\cite{SVitishaGeneticAlgorithm}\cite{HighResGeneticAlgorithm}, but recent work here in CCFE has shown that GA is unpromising for the purpose of unfolding fusion neutron spectra \cite{R.WorrallThesis}. For completeness, other AI methods that were considered for the purpose of neutron spectra unfolding includes Particle Swamp \cite{ParticleSwamp_NE-213} and Artificial Bee Colony \cite{BeeColony}. None of these methods will be considered in detail as it is beyond the scope of this thesis.
+In addition to having a more under-determined matrix than all of the cases displyed in Table~\ref{NNtopology} (number of input nodes = 11; number of output nodes = 175), the problem of unfolding fusion neutron spectra comes with the lack of data:
+There are very few existing nuclear fusion facilities in the world, many of which do not have a first-wall similar to JET, ITER or DEMO, where tritium is expected to be bred, and neutron spectra measurement is paramount. Since the first wall condition will affect the plasma physics and the neutron scattering greatly, very few existing fusion neutron spectra are useful for training the neural network. They mainly consist of measurements from JET and modelling results from ITER. (This will be discussed further in Section~\ref{RealResults}.)
+
+Some of these authors\cite{ThreeAIUnfolding} have also attempted to unfold neutron spectra via other artificial intelligence methods, such as Genetic Algorithm (GA). There are some interest on this topic\cite{SVitishaGeneticAlgorithm}\cite{HighResGeneticAlgorithm}, but recent work here in CCFE has shown that GA is unpromising for the purpose of unfolding fusion neutron spectra \cite{R.WorrallThesis}. For completeness, other AI methods that were considered for the purpose of neutron spectra unfolding includes Particle Swamp \cite{ParticleSwamp_NE-213} and Artificial Bee Colony \cite{BeeColony}. None of these methods will be considered in detail as it is beyond the scope of this thesis.
 
 \section{Proof of concept on simulated spectra}
-To demonstrate that the neural network is able to unfold neutron spectra at all, fictitious neutron spectra were created and folded through a response function, and neural networks were used to unfold them.
+To demonstrate that the neural network is able to unfold neutron spectra at all, simple synthetic neutron spectra were created and folded through a response function, and neural networks were used to unfold them. These synthetic neutron spectra are simple in the sense that there are no physical processes modelled/considered while creating them, thus cannot be used to represent real world data.
 
 \subsection{Fully determined case}
 A square response matrix consisting of $5\times5$ randomly picked numbers (uniformly distributed across $1\le R_{ji}\le50$) was generated.
 
-A set of 100 spectra, each containing 5 randomly picked numbers (uniformly distributed across the range $1\le\phi_i\le15$) were also generated. They are regarded as the ``true" neutron flux distributions. The ``true" reaction rates corresponding to each spectrum was obtained by folding it through the response matrix according to equation \ref{unfolding general equation}. These forms the features and labels respectively.
+A set of 100 spectra, each containing 5 randomly picked numbers (uniformly distributed across the range $1\le\phi_i\le15$) were also generated. They are regarded as the ``true" neutron flux distributions. The ``true" reaction rates corresponding to each spectrum was obtained by folding it through the response matrix according to equation \ref{unfolding general equation}. These form the features and labels respectively.
 
-A single neural network with 0-hidden layer was able to predict the remaining (testing) labels from the features perfectly after 10000 epoch of training over half the dataset (i.e. the training set consist of the first 50 features-labels pair). Note that at this stage, the neural network has not logarithmized the features' or the labels' numerical values in its pre-processing step, i.e. it is calculating the deviation in linear-space instead of log-space in equation \ref{MSE}, and regressing on the original value of the features, instead of $log(\text{features})$
+A single neural network with 0-hidden layer was able to predict the remaining labels (i.e. labels in the testing set) from the features perfectly after 10000 epochs of training over half the dataset (i.e. the training set consist of the first 50 features-labels pair). Note that at this stage, the neural network has not logarithmized the features' or the labels' numerical values in its pre-processing step, i.e. its loss function calculates the deviation in linear-space instead of log-space in equation \ref{MSE}, and regressing on the original value of the features, instead of $log(\text{features})$. This was done since the features are uniformly distributed within the same magnitude, so feature normalization is not needed.
 
-This is an expected and trivial result, as a 0-hidden-layer neural network is merely a matrix multiplication equation. Further examination of the weights (by enabling eager\_execution\_mode in tensorflow before re-training the neural network) shows that the weights connecting the input to the output layer forms a matrix that is identical to the transpose of the inverse matrix $\mathbf{\underline{\underline{R}}^{-1}}$ up to 3 significant figure. The difference after the $3^{rd}$ (or more) significant figure were attributed to rounding errors, and the fact that the learning rate (i.e. Adam Optimizer's default learning rate of 0.001) was too big for the neural network to settle into the minimum in the parameter space properly.
+The perfect replication of the results is an expected and trivial result, as a 0-hidden-layer neural network is merely a matrix multiplication equation. Further examination of the weights (by enabling eager\_execution\_mode in tensorflow before re-training the neural network) shows that the weights connecting the input to the output layer forms a matrix that is identical to the transpose of the inverse matrix $\mathbf{\underline{\underline{R}}^{-1}}$ up to 3 significant figure. The difference after the $3^{rd}$ (or more) significant figure were attributed to rounding errors, and the fact that the learning rate (i.e. Adam Optimizer's default learning rate of 0.001) was too big for the neural network to settle into the minimum in the parameter space properly.
 
 The idea of logarithmizing the numerical values of features and labels in the pre-processing step were then introduced and tested on this dataset.
 
@@ -569,7 +569,7 @@ The low training loss/MAE/MSE shows that the neural networks were able to learn 
 \section{Neural networks trained on real spectra}\label{RealResults}
 From the result of the previous section, we can expect the neural network to be able to identify the relationship between reaction rates and neutron spectra, while replicating the underlying pattern in the real neutron spectra, when sufficient data is given.
 
-A set of 212 neutron spectra were acquired from the IAEA+UKAEA compendium\cite{IAEAUKAEACompendium}. 137 of them were identified as fission neutron spectra and 19 of them were identified as fusion neutron spectra. These spectra are listed in the appendices \ref{fission-fusion spectra IEAEUKAEACompendium}.
+A set of 212 neutron spectra were acquired from the IAEA+UKAEA compendium\cite{IAEAUKAEACompendium}. 137 of them were identified as fission neutron spectra and 19 of them were identified as fusion neutron spectra. These spectra are listed in the appendices \ref{fission-fusion spectra IAEUKAEACompendium}.
 
 They were rebinned into the Vitamin-J group structure using FISPACT-II\cite{Fispact}. The Vitamin-J group structure was chosen as it is well known and widely used in neutron spectrum unfolding \cite{SpectrumUnfoldingMethodology} \cite{ADRIANA_lab_equiv} \cite{Stayslpnnl}. Using the 11 reactions that are measured by the ACT system \cite{LWP_LTIS}, the corresponding reaction rates for each spectrum was obtained by folding it through the response matrix (plotted in Figure~\ref{response_matrix}). The method of obtaining the response matrix is explained in Figure~\ref{response_matrix}:
 
@@ -656,7 +656,7 @@ Each square represents a neural network with a particular set of hyperparameters
 Neural networks which performs better has lower loss values, and are represented with darker colours.\\
 \end{figure}
 
-General effects of learning rate and number of layers were identified in this manner. For all of the dataset and loss function used concerned, a general trend of increasing testing loss was identified as the number of layers increases; while the learning rate has no significant effect on it (except for causing a preiodic oscillation in the testing loss as the learning rate increases logarithmically).
+General effects of learning rate and number of layers were identified in this manner. For all of the dataset and loss function used concerned, a general trend of increasing testing loss was identified as the number of layers increases; while the learning rate has no significant effect on it (except for causing a periodic oscillation in the testing loss as the learning rate increases logarithmically, which was dismissed as an artefact of the Optimizer algorithm Adam).
 
 However, a closer examination of the performance of these few-layer neural networks reveals that their performance are mediocre. 
 
@@ -684,7 +684,7 @@ They are unable to replicate the 14.1 MeV peak at the correct width, and occassi
 
 This is likely due to the small dataset of fusion data available. This explanation is supported by the small number of epochs required for training to finish: most of the neural networks finished training in fewer than 50 epochs, i.e. showed no further improvement in the validation loss in the next 1000 epoch after that. This is unusually early stopping of compared to the number of epochs the neural network required to be trained in Section~\ref{Underdetermined case}.
 
-However, one particular extremum showed up on some of the graphs. This is the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. This neural network is found to be as the neural network with the lowest testing loss and testing MSE.
+However, one particular extremum showed up on some of the graphs. This is the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175, loss function used = mean-squared-error-including-folded-reaction-rates, eq.~\ref{MSE_including_folded_reaction_rates}), a particularly loss value is obtained. This neural network is found to be as the neural network with the lowest testing loss and testing MSE.
 
 This neural network was able to be reproduce the same results even when its initial weights and biases were initialized using a different tensorflow seed. Therefore its low test loss and test MSE were not coincidencidental, resulting from a numerical instability. It was thought that the neural network was able to generalize from such small dataset, so its predicted spectra were looked into in closer detail.
 
@@ -694,7 +694,7 @@ This neural network was able to be reproduce the same results even when its init
 \caption{JET first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionJET-FW}
 \end{figure}
 
-But in the end it was concluded that this 5-hidden-layer neural network likely only achieves the above average performance serendipiteously by re-tracing the same average spectrum. This hypothesis is supported by it replicating a very similar spectrum when it attempts to deduce the spectra corresponding to the other two test data. 
+But in the end it was concluded that this 5-hidden-layer neural network likely only achieves the above average performance serendipiteously by re-tracing the same average spectrum. This hypothesis is supported by it replicating a very similar spectrum when it attempts to deduce the spectra corresponding to the other two test data.
 % Figure~\ref{5Layerfusion-fusionJET-FW} 
 % The experiment was repeated using other metrics as the loss values. All four loss value metrics in equation~\ref{MSE} to \ref{MPSE_including_folded_reaction_rates} were tested.
 
@@ -721,10 +721,8 @@ But in the end it was concluded that this 5-hidden-layer neural network likely o
 % \subsection{potential future improvements}
 % 1. In the future we can calculate the spectral index? plug THOSE values in, instead of plugging in the direct values, it might be better at picking out these differences, because it may be more obvious, and can pick it out even when the data is sparse.
 
-Use RBF-NN.
-
 \subsection{Benchmarking against existing codes}
-\subsubsection{As an unfolding tool}
+\subsubsection{As an unfolding tool}\label{As an unfolding tool}
 The method of method of unfolding using neural networks has the inherent advantage of not having to provide an \emph{a priori} spectrum; if sufficient training data (with the correct group structure, and with corresponding reaction rates) has been given to it, a neural network is, theoretically, capable of unfolding any set of new reaction rates into a neutron spectrum. 
 
 Therefore to fairly compare a neural network against the usual unfolding codes, no meaningful information should be given to the unfolding code in form of an \emph{a priori} spectrum. Therefore a naive priori of a flat neutron spectrum (i.e. flux in each bin is simply proportional to the ``size" (lethargy span) of each bin) will be given to the unfolding code before comparing their performance against the neural network unfolded neutron spectra. The unfolding code chosen are GRAVEL and MAXED, as they are the two most commnoly used neutron unfolding code. \cite{LWP_LTIS} \cite{bethColling_TBMD}
@@ -737,7 +735,7 @@ Therefore to fairly compare a neural network against the usual unfolding codes, 
     \caption{JET first wall spectrum as unfolded by MAXED upon using a flat neutron spectrum as the \emph{a priori}}\label{maxed_flat_a_priori_JET}
 \end{figure}
     
-While MAXED performed very poorly when given a flat \emph{a priori} (giving an MSE value of 53.442406, as defined in equation~\ref{MSE}), GRAVEL was able to unfold a neutron spectrum from the flat \emph{a priori}, though with an underestimated low energy region and overestimated high energy range neutrons.
+While MAXED performed very poorly (Figure~\ref{maxed_flat_a_priori_JET}) when given a flat \emph{a priori} (giving an MSE value of 53.442406, as defined in equation~\ref{MSE}), GRAVEL was able to unfold a neutron spectrum from the flat \emph{a priori}, though with an underestimated low energy region and overestimated high energy range neutrons.
 An MSE value of 10.188233 was obtained when comparing the unfolded spectra against the true spectra in log space. (eq. \ref{MSE})
 
 \begin{figure}
@@ -747,12 +745,14 @@ An MSE value of 10.188233 was obtained when comparing the unfolded spectra again
     An average MSE value (as defined in equation\ref{MSE}) of 10.188233 was obtained when comparing the unfolded spectra against the 4 true spectra in testing set.
 \end{figure}
 
-While the best performing neural network (Figure~\ref{5Layerfusion-fusionJET-FW}) gives a slightly better result, both Figure~\ref{5Layerfusion-fusionJET-FW} and Figure~\ref{gravel_flat_a_priori_JET} are far from being applicable to real neutron spectrum unfolding, where the unfolding accuracy is much higher (currently the unfolded spectrum gives a total flux that differs from measured total flux by $\pm 7\%$\cite{bethColling_TBMD}).
+While the best performing neural network (Figure~\ref{5Layerfusion-fusionJET-FW}) gives a slightly better result, both Figure~\ref{5Layerfusion-fusionJET-FW} and Figure~\ref{gravel_flat_a_priori_JET} are far from being applicable to real neutron spectrum unfolding, where the unfolding accuracy is much higher (currently the unfolded spectrum gives a total flux that differs from measured total flux by $\pm 7\%$\cite{bethColling_TBMD}). This low accuracy of the solution spectrum is likely due to the small training set of the neural network. This small sample size means that it cannot densely cover the entire domain (feature space) and co-domain (label space) of the fusion neutron spectrum unfolding problem. For the same reason, the neural network's prediction cannot be relied upon for unfolding spectra in new/unknown types of fusion reactor designs, as it has not been shown to extrapolate its predictions with satisfactory performance beyond the very short list of fusion spectra in Appendices~\ref{fission-fusion spectra IAEAUKAEACompendium}.
 
 \subsubsection{As an a priori generator}
-An alternative method of utilise the neutron spectra predicted by the neural network is by using it as the \emph{a priori} it self. This can potentially save many hours of MCNP modelling for the purpose of neutron spectrum unfolding, as the response matrix does not need to be known.
+When unfolding, an \emph{a priori} spectrum with a reasonably close match to the original spectrum is required as the starting point for an iterative solution search. Given that the neural network did not yield satisfactory unfolding result in the last section, an attempt of using the neural network's output as an \emph{a prior} was made, with the hopes that the neural network's output will be close enough to the true spectrum such that, with further adjustment by the unfolding code such as GRAVEL and MAXED, a reasonable solution spectrum can be reached.
 
-However, this is rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. An average MSE value of 9.89936 was achieved.
+The motivation of using a neural network's output as the \emph{a priori} is that one can save hours of MCNP calculation in order to obtain the response matrix and \emph{a priori} spectrum.
+
+However, this proves to be rather unpromising as well. Even when with best neural network's predictions (Figure~\ref{5Layerfusion-fusionJET-FW}, \ref{5Layerfusion-fusionFNG}, \ref{5Layerfusion-fusionHCLL-VV}, \ref{5Layerfusion-fusionWCCB-FW}), GRAVEL unfolded results that are as poor as when a flat \emph{a priori} was used. An average MSE value of 9.89936 was achieved.
 % This is likely because the flux overestimation at the $\le 14.1MeV$ bins leads to a l
 
 And MAXED produced result that are also as meaningless as Figure~\ref{maxed_flat_a_priori_JET}, as the log of the flux in some bins tends to negative infinity.
@@ -786,20 +786,28 @@ Therefore, the results of the second group of neural networks (trained on fissio
 \caption{JET first wall spectrum as predicted by the optimal NN among all NN trained on fission spectra}\label{fission-fusionGood}
 \end{figure}
 
-For the record, this neural network (which performed the best out of all neural networks trained on fission spectra) has the hyperparameters of (learning rate = 0.01, topology=11:32:53:90:152:256:175).
+(For the record, this neural network (which performed the best out of all neural networks trained on fission spectra) has very similar hyperparameters as the optimally performing neural network identified in the previous section \ref{As an unfolding tool}, differing only in the loss function used. (learning rate = 0.01, topology = 11:32:53:90:152:256:175, loss function used = MSE (eq.\ref{MSE})).)
+
+This suggest that the inverse function required to unfold fission-induced reaction rates in the activation foils is a different inverse function than the inverse function required to unfold the fusion-inducd reaction rates in the activation foils.%In other words, the M-dimensional manifold where fusion spectra exist does not coincide with 
 
 \section{Potential Future improvements}
-Fusion neutron spectra unfolding suffer from the fundamental problem of not having previous neutron spectra to tell when we're accurate or not.
+The techqniue of neural network classification is best applied when the dataset is large, which is not the case with fusion neutron spectra.
+
+In order to improve upon the results observed in this thesis, a much larger dataset, consisting the neutron spectra for magnetic confinement fusion with various plasma and first wall conditions, and potentially of other inertial confinement fusion, should be attained. These data may be obtained by numerical simulations with MCNP, or actual measurements of neutron spectra at various TOKAMAK's and various other fusion facilities; but one has to recognize that neural networks trained on a set of data only creates predictions that are as reliable as its training data.%In other words, if the numerical simulations in MCNP is inaccurate, the neural network will also predict inaccurately.
 
 \begin{itemize}
-    \item Transfer learning: start with fission data, fix the weights of the second half of the matrix as it gives the connection
-    \item Use RBF NN or GRNN, which are known to perform better under low sample number conditions, though it is more complicated to implement.
-    \item infer the uncertainty ($\sigma$) associated with the neural network's prediction using Monte Carlo method
-    \item Use Orthogonal Arrays instead of grid searching the entire hyperparameter space, as well as fractional factorial instead of full factorial combinations, as proposed in \cite{RDANNM}, when performing the optimization. This can reduce the amount of time required for the experimentation; or extend the range of hyperparameter space searched in the same amount of time; multiple dimensional space can be search through in the same manner as well.
-    \item we need more data
+    \item Use RBF-NN or GRNN, as explained in section~\ref{Literature review}, which are known to perform better under low sample number conditions.
+    \item Transfer learning\cite{TransferLearning}: train the neural network with fission data, fix the weights and biases in the half of the neural network, and then train the weights and biases in the remaining half of the neural network using fusion data.
+    \item Use Orthogonal Arrays instead of grid searching the entire hyperparameter space, as well as fractional factorial instead of full factorial combinations, as proposed in \cite{RDANNM}, when performing the optimization. This can reduce the amount of time required for the experimentation; or extend the range of hyperparameter space searched in the same amount of time; multiple dimensional space can be search through in the same manner as well. This may reveal a combination of hyperparameter which may lead to a better neural network design for fusion neutron spectra unfolding than the existing optimal design.
 \end{itemize}
 
+Lastly, as uncertainty of the neutron spectra needs to be known for the application of fusion neutron measurements, a global sensitivty analysis can be performed on the neural network using a Monte Carlo approach: by repeatedly adding in noise $\delta Z_j$ into the reaction rates $Z_j$ and allowing the neural network to carry out its prediction (forward propagation), the Monte Carlo program will be used to infer the resulting changes $\delta \phi_i$ associated with the neural network's predictions ($\phi_i$), thus propagating uncertainty in the measurements of reaction rates to $\sigma{Z}$ to $\sigma_{\phi}$. An unfolding code suite is already under development in CCFE to allow this to be done systematically.
+
 \section{Conclusion}
+A neural network unfolding approach to neutron spectrum unfolding was examined. A grid search for the optimal hyperparameters for the neural network was performed over 4 dimensions (training set used, learning rate, number of layers and loss function used). The neural network with the best test loss was examined and scrutinized.
+
+A loss value of 10.188 was obtained (MSE in log space, (eq.~\ref{MSE}))
+
 \begin{itemize}
     \item What's the loss values
     \item achieved using what topology of NN
@@ -909,7 +917,7 @@ log-normal&1.51e+00&3.50e-01&9.40e+16&1.0&1.0622261078184665&1.1481233202529897
 \end{tabular}
 \caption{In descending order: each section represents the parameters used to parametrise the spectra of: JAEA-FNS, Frascati-NG, ITER-DD, ITER-DT, DEMO-HCPB-FW, JET-FW, NIF-Ignition. The 2-4${}^{th}$ columns indicate the guess value inputted, while the last 3 columns indicate the correction factor multiplied onto them. E.g. $\mu_{final} = \mu * \mu_{corr}$}\label{ParametrisationParameters}
 \end{table}
-\section{neutron spectra extraed from the IAEA + UKAEA compendium}\label{fission-fusion spectra IEAEUKAEACompendium}
+\section{neutron spectra extraed from the IAEA + UKAEA compendium}\label{fission-fusion spectra IAEUKAEACompendium}
 List of all fission data
 \begin{longtable}{llll}[H]
 title & type &Measured/Calculated\\

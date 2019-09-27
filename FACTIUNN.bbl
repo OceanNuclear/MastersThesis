@@ -161,6 +161,13 @@ Manfred Matzke.
 \newblock Unfolding methods.
 \newblock {\em Physikalisch-Technische Bundesanstalt, Germany}, 2003.
 
+\bibitem{fluence_rate_correction_factors}
+H~Mazrou and F~Bezoubiri.
+\newblock Evaluation of a neutron spectrum from bonner spheres measurements
+  using a bayesian parameter estimation combined with the traditional unfolding
+  methods.
+\newblock {\em Radiation Physics and Chemistry}, 148:33--42, 2018.
+
 \bibitem{SAND-II}
 WN~McElroy, S~Berg, T~Crockett, and RG~Hawkins.
 \newblock A computer-automated iterative method for neutron flux spectra
@@ -274,6 +281,11 @@ Vitisha Suman and P.K. Sarkar.
 D.B. Syme, S.~Popovichev, S.~Conroy, I.~Lengar, and L.~Snoj.
 \newblock Fusion yield measurements on jet and their calibration.
 \newblock {\em Nuclear Engineering and Design}, 246(C):185--190, 2012.
+
+\bibitem{TransferLearning}
+Chuanqi Tan, Fuchun Sun, Tao Kong, Wenchang Zhang, Chao Yang, and Chunfang Liu.
+\newblock A survey on deep transfer learning.
+\newblock {\em CoRR}, abs/1808.01974, 2018.
 
 \bibitem{FISPACT_reference_spectra}
 {UKAEA}.
