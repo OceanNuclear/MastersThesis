@@ -6,7 +6,7 @@
 \contentsline {subsubsection}{\numberline {2.3.1}Forward Propagation}{7}
 \contentsline {subsubsection}{\numberline {2.3.2}Backpropagation}{8}
 \contentsline {subsubsection}{\numberline {2.3.3}Universal approximation theorem}{9}
-\contentsline {subsubsection}{\numberline {2.3.4}Training the neural network}{9}
+\contentsline {subsubsection}{\numberline {2.3.4}Training the neural network}{10}
 \contentsline {subsubsection}{\numberline {2.3.5}Applying neural network to the unfolding problem}{10}
 \contentsline {section}{\numberline {3}Literature review}{12}
 \contentsline {section}{\numberline {4}Proof of concept on simulated spectra}{13}
@@ -15,22 +15,22 @@
 \contentsline {section}{\numberline {5}Neural networks trained on real spectra}{16}
 \contentsline {subsection}{\numberline {5.1}Hyperparameter Optimization}{18}
 \contentsline {subsection}{\numberline {5.2}Results of predicting using the real spectra}{19}
-\contentsline {subsection}{\numberline {5.3}Benchmarking against existing codes}{24}
-\contentsline {subsubsection}{\numberline {5.3.1}As an unfolding tool}{24}
-\contentsline {subsubsection}{\numberline {5.3.2}As an a priori generator}{24}
-\contentsline {subsection}{\numberline {5.4}An attempt at using fission data to predict fusion data}{26}
-\contentsline {section}{\numberline {6}Potential Future improvements}{27}
+\contentsline {subsection}{\numberline {5.3}Benchmarking against existing codes}{23}
+\contentsline {subsubsection}{\numberline {5.3.1}As an unfolding tool}{23}
+\contentsline {subsubsection}{\numberline {5.3.2}As an a priori generator}{25}
+\contentsline {subsection}{\numberline {5.4}An attempt at using fission data to predict fusion data}{25}
+\contentsline {section}{\numberline {6}Potential Future improvements}{26}
 \contentsline {section}{\numberline {7}Conclusion}{27}
-\contentsline {section}{Appendices}{31}
-\contentsline {section}{\numberline {A}Neural network building functions tailored for the purpose of neutron spectrum unfolding}{31}
+\contentsline {section}{Appendices}{30}
+\contentsline {section}{\numberline {A}Neural network building functions tailored for the purpose of neutron spectrum unfolding}{30}
 \contentsline {section}{\numberline {B}Neural network abstractions and controller}{57}
-\contentsline {section}{\numberline {C}Code for benchmarking}{63}
+\contentsline {section}{\numberline {C}Code for benchmarking}{62}
 \contentsline {section}{\numberline {D}Fully determined simulation data generation}{64}
 \contentsline {section}{\numberline {E}Underdetermined simulation data generation}{65}
 \contentsline {section}{\numberline {F}Training and evaluating neural networks on the underdetermined simulation data}{70}
 \contentsline {section}{\numberline {G}Selecting from UKAEA and IAEA compendium}{71}
-\contentsline {section}{\numberline {H}hyperparameter input controller}{75}
+\contentsline {section}{\numberline {H}hyperparameter input controller}{74}
 \contentsline {section}{\numberline {I}hyperparameter optimization searching}{78}
-\contentsline {section}{\numberline {J}Loss value visualizer}{82}
+\contentsline {section}{\numberline {J}Loss value visualizer}{81}
 \contentsline {section}{\numberline {K}Parametrisation of the FISPACT reference spectra}{84}
 \contentsline {section}{\numberline {L}neutron spectra extraed from the IAEA + UKAEA compendium}{85}

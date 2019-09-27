@@ -92,12 +92,12 @@ Include these things:
     
 %Bullshit something about the importance of Fusion later in this paper.
 
-In a fusion reactor, the neutron fluence can go up to as high as $1.7 \times 10^{21}$\cite{14MeVNNeutonYieldCalibration-JET}.
+In a fusion reactor, the neutron fluence can go up to as high as $1.7 \times 10^{21} cm^{-2}$\cite{14MeVNNeutonYieldCalibration-JET}.
 This leads to an unprecedented need of shielding against neutrons of up to 14.1 MeV or higher energies.
 
 Neutrons are notoriously difficult to shield against due to their uncharged nature, and therefore low propensity to interact with matter[citation needed]. To develop effective shielding for various components of the reactor from these high energy neutrons, the energy spectrum of the neutrons created inside the nuclear reactor has to be well understood \cite{TechnologicalExploitationOfDT}.
 
-It is also important to understand the neutron spectrum inside the reactor in order to develop Tritium breeding modules; a Tritium Breeding Ratio $TBR>1$ is essential for making fusion a sustainable source of clean energy \cite{TBMD_Design}.
+It is also important to understand the neutron spectrum inside the reactor in order to develop Tritium breeding modules; a Tritium Breeding Ratio TBR$>1$ is essential for making fusion a sustainable source of clean energy \cite{TBMD_Design}.
 %Can expand on the Tritium breeding part.
 Last but not least, the power output of future fusion power plants can only be quantified when the neutron spectrum is characterised \cite{FusionYieldMeasurementOnJETAndTheirCalibration}.
 An accurate measurement of the neutron spectrum is required to properly model the energy distribution of neutrons to be used in neutron transport simulations for the above purposes.
@@ -120,7 +120,7 @@ The disadvantage of this method is that it has to be time-integrated over the wh
 
 Another disadvantage of using neutron activation as the means of measuring the neutron spectrum in a fusion reactor is that it is an indirect method of measurement, requiring the measured reaction rates to be `unfolded' back into reaction rates. This is a `mathematically incorrectly posed ' problem\cite{BirminghamUnfolding}, as will be further explained in the next section (\ref{Neural Network Theory}), requiring an initial guess spectrum to be provided before the unfolding procedure can take place. This is because the number of reaction channels recorded (usually denoted as M) is fewer than the number of neutron groups (usually denoted as N) whose neutron flux we would like to know, i.e. M$<$N, thus this problem is underdetermined (the number of contraints is fewer than the number of variables). The \emph{a priori} has to be used in order to introduce extra information into the problem. However, if this \emph{a priori} spectrum deviates too much from the actual spectrum, then the result of the unfolding will be inaccurate.
 
-To address this problem, an investigation into using neural networks for the purpose of unfolding is presented in this thesis.
+To address this problem, an investigation into using neural networks for the purpose of unfolding fusion neutron spectra is presented in this thesis.
 Neural networks excels in incorperating previous spectra as \emph{a priori} information, without requiring users to explicitly input an \emph{a priori}.
 % It effectively incorperates multiple spectra together as the \emph{a priori}; while MAXED and GRAVEL uses only 1.
 Two approaches are proposed. The first one is to use neural networks directly as an unfolding tool; and the second one is to use them as an \emph{a priori} generator, which is then fed into an existing unfolding code, where the actual neutrons spectra is then calculated out of.
@@ -542,7 +542,7 @@ ${}^\dagger$${}^\dagger$ standard deviation of log of $\frac{Z_{pred}}{Z_{0}}$ (
 \end{table}
 
 The last row in Table~\ref{SimulatedLoss} is defined as
-\begin{equation}
+\begin{equation}\label{std-dev-log(C/E)}
     \text{std-dev-log(C/E)} = \sum_j^M ln\left(\frac{Z_{pred\:j}}{Z_{0j}}\right)
 \end{equation}
 This quantity measures the sum of squares of deviation of reaction rates in log space,
@@ -558,7 +558,7 @@ An examlpe of the second neural network's prediction is shown in Figure~\ref{Sim
     \end{subfigure}
     \begin{subfigure}[b]{5cm}
     \includegraphics[width=5cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/simulated_data/lossabove1e-1/0918_0228_2_layer_128_256_mse_inc_test_258_activities.png}
-    \caption{The activities (features) obtained using equation~\ref{unfolding general equation prediction}. The neural network was given the true activities, and asked to predict the fluence (Figure~\ref{SimulatedFluence}).}\label{SimulatedActivity}
+    \caption{The reaction rates (features) obtained using equation~\ref{unfolding general equation prediction}. The neural network was given the true reaction rates, and asked to predict the fluence (Figure~\ref{SimulatedFluence}).}\label{SimulatedActivity}
     \end{subfigure}
 \caption{An example of the neutron spectrum as unfolded by the  predicting a perturbed JET first wall spectrum.} \label{SimulatedExample}
 \end{figure}
@@ -571,9 +571,9 @@ From the result of the previous section, we can expect the neural network to be 
 
 A set of 212 neutron spectra were acquired from the IAEA+UKAEA compendium\cite{IAEAUKAEACompendium}. 137 of them were identified as fission neutron spectra and 19 of them were identified as fusion neutron spectra. These spectra are listed in the appendices \ref{fission-fusion spectra IEAEUKAEACompendium}.
 
-They were rebinned into the Vitamin-J group structure using FISPACT-II\cite{Fispact}. The Vitamin-J group structure was chosen as it is well known and widely used in neutron spectrum unfolding \cite{SpectrumUnfoldingMethodology} \cite{ADRIANA_lab_equiv} \cite{Stayslpnnl}. The corresponding activities for each spectrum was obtained by folding it through the response matrix (plotted in Figure~\ref{response_matrix}). The response matrix was obtained and explained below:
+They were rebinned into the Vitamin-J group structure using FISPACT-II\cite{Fispact}. The Vitamin-J group structure was chosen as it is well known and widely used in neutron spectrum unfolding \cite{SpectrumUnfoldingMethodology} \cite{ADRIANA_lab_equiv} \cite{Stayslpnnl}. Using the 11 reactions that are measured by the ACT system \cite{LWP_LTIS}, the corresponding reaction rates for each spectrum was obtained by folding it through the response matrix (plotted in Figure~\ref{response_matrix}). The method of obtaining the response matrix is explained in Figure~\ref{response_matrix}:
 
-\begin{figure}
+\begin{figure}[H]
 \centering
 % \includegraphics[height=7cm]{/home/ocean/Documents/GitHubDir/unfolding/unfolding/referencesuite/175_group_test_set/ACT_raw_data/ACT_LogLogCrossSections.png}
 \includegraphics[height=7cm]{PPT/response_matrix.png}
@@ -664,19 +664,19 @@ For example, below are some of the predicitons made by these few-layer neural ne
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion-final/0926_1935_0_layerfinal_investigation_2_test_001_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion-final/0927_0215_0_layerfinal_inv_0_test_001_}
 \caption{A typical 0-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion-final/0926_1933_1_layerfinal_investigation_1_test_001_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion-final/0927_0217_1_layerfinal_inv_1_test_001_}
 \caption{A typical 1-hidden-layer neural network's prediction of JET's first wall spectra when trained on fusion spectra(learning rate=0.01)}
 \end{figure}
 
 \begin{figure}
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_2_layer_typical_mse_including_folded_test_001_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0927_0219_2_layerfinal_inv_2_test_001_}
 \caption{A typical 2-hidden-layer neural network prediction of JET's first wall spectra when trained on fusion spectra (learning rate=0.01)}\label{3Layerfusion-fusionJET-FW}
 \end{figure}
 
@@ -684,11 +684,13 @@ They are unable to replicate the 14.1 MeV peak at the correct width, and occassi
 
 This is likely due to the small dataset of fusion data available. This explanation is supported by the small number of epochs required for training to finish: most of the neural networks finished training in fewer than 50 epochs, i.e. showed no further improvement in the validation loss in the next 1000 epoch after that. This is unusually early stopping of compared to the number of epochs the neural network required to be trained in Section~\ref{Underdetermined case}.
 
-However, one particular extremum showed up on some of the graphs. This is the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. This neural network is found to be as the neural network with the lowest testing loss and testing MSE. Therefore it was thought that the neural network was able to generalize from such small dataset, so its predicted spectra were looked into in greater detail.
+However, one particular extremum showed up on some of the graphs. This is the neural network with the hyperparameters of (learning rate=0.01, topology=11:32:53:90:152:256:175), a particularly loss value is obtained. This neural network is found to be as the neural network with the lowest testing loss and testing MSE.
+
+This neural network was able to be reproduce the same results even when its initial weights and biases were initialized using a different tensorflow seed. Therefore its low test loss and test MSE were not coincidencidental, resulting from a numerical instability. It was thought that the neural network was able to generalize from such small dataset, so its predicted spectra were looked into in closer detail.
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_001_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0927_0220_5_layerfinal_inv_5_test_001_}
 \caption{JET first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionJET-FW}
 \end{figure}
 
@@ -698,19 +700,19 @@ But in the end it was concluded that this 5-hidden-layer neural network likely o
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_002_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0927_0220_5_layerfinal_inv_5_test_002_}
 \caption{Water-cooled ceramic breeder blanket TOKAMAK's first wall spectrum as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionWCCB-FW}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_003_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0927_0220_5_layerfinal_inv_5_test_003_}
 \caption{Helium-cooled LiPb TOKAMAK's spectrum at the vacuum vessel, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionHCLL-VV}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0918_0332_5_layer_top_right_anomaly_test_000_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fusion-fusion/0927_0220_5_layerfinal_inv_5_test_000_}
 \caption{Frascati neutron generator spectrum, as predicted by the optimally performing NN among all NN trained on fusion data.}\label{5Layerfusion-fusionFNG}
 \end{figure}
 
@@ -729,14 +731,14 @@ Therefore to fairly compare a neural network against the usual unfolding codes, 
 
 % Can be used as the a priori generator?\\
 % But it also sucks as an a priori generator, giving , which is only a marginal improvement on the 10.188233 stated in Figure~\ref{gravel_nn_a_priori_JET}
-\begin{figure}
+\begin{figure}[H]
 \centering
-    \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_gravel_test_001_}
+    \fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realinputEarlyStopping/comparison/real_fusion_test_maxed_test_000_}
     \caption{JET first wall spectrum as unfolded by MAXED upon using a flat neutron spectrum as the \emph{a priori}}\label{maxed_flat_a_priori_JET}
 \end{figure}
     
-While MAXED performed very poorly when given a flat \emph{a priori}, GRAVEL was able to unfold a neutron spectrum from the flat \emph{a priori}, though with an underestimated low energy region and overestimated high energy range neutrons.
-An MSE value (as defined in equation\ref{MSE}) of 10.188233 was obtained when comparing the unfolded spectra against the true spectra in log space.
+While MAXED performed very poorly when given a flat \emph{a priori} (giving an MSE value of 53.442406, as defined in equation~\ref{MSE}), GRAVEL was able to unfold a neutron spectrum from the flat \emph{a priori}, though with an underestimated low energy region and overestimated high energy range neutrons.
+An MSE value of 10.188233 was obtained when comparing the unfolded spectra against the true spectra in log space. (eq. \ref{MSE})
 
 \begin{figure}
 \centering
@@ -774,13 +776,13 @@ Therefore, the results of the second group of neural networks (trained on fissio
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_007_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0927_0226_5_layer_test_mse_1_test_007_}
 \caption{(calculated) ITER spectrum as predicted by the optimal NN among all NN trained on fission spectra} \label{fission-fusionBad}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0918_0325_5_layer_test_mse_1_test_016_}
+\fluenceandactivities{/home/ocean/Documents/GitHubDir/unfolding/unfolding/unfoldingsuite/neuralnetwork/realoutputEarlyStopping/SelectedNNreplicated/fission-fusion/0927_0226_5_layer_test_mse_1_test_016_}
 \caption{JET first wall spectrum as predicted by the optimal NN among all NN trained on fission spectra}\label{fission-fusionGood}
 \end{figure}
 
