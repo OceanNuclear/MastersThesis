@@ -1,5 +1,5 @@
 %`
-%Read /home/ocean/Documents/PTNR/CulhamFusion/AllPapers/ANNunfolding/BonnerSphere/ThreeAIUnfolding.pdf
+%Add acknowledgement
 %\nonstopmode
 \hbadness=100000
 \documentclass[a4paper, 12pt]{article}
@@ -63,9 +63,10 @@ I warrant that the content of this dissertation is the direct result of my own w
 	
 	A value of 5.0178 was obtained when evaluating the mean of the mean-squared deviation of the best-performing neural network's predictions from the true neutron flux in log space(mean MSE in log space). This is too high for practical fusion neutron unfolding purpose, and is not significantly better than the unfolding results obtained from GRAVEL, where the mean MSE in log space was 10.188 when given only a naive prior (flat \emph{a priori} spectrum). When the neural network's output was used as the \emph{a priori} for GRAVEL instead, it only lead to an insignificant improvement in mean MSE down to 9.8994.
 	
-	Attempts to generalize the knowledge learnt across different type of spectra proved to be a failure, as the neural networks trained on fission data gave nonsensical predictions when faced with reaction rates associated with fusion neutrons, with the best neural network among all giving an mean MSE of 16.768.
+	Attempts to generalize the knowledge learnt across different type of spectra proved to be a failure, as the neural networks trained on fission data gave nonsensical predictions when faced with reaction rates associated with fusion neutrons, with the best neural network among all giving a mean MSE of 16.768.
     
 	The general poor performance of the neural network is attributed to the smalla amount of data available. Some improvements upon this experiments are proposed, but their effectiveness will be limited if the fusion neutron spectra size remains small.
+
 \emph{Keywords:} activation, neutronics, fusion
 % \hline
 % \twocolumn
@@ -96,7 +97,7 @@ I warrant that the content of this dissertation is the direct result of my own w
 In a fusion reactor, the neutron fluence can go up to as high as $1.7 \times 10^{21} cm^{-2}$\cite{14MeVNNeutonYieldCalibration-JET}.
 This leads to an unprecedented need of shielding against neutrons of up to 14.1 MeV or higher energies.
 
-Neutrons are notoriously difficult to shield against due to their uncharged nature, and therefore low propensity to interact with matter[citation needed]. To develop effective shielding for various components of the reactor from these high energy neutrons, the energy spectrum of the neutrons created inside the nuclear reactor has to be well understood \cite{TechnologicalExploitationOfDT}.
+Neutrons are notoriously difficult to shield against due to their uncharged nature, and therefore low propensity to interact with matter\cite{Knoll2010}. To develop effective shielding for various components of the reactor from these high energy neutrons, the energy spectrum of the neutrons created inside the nuclear reactor has to be well understood \cite{TechnologicalExploitationOfDT}.
 
 It is also important to understand the neutron spectrum inside the reactor in order to develop Tritium breeding modules; a Tritium Breeding Ratio TBR$>1$ is essential for making fusion a sustainable source of clean energy \cite{TBMD_Design}.
 %Can expand on the Tritium breeding part.
@@ -307,16 +308,18 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
     \end{center}
     This neural network has 1 hidden layer containing 6 neurons.
     Here, $R$ is the alias for the ReLU function (see Figure~\ref{ReLU}), abscissa is the input layer neuron's activation value (feature); and the ordinate is the output layer neuron's activation value (label), obtained by summing over the product of the activation of the $i^{th}$ neuron (aliased as $s_i$) with the weight of its connection to the final layer (aliased as $w_i$).
-    The weights and bias to the first layer is already defined on-screen inside the brackets of the first six lines; while the weights and bias to the second layer (output layer) is defined off screen.
+    The weights and bias to the first layer are already defined on-screen inside the brackets of the first six lines; while the weights and bias to the second layer (output layer) are defined off-screen.
     \end{figure}
     
     Figure~\ref{UniversalApproximationTheorem} is a crude representation of how a 1-hidden-layer neural network can approximate a cubic function. A single hidden layer neural network with one scalar input and one scalar output is able to approximate any non-linear functions, provided that there are enough neurons in the hidden layer.
 
     The weights $w_i$ scales each ReLU function; whereas the bias to the first layer (defined as the second term inside each of the bracket in the first six lines) changes the horizontal offset of each ReLU function. The bias to the second layer controls the vertical offset of the whole function. Summing them up leads to the output in Figure~\ref{UniversalApproximationTheorem}.
 
-    Even with only six hidden neurons (only 19 parameters), it is able to reasonably approximate a cubic function within the visualized domain. Obviously this approximation to the cubic function can be improved by increasing the number of neurons available in the neural network, provided that there are enough training data to cover the domain densely.
+    Even with only six hidden neurons (only 19 parameters: 6 weights and 6 biases for connecting the input layer to the $1^{st}$ hidden layer; 6 more weights and 1 bias for connecting the hidden layer to the output layer), it is able to reasonably approximate a cubic function within the visualized range of the domain. Obviously the accuracy of this approximation to the cubic function can be improved by increasing the number of neurons available in the neural network, provided that there are enough training data to cover the domain densely.
 
-    Armed with this intuition, the notion of a neural network being able to approximate any function becomes conceivable, even if the function has vectorial inputs and outputs. %rewording?
+    A function with vectorial inputs is then capable of 
+
+    Armed with this intuition, the notion of a neural network being able to approximate any function becomes conceivable, even if the function has vectorial inputs and outputs.
 
 \subsubsection{Training the neural network}\label{sec:training}
     Before adjusting the parameters, a fraction of the data is drawn out and reserved for \underline{testing}. The remaining is used as the \underline{training} dataset. These ``training" and ``testing" data are chosen in such a way that they cover the same range of domain and co-domain in the feature- and label-space respectively.
@@ -327,7 +330,7 @@ Equation~\ref{forwardpropagation} is applied recursively to calculate the activa
 
     Apart from reducing the complexity of the model, various techniques exist to reduces overfitting, including weight-regularization and dropout \cite{TensorflowOverfitting}. Weight regularization ensures that the numerical values of weights $w$ remains small; while dropout effectively removes a specified fraction of the connections at each layer. However, these techniques are not applied.
 
-    However, one of the most widely used method of reducing overfitting is by measuring the validation loss. A small subset of the training data is reserved and not used for backpropagation during the training, but its loss value (known as the ``validation loss") is calculated at each epoch also. This amounts to calculating the loss value of the neural network's prediction on a set of data that it has never seen before as well. When the validation error stops decreasing, then one can be sure that the neural network has stopped identifying general patterns which applies across both the validation set and the training set, and begin memorization. The training can be stopped at this point.
+    But one of the most powerful and widely applied method of reducing overfitting is by measuring the validation loss. A small subset of the training data is reserved and not used for backpropagation during the training, but its loss value (known as the ``validation loss") is calculated at each epoch also. This amounts to calculating the loss value of the neural network's prediction on a set of data that it has never seen before as well. When the validation error stops decreasing, then one can be sure that the neural network has stopped identifying general patterns which applies across both the validation set and the training set, and begin memorization. The training can be stopped at this point.
 
     This method is called ``Early Stopping"; it catches the neural network before it begins overfitting aggressively.
 
@@ -426,10 +429,10 @@ Source & topology of NN & comment \\
 \caption{Topology of all of the feed-forward neural networks used for neutron spectra unfolding found in literature.}\label{NNtopology}
 \end{table}
 
-They also offer some insight as to how to overcome data the challenge of data scarcity. Namely, with Radial Basis Function Neural Networks (RBFNN) and General Regression Networks (GRNN), which are subsets of Probabilistic Neural Networks (PNN). They are more intricately designed than the typical Feedforward Neural Network (FNN), which is the type of neural network that has been discussed in this thesis so far.
+They also offer some insight as to how to overcome data the challenge of data scarcity. Namely, with Radial Basis Function Neural Networks (RBFNN) and General Regression Networks (GRNN)\cite{AGeneralRegressionNeuralNetwork}, which are subsets of Probabilistic Neural Networks (PNN). They are more intricately designed than the typical Feedforward Neural Network (FNN), which is the type of neural network that has been discussed in this thesis so far.
 But neutron spectra unfolding with RBFNN\cite{RBF-NN}\cite{ThreeAIUnfolding} and GRNN\cite{NNNeutronFluenceAmbientDoseEquivalent}\cite{unfoldingCodeBasedOnGeneralizedRegressionANN}\cite{ThreeAIUnfolding} are more complicated than unfolding, so in thesis only FNN will be investigated in details; further investigation into using RBFNN and GRNN may follow from this thesis, in an attempt to improve fusion neutron spectrum unfolding performance.
 
-In addition to having a more under-determined matrix than all of the cases displyed in Table~\ref{NNtopology} (number of input nodes = 11; number of output nodes = 175), the problem of unfolding fusion neutron spectra comes with the lack of data:
+In addition to having a more underdetermined matrix than all of the cases displyed in Table~\ref{NNtopology} (number of input nodes = 11; number of output nodes = 175), the problem of unfolding fusion neutron spectra comes with the lack of data:
 There are very few existing nuclear fusion facilities in the world, many of which do not have a first-wall similar to JET, ITER or DEMO, where tritium is expected to be bred, and neutron spectra measurement is paramount. Since the first wall condition will affect the plasma physics and the neutron scattering greatly, very few existing fusion neutron spectra are useful for training the neural network. They mainly consist of measurements from JET and modelling results from ITER. (This will be discussed further in Section~\ref{RealResults}.)
 
 Some of these authors\cite{ThreeAIUnfolding} have also attempted to unfold neutron spectra via other artificial intelligence methods, such as Genetic Algorithm (GA). There are some interest on this topic\cite{SVitishaGeneticAlgorithm}\cite{HighResGeneticAlgorithm}, but recent work here in CCFE has shown that GA is unpromising for the purpose of unfolding fusion neutron spectra \cite{R.WorrallThesis}. For completeness, other AI methods that were considered for the purpose of neutron spectra unfolding includes Particle Swamp \cite{ParticleSwamp_NE-213} and Artificial Bee Colony \cite{BeeColony}. None of these methods will be considered in detail as it is beyond the scope of this thesis.
@@ -810,9 +813,9 @@ Lastly, as uncertainty of the neutron spectra needs to be known for the applicat
 \section{Conclusion}
 A neural network unfolding approach to neutron spectrum unfolding was examined.
 
-A prototype neural network unfolding code was made for a simulated 5 reaction channles$\times$5 energy bins, fully determined system with synthetic data; and then again with a 11 reaction channles $\times$ 171 energy bins, underdetermined system with synthetic data, as proofs of concept. They behaved as expected, unfolding the simulated spectra from the reaction rates without being given the response matrix explicitly.
+A prototype neural network unfolding code was made for a simulated 5 reaction channels$\times$5 energy bins, fully determined system with synthetic data; and then again with an 11 reaction channels $\times$ 171 energy bins, underdetermined system with synthetic data, as proofs of concept. They behaved as expected, unfolding the simulated spectra from the reaction rates without being given the response matrix explicitly.
 
-Then, 19 fusion neutron spectra were acquired. They were rebinned into the Vitamin-J group structure and folded through the resopnse matrix to obtain the corresponding reaction rates. 
+Then, 19 fusion neutron spectra were acquired. They were rebinned into the Vitamin-J group structure and folded through the response matrix to obtain the corresponding reaction rates. 
 
 To find the best hyperparameters for unfolding these neutron spectra, a grid search for the optimal hyperparameters for the neural network was performed over 4 dimensions (training set used, learning rate, number of layers, and loss function used). Some of the neural networks with the best test losses were examined in detail.
 
@@ -820,13 +823,13 @@ Two loss functions were examined: one is a simple MSE in log space (eq.~\ref{MSE
 
 Among all neural networks trained on fusion data, the optimal one achieved the best mean MSE value of 5.0178. It has a topology of 11:32:53:90:152:256:175. However, it is thought that the neural network is being overtrained, as it was a very complex model with lots of parameters, but very few data points; and training finished in very few epochs as well, leading to the speculation that it was only ``memorizing" the average fusion neutron spectra. Therefore this model requires much more scrutinous examination and validation before it can be deployed for predicting neutron spectra of novel fusion reactor designs.
 
-Also, it does not significantly improves the unfolding accuracy compared to traditional neutron spectra unfolding codes when they are given naive priors. The fusion neutron spectra unfolded from by GRAVEL, when flat \emph{a priori}'s were given, unfolds to give a mean MSE value of 10.188 over the same dataset.
+Also, it does not significantly improve the unfolding accuracy compared to traditional neutron spectra unfolding codes when they are given naive priors. The fusion neutron spectra unfolded from by GRAVEL, when flat \emph{a priori}'s were given, unfolds to give a mean MSE value of 10.188 over the same dataset.
 
-When output from the optimal neural network (with the topology of 11:32:53:90:152:256:175) was used as the \emph{a priori} for GRAVEL instead, an average RMS value of 9.8994 was obtained. This is an insignificant improvement, and shows that the optimal neural network's prediction does not make good \emph{a priori} for unfolding.
+When outputs from the optimal neural network (with the topology of 11:32:53:90:152:256:175) were used as the \emph{a priori} for GRAVEL instead, an average RMS value of 9.8994 was obtained. This is an insignificant improvement, and shows that the optimal neural network's predictions do not make good \emph{a priori}'s for unfolding.
 
-When fission spectra are used as the training data for the neural networks instead, then the performance of them greatly reduces. In this case the optimal neural network gives a very poor result of mean MSE = 16.768 as well; and the spectra obtained were nonsensical. This suggest that neural networks trained to unfold fission spectra cannot be used to unfold fusion spectra directly without at least some attempts of retraining.
+When fission spectra are used as the training data for the neural networks instead, then the performance of them greatly reduces. In this case the optimal neural network gives a very poor result of mean MSE = 16.768, and the spectra that it predicts were nonsensical. This shows that neural networks trained to unfold fission spectra cannot be used to unfold fusion spectra directly without at least some attempts of retraining.
 
-In conclusion neutron spectra unfolding with feedforward neural network is not a suitble technique for unfolding neutron spectra given the small number of fusion neutron spectra available, as neural network is a technique designed for big data. Techniques such as RBFNN, GRNN and Transfer Learning can be applied to minimize the impact of the insufficiency of data, while RDANNM may offer a faster approach to searching through a wider range of hyperparameters for the best hyperparameter. However the validity of these techniques requires further examination beyond the scope of this thesis.
+In conclusion neutron spectra unfolding with feedforward neural network is not a suitable technique for unfolding neutron spectra given the small number of fusion neutron spectra available, as it is a technique designed for big data. Techniques such as RBFNN, GRNN and Transfer Learning can be applied to minimize the impact of the insufficiency of data, while RDANNM may offer a faster approach to searching through a wider range of hyperparameters for the best hyperparameter. However the validity of these techniques requires further examination beyond the scope of this thesis.
 
 %The fusion neutron spectra unfolding community should not waste time to try it without at least doubling the number of available spectra.
 \bibliographystyle{plain}
