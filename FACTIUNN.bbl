@@ -3,7 +3,7 @@
 \bibitem{Fispact}
 Ukaea: Fispact-ii, 2017.
 
-\bibitem{TensorflowOverfitting}
+\bibitem{TensorFlowOverfitting}
 explore overfitting and underfitting tensorflow core 2019, 2019.
 
 \bibitem{ReLU}
@@ -64,7 +64,7 @@ Bethany Colling, P.~Batistoni, S.C. Bradnam, Z.~Ghani, M.R. Gilbert, C.R. Nobs,
   during jet operations.
 \newblock {\em Fusion Engineering and Design}, 136:258--264, 2018.
 
-\bibitem{FisherRegularization}
+\bibitem{FisherRegularisation}
 Fatma~Zohra Dehimi, Abdeslam Seghour, and Saddik El~Hak Abaidia.
 \newblock Unfolding of neutron energy spectra with fisher regularisation.
 \newblock {\em IEEE Transactions on Nuclear Science}, 57(2):768--774, 2010.
@@ -192,7 +192,7 @@ Bhaskar Mukherjee.
 \newblock {\em Nuclear Inst. and Methods in Physics Research, A},
   476(1-2):247--251, 2002.
 
-\bibitem{AndrewNgNormalization}
+\bibitem{AndrewNgNormalisation}
 Andrew Ng.
 \newblock Normalizing inputs (c2w1l09), 2017.
 
@@ -269,6 +269,11 @@ Everton~R Silva, Bruno~M Freitas, Denison~S Santos, and Cláudia L~P Maurício.
 \newblock Algorithm based on artificial bee colony for unfolding of neutron
   spectra obtained with bonner spheres.
 \newblock {\em Radiation Protection Dosimetry}, 180(1-4):89--93, 2018.
+
+\bibitem{AGeneralRegressionNeuralNetwork}
+Donald~F Specht.
+\newblock A general regression neural network.
+\newblock {\em IEEE transactions on neural networks}, 2(6):568--576, 1991.
 
 \bibitem{SVitishaGeneticAlgorithm}
 Vitisha Suman and P.K. Sarkar.

@@ -13,7 +13,7 @@
 \contentsline {subsection}{\numberline {4.1}Fully determined case}{13}
 \contentsline {subsection}{\numberline {4.2}Underdetermined case}{14}
 \contentsline {section}{\numberline {5}Neural networks trained on real spectra}{17}
-\contentsline {subsection}{\numberline {5.1}Hyperparameter Optimization}{18}
+\contentsline {subsection}{\numberline {5.1}Hyperparameter Optimisation}{18}
 \contentsline {subsection}{\numberline {5.2}Results of predicting using the real spectra}{20}
 \contentsline {subsection}{\numberline {5.3}Benchmarking against existing codes}{25}
 \contentsline {subsubsection}{\numberline {5.3.1}As an unfolding tool}{25}
@@ -21,16 +21,17 @@
 \contentsline {subsection}{\numberline {5.4}An attempt at using fission data to predict fusion data}{27}
 \contentsline {section}{\numberline {6}Potential Future improvements}{28}
 \contentsline {section}{\numberline {7}Conclusion}{29}
-\contentsline {section}{Appendices}{33}
-\contentsline {section}{\numberline {A}Neural network building functions tailored for the purpose of neutron spectrum unfolding}{33}
+\contentsline {section}{\numberline {8}Acknowledgement}{30}
+\contentsline {section}{Appendices}{34}
+\contentsline {section}{\numberline {A}Neural network building functions tailored for the purpose of neutron spectrum unfolding}{34}
 \contentsline {section}{\numberline {B}Neural network abstractions and controller}{60}
-\contentsline {section}{\numberline {C}Code for benchmarking}{65}
+\contentsline {section}{\numberline {C}Code for benchmarking}{66}
 \contentsline {section}{\numberline {D}Fully determined simulation data generation}{67}
 \contentsline {section}{\numberline {E}Underdetermined simulation data generation}{68}
-\contentsline {section}{\numberline {F}Training and evaluating neural networks on the underdetermined simulation data}{73}
-\contentsline {section}{\numberline {G}Selecting from UKAEA and IAEA compendium}{74}
+\contentsline {section}{\numberline {F}Training and evaluating neural networks on the underdetermined simulation data}{74}
+\contentsline {section}{\numberline {G}Selecting from UKAEA and IAEA compendium}{75}
 \contentsline {section}{\numberline {H}hyperparameter input controller}{78}
-\contentsline {section}{\numberline {I}hyperparameter optimization searching}{81}
+\contentsline {section}{\numberline {I}hyperparameter optimisation searching}{82}
 \contentsline {section}{\numberline {J}Loss value visualizer}{85}
 \contentsline {section}{\numberline {K}Parametrisation of the FISPACT reference spectra}{87}
 \contentsline {section}{\numberline {L}neutron spectra extraed from the IAEA + UKAEA compendium}{88}
