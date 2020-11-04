@@ -1,0 +1,6 @@
+[]Add stuff to section 1 (100 minutes):
+    []Section 0: Insert 2 paragraphs about various Q-values /home/ocean/Documents/FusionReading/Krane-Intro-Nuc-Phys/Introductory Nuclear Physics (New) by Krane.pdf (30 mins)
+    []Section 0: insert paragraphs about need for neutron spectroscopy (30 mins)
+    []Section 1: Insert graph of location of the LTIS (30 mins)
+    []Section 1: Insert paragraphs about the ACT system itself, and correction factors for these activities corrected. (40 mins)
+    []Section 0: Insert 2 paragraphs about the development of fusion etc.
